@@ -24,9 +24,10 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (page === "cybersecurity-services.html") {
       // ADD THIS BLOCK
       activeId = "nav-cybersecurity";
+    } else if (page === "about-us.html") {
+      // ADD THIS LINE
+      activeId = "nav-about"; // ADD THIS LINE
     }
-    // Add more else if conditions for other pages (e.g., cybersecurity.html, about.html, etc.)
-
     if (activeId) {
       const activeLink = document.getElementById(activeId);
       if (activeLink) {

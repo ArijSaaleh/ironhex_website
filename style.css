@@ -676,3 +676,112 @@ a {
         flex-direction: column;
     }
 }
+/* --- New Styles for About Us Page --- */
+
+/* Specific About Us Hero Background */
+.about-hero-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://i.imgur.com/your-about-hero-background.jpg') no-repeat center center/cover; /* Replace with a suitable background image */
+    filter: blur(5px) brightness(0.6);
+    z-index: 0;
+}
+
+/* Mission & Vision Section */
+.mission-vision-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.mv-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    flex: 1;
+    min-width: 300px;
+    max-width: 45%; /* Adjust as needed for two columns */
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mv-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.mv-card h3 {
+    font-size: 1.6em;
+    color: #28a745; /* Green heading for emphasis */
+    margin-bottom: 15px;
+}
+
+.mv-card p {
+    font-size: 1em;
+    color: #555;
+}
+
+/* Core Values Section */
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.value-item {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.value-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.value-item .icon-wrapper {
+    background-color: #e6f7ea;
+    color: #28a745;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5em;
+    margin: 0 auto 20px auto;
+}
+
+.value-item h3 {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.value-item p {
+    font-size: 0.95em;
+    color: #666;
+}
+
+/* Responsive adjustments for About Us */
+@media (max-width: 992px) {
+    .mv-card {
+        max-width: 100%; /* Stack mission/vision cards */
+    }
+}
+
+@media (max-width: 768px) {
+    .values-grid {
+        grid-template-columns: 1fr; /* Stack values on smaller screens */
+    }
+}
