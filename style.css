@@ -678,36 +678,44 @@ a {
 }
 /* --- New Styles for About Us Page --- */
 
-/* Specific About Us Hero Background */
-.about-hero-background-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('https://i.imgur.com/your-about-hero-background.jpg') no-repeat center center/cover; /* Replace with a suitable background image */
-    filter: blur(5px) brightness(0.6);
-    z-index: 0;
+/* Generic Page Header (can be reused) */
+.page-header {
+    padding: 80px 40px;
+    background-color: #f0f2f5; /* A light background, not a full hero image */
+    border-bottom: 1px solid #eee;
+}
+
+.page-header h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    color: #333; /* Darker text for a light background */
+}
+
+.page-header .lead {
+    font-size: 1.2em;
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.text-green {
+    color: #28a745;
 }
 
 /* Mission & Vision Section */
-.mission-vision-grid {
-    display: flex;
-    justify-content: center;
+.mv-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
-    flex-wrap: wrap;
-    margin-top: 40px;
+    margin-top: 50px;
+    text-align: center;
 }
 
 .mv-card {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    padding: 30px;
-    flex: 1;
-    min-width: 300px;
-    max-width: 45%; /* Adjust as needed for two columns */
-    text-align: left;
+    padding: 40px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -717,71 +725,118 @@ a {
 }
 
 .mv-card h3 {
-    font-size: 1.6em;
-    color: #28a745; /* Green heading for emphasis */
+    font-size: 1.8em;
     margin-bottom: 15px;
 }
 
 .mv-card p {
     font-size: 1em;
-    color: #555;
+    color: #666;
 }
 
-/* Core Values Section */
-.values-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
+/* Leadership Section */
+.leadership {
+    padding-bottom: 80px; /* More space at bottom */
+}
+
+.team-grid {
+    display: flex;
+    justify-content: center;
+    gap: 50px; /* Increased gap for larger profiles */
+    flex-wrap: wrap;
     margin-top: 50px;
 }
 
-.value-item {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    padding: 30px;
+.team-member {
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 350px; /* Control individual member card width */
 }
 
-.value-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
-.value-item .icon-wrapper {
-    background-color: #e6f7ea;
-    color: #28a745;
+.member-image-circle {
+    width: 180px; /* Diameter of the circle */
+    height: 180px; /* Diameter of the circle */
     border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.5em;
-    margin: 0 auto 20px auto;
+    overflow: hidden;
+    margin: 0 auto 25px auto;
+    border: 5px solid #28a745; /* Green border around the image */
+    box-shadow: 0 0 0 7px rgba(40, 167, 69, 0.2); /* Soft outer glow */
 }
 
-.value-item h3 {
-    font-size: 1.4em;
-    margin-bottom: 15px;
+.member-image-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image fills the circle without distortion */
+    display: block; /* Remove extra space below image */
+}
+
+.team-member h3 {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.team-member .title {
+    font-size: 1em;
+    color: #28a745; /* Green for titles */
     font-weight: 600;
+    margin-bottom: 15px;
 }
 
-.value-item p {
+.team-member p {
     font-size: 0.95em;
     color: #666;
 }
 
-/* Responsive adjustments for About Us */
+
+/* --- Responsive adjustments for About Us page --- */
 @media (max-width: 992px) {
+    .page-header h1 {
+        font-size: 2.5em;
+    }
     .mv-card {
-        max-width: 100%; /* Stack mission/vision cards */
+        padding: 30px;
     }
 }
 
 @media (max-width: 768px) {
-    .values-grid {
-        grid-template-columns: 1fr; /* Stack values on smaller screens */
+    .page-header {
+        padding: 60px 20px;
+    }
+    .page-header h1 {
+        font-size: 2em;
+    }
+    .page-header .lead {
+        font-size: 1.1em;
+    }
+    .mv-grid {
+        grid-template-columns: 1fr; /* Stack mission/vision on small screens */
+    }
+    .team-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+    .team-member {
+        max-width: 80%;
     }
 }
+
+@media (max-width: 480px) {
+    .page-header h1 {
+        font-size: 1.8em;
+    }
+    .mv-card h3 {
+        font-size: 1.5em;
+    }
+    .member-image-circle {
+        width: 150px;
+        height: 150px;
+    }
+    .team-member h3 {
+        font-size: 1.5em;
+    }
+    .team-member .title {
+        font-size: 0.9em;
+    }
+}
+

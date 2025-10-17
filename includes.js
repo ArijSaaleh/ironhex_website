@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
   loadHTML("navbar.html", "navbar-placeholder", function () {
     // Mark active link after navbar is loaded
     const path = window.location.pathname;
-    const page = path.split("/").pop(); // Get filename, e.g., "index.html"
+    const page = path.split("/").pop(); 
 
     let activeId = "";
     if (page === "index.html" || page === "") {
@@ -22,11 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (page === "iot-services.html") {
       activeId = "nav-iot";
     } else if (page === "cybersecurity-services.html") {
-      // ADD THIS BLOCK
       activeId = "nav-cybersecurity";
     } else if (page === "about-us.html") {
-      // ADD THIS LINE
-      activeId = "nav-about"; // ADD THIS LINE
+      activeId = "nav-about";
     }
     if (activeId) {
       const activeLink = document.getElementById(activeId);
