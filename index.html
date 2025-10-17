@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRONHEX - Cybersecurity & IoT Services</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="page-container">
+        <header class="navbar">
+            <div class="logo">
+                <img src="logo.png" alt="IRONHEX Logo" style="width:250px; height:80px"> <!-- Replace with your logo image URL -->
+                <!--<span>CYBERSECURITY & IOT SERVICES</span>-->
+            </div>
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">About Us</a></li><li>
+                    <a href="#">Cybersecurity</a></li>
+                    <li><a href="#">IOT Services</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                  <!--   <li><a href="#" class="btn-contact">Contact</a></li>-->
+                </ul>
+            </nav>
+        </header>
+
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Unbreakable Security for an Interconnected World</h1>
+                <p>Protecting your business with advanced cybersecurity and intelligent IOT solutions</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn-primary">Get a Free Security Assessment</a>
+                    <a href="#" class="btn-secondary">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-background-overlay"></div>
+            <div class="hero-background-image"></div>
+        </section>
+
+        <section class="core-services">
+            <h2>Our Core Services</h2>
+            <div class="service-cards">
+                <div class="card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Cybersecurity Services</h3>
+                    <p>Proactive defense against evolving digital threats</p>
+                    <a href="#" class="learn-more-link">Learn More</a>
+                </div>
+                <div class="card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>IOT Services</h3>
+                    <p>Secure and seamless integration of smart devices</p>
+                    <a href="iot-services.html" class="learn-more-link">Learn More</a>
+                </div>
+                <div class="card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Managed Security & Support</h3>
+                    <p>24/7 monitoring, rapid response, and expert guidance</p>
+                    <a href="#" class="learn-more-link">Learn More</a>
+                </div>
+            </div>
+        </section>
+         <!-- New Footer Section -->
+        <footer class="main-footer">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="logo">
+                        <img src="logo.png" alt="IRONHEX Logo" style="width:250px; height:80px"> <!-- Replace with your logo image URL -->
+                        
+                    </div>
+                    <p>Providing robust cybersecurity and innovative IoT solutions to secure your digital future.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Cybersecurity</a></li>
+                        <li><a href="#">IOT Services</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact-form">
+                    <h3>Contact Us</h3>
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="4" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; <span id="currentYear"></span> IRONHEX. All rights reserved.
+            </div>
+        </footer>
+
+    </div>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
