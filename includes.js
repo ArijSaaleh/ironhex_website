@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
       activeId = "nav-home";
     } else if (page === "iot-services.html") {
       activeId = "nav-iot";
+    } else if (page === "pricing.html") {
+      activeId = "nav-pricing";
     } else if (page === "cybersecurity-services.html") {
       activeId = "nav-cybersecurity";
     } else if (page === "about-us.html") {
@@ -31,6 +33,35 @@ document.addEventListener("DOMContentLoaded", function () {
       if (activeLink) {
         activeLink.classList.add("active");
       }
+    }
+
+    // Mobile nav toggle behavior (works on injected content)
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', function () {
+        const expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+        navLinks.classList.toggle('open');
+      });
+
+      // Close menu when a link is clicked (helpful on mobile)
+      navLinks.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', function () {
+          if (navLinks.classList.contains('open')) {
+            navLinks.classList.remove('open');
+            if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      // Ensure menu closes on window resize to larger screens
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 768 && navLinks.classList.contains('open')) {
+          navLinks.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
     }
   });
 
