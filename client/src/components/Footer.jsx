@@ -1,4 +1,6 @@
 import React from 'react'
+import ContactForm from '../components/ContactForm'
+
 export default function Footer(){
   return (
     <footer className="main-footer" id="contact-us-footer">
@@ -14,26 +16,16 @@ export default function Footer(){
           <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/services">Services</a></li>
-            <li><a href="/about-us.html">About Us</a></li>
+            <li><a href="/about">About Us</a></li>
           </ul>
         </div>
-        <div className="footer-contact-form">
-          <h3>Contact Us</h3>
-          <form action="#" method="POST">
-            <div className="form-group">
-              <input type="text" id="name" name="name" placeholder="Your Name" required />
-            </div>
-            <div className="form-group">
-              <input type="email" id="email" name="email" placeholder="Your Email" required />
-            </div>
-            <div className="form-group">
-              <textarea id="message" name="message" rows="4" placeholder="Your Message" required></textarea>
-            </div>
-            <button type="submit" className="btn-primary">Send Message</button>
-          </form>
-        </div>
+          <div className="footer-contact-form">
+            <h3>Contact Us</h3>
+            <ContactForm />
+          </div>
       </div>
       <div className="footer-bottom">&copy; <span id="currentYear">2025</span> IRONHEX. All rights reserved.</div>
     </footer>
   )
 }
+

@@ -1,6 +1,6 @@
 import React from 'react'
+// Contact form moved to footer per design
 import ContactForm from '../components/ContactForm'
-
 export default function Home(){
   return (
     <main>
@@ -9,15 +9,14 @@ export default function Home(){
         <div className="page-hero-content">
           <h1 className="hero-animated">Secure your digital future with IRONHEX</h1>
           <p>Expert cybersecurity and IoT solutions for modern businesses.</p>
+          <div style={{marginTop:18}}>
+            <a href="/services#cybersecurity" className="btn-primary" style={{marginRight:10}}>Cybersecurity</a>
+            <a href="/services#iot" className="btn-secondary">IoT Services</a>
+          </div>
         </div>
       </section>
 
-      <section className="content-section bg-light">
-        <div className="content-wrapper">
-          <h2>Contact us</h2>
-          <ContactForm />
-        </div>
-      </section>
+    
 
       <section className="content-section">
         <div className="content-wrapper">

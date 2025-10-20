@@ -1,9 +1,11 @@
 # Node / Vite
 client/node_modules/
 client/dist/
-
+*/node_modules/
+*/vite.config.js
 # Python
 server/.venv/
+*/.env
 server/__pycache__/
 server/*.pyc
 server/messages.db
