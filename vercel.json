@@ -20,9 +20,6 @@
     }
   ],
   "build": {
-    "env": {},
-    "commands": [
-      "cd client && npm ci && npm run build"
-    ]
+    "env": {}
   }
 }
