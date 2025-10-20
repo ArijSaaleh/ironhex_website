@@ -6,10 +6,8 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: #f0f2f5; /* Light grey background for the whole page */
-	display: flex;
-	justify-content: center;
-	align-items: flex-start;
 	min-height: 100vh;
+	width: 100vw; /* ensure body spans the full viewport width */
 }
 
 .page-container {

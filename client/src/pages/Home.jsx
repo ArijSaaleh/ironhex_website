@@ -1,6 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 // Contact form moved to footer per design
-import ContactForm from '../components/ContactForm'
 export default function Home(){
   return (
     <main>
@@ -13,39 +13,39 @@ export default function Home(){
             <a href="#" className="btn-primary" style={{marginRight:10}}>Get a Free Security Assessment</a>
           </div>
         </div>
-        <div class="hero-background-overlay"></div>
-            <div class="hero-background-image"></div>
+        <div className="hero-background-overlay"></div>
+        <div className="hero-background-image"></div>
       </section>
 
-      <section class="core-services">
-            <h2>Our Core Services</h2>
-            <div class="service-cards">
-                <div class="card">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Cybersecurity Services</h3>
-                    <p>Proactive defense against evolving digital threats</p>
-                    <a href="cybersecurity-services.html" class="learn-more-link">Learn More</a>
-                </div>
-                <div class="card">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-cog"></i>
-                    </div>
-                    <h3>IOT Services</h3>
-                    <p>Secure and seamless integration of smart devices</p>
-                    <a href="iot-services.html" class="learn-more-link">Learn More</a>
-                </div>
-                <div class="card">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3>Managed Security & Support</h3>
-                    <p>24/7 monitoring, rapid response, and expert guidance</p>
-                    <a href="#" class="learn-more-link">Learn More</a>
-                </div>
+      <section className="core-services">
+        <h2>Our Core Services</h2>
+        <div className="service-cards">
+          <div className="card">
+            <div className="icon-wrapper">
+              <i className="fas fa-shield-alt"></i>
             </div>
-        </section>
+            <h3>Cybersecurity Services</h3>
+            <p>Proactive defense against evolving digital threats</p>
+            <Link to="/services/cybersecurity" className="learn-more-link">Learn More</Link>
+          </div>
+          <div className="card">
+            <div className="icon-wrapper">
+              <i className="fas fa-cog"></i>
+            </div>
+            <h3>IOT Services</h3>
+            <p>Secure and seamless integration of smart devices</p>
+            <Link to="/services/iot" className="learn-more-link">Learn More</Link>
+          </div>
+          <div className="card">
+            <div className="icon-wrapper">
+              <i className="fas fa-headset"></i>
+            </div>
+            <h3>Managed Security & Support</h3>
+            <p>24/7 monitoring, rapid response, and expert guidance</p>
+            <a href="#" className="learn-more-link">Learn More</a>
+          </div>
+        </div>
+      </section>
 
 
       <section className="content-section">

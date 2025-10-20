@@ -19,8 +19,8 @@ export default function Navbar(){
           <li className="dropdown">
             <span className="dropdown-toggle">Services ▾</span>
             <ul className="dropdown-menu">
-              <li><a href="/services#cybersecurity">Cybersecurity Services</a></li>
-              <li><a href="/services#iot">IoT Services</a></li>
+              <li><Link to="/services/cybersecurity" onClick={() => setOpen(false)}>Cybersecurity Services</Link></li>
+              <li><Link to="/services/iot" onClick={() => setOpen(false)}>IoT Services</Link></li>
             </ul>
           </li>
           <li><a href="#contact-us-footer" className="btn-secondary">Contact Us</a></li>
