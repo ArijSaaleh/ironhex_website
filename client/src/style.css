@@ -937,12 +937,26 @@ a {
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
-	animation: hero-fade 3s ease-in-out infinite alternate;
+	/* Slide-in once, keep the subtle hero-fade infinite animation */
+	animation: hero-slide-in 0.8s cubic-bezier(.2,.9,.2,1) both, hero-fade 3s ease-in-out infinite alternate;
+	transform-origin: left center;
 }
 
 @keyframes hero-fade{
 	from { filter: blur(0px) hue-rotate(0deg); }
 	to { filter: blur(0px) hue-rotate(30deg); }
+}
+
+/* Slide-in animation used for hero headings */
+@keyframes hero-slide-in {
+	from {
+		transform: translateX(-40px);
+		opacity: 0;
+	}
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
 }
 
 /* Service list scroll styling */
