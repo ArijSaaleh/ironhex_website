@@ -1,0 +1,27 @@
+/* Import existing style.css from root if needed. For now include minimal overrides */
+@import url('../../style.css');
+
+/* Ensure root container stretches */
+.page-container{min-height:100vh}
+
+.contact-form input, .contact-form textarea{width:100%;padding:12px;margin-bottom:10px;border-radius:6px;border:1px solid #ddd}
+
+/* Hero animation */
+.hero-animated{
+	display:inline-block;
+	background: linear-gradient(90deg,#fff 0%, #fff 60%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	animation: hero-fade 3s ease-in-out infinite alternate;
+}
+
+@keyframes hero-fade{
+	from { filter: blur(0px) hue-rotate(0deg); }
+	to { filter: blur(0px) hue-rotate(30deg); }
+}
+
+/* Service list scroll styling */
+.service-list::-webkit-scrollbar{height:8px;width:8px}
+.service-list::-webkit-scrollbar-thumb{background:#ccc;border-radius:6px}
+.service-list .card{padding:20px}

@@ -1,0 +1,16 @@
+# Node / Vite
+client/node_modules/
+client/dist/
+
+# Python
+server/.venv/
+server/__pycache__/
+server/*.pyc
+server/messages.db
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
