@@ -41,7 +41,7 @@ export default function About(){
           <div className="team-grid">
             <div className="team-member">
               <div className="member-image-circle">
-                <img src="https://i.imgur.com/your-ciso-image.jpg" alt="CISO Image" className="profile-img" />
+                <img src="https://img.freepik.com/premium-photo/3d-character-muslim-hijab-girl-cute-smile_796323-731.jpg?semt=ais_hybrid&w=740&q=80" alt="CISO Image" className="profile-img" />
               </div>
               <h3>Imen Chihi</h3>
               <p className="title">Co-Founder & CISO (Chief Information Security Officer)</p>

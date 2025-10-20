@@ -7,7 +7,7 @@ export default function Footer(){
       <div className="footer-content">
         <div className="footer-info">
           <div className="logo">
-            <img src="/logo.png" alt="IRONHEX Logo" style={{width:250,height:80}} />
+            <img src="/logo.png" alt="IRONHEX Logo" style={{width:310,height:80}} />
           </div>
           <p>Providing robust cybersecurity and innovative IoT solutions to secure your digital future.</p>
         </div>

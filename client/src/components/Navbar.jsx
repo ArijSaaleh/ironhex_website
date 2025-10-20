@@ -7,7 +7,7 @@ export default function Navbar(){
   return (
     <header className="navbar">
       <div className="logo">
-        <img src="/logo.png" alt="IRONHEX Logo" style={{width:250,height:80}} />
+        <img src="/logo.png" alt="IRONHEX Logo" style={{width:330,height:80}} />
       </div>
       <button className="nav-toggle" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen(!open)}>
         <span className={`hamburger ${open ? 'open' : ''}`}></span>
