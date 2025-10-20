@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Typewriter from '../components/Typewriter'
 // Contact form moved to footer per design
 export default function Home(){
   return (
@@ -7,7 +8,7 @@ export default function Home(){
       <section className="page-hero-section">
         <div className="page-hero-background-overlay"></div>
         <div className="page-hero-content">
-          <h1 className="hero-animated">Unbreakable Security for an Interconected World</h1>
+          <h1 className="hero-animated"><Typewriter text={"Unbreakable Security for an Interconected World"} speed={50} /></h1>
           <p>Protecting your business with advanced cybersecurity and intelligent IOT solutions</p>
           <div style={{marginTop:18}}>
             <a href="#" className="btn-primary" style={{marginRight:10}}>Get a Free Security Assessment</a>

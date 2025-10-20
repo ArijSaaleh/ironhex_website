@@ -7,7 +7,7 @@ body {
 	padding: 0;
 	background-color: #f0f2f5; /* Light grey background for the whole page */
 	min-height: 100vh;
-	width: 100vw; /* ensure body spans the full viewport width */
+	/*width: 100vw; /* ensure body spans the full viewport width */
 }
 
 .page-container {
@@ -15,7 +15,7 @@ body {
 	border-radius: 0; /* removed rounded corners for full-width layout */
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 	width: 100%;       /* full width */
-	max-width: 100%;   /* allow full viewport width */
+	/*max-width: 100%;   /* allow full viewport width */
 	margin: 0;         /* remove top/bottom margins */
 	overflow: hidden; /* Ensure rounded corners are applied */
 }
@@ -39,9 +39,18 @@ a {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 20px 40px;
+	padding: 12px 28px;
 	background-color: #fff;
 	border-bottom: 1px solid #eee;
+}
+
+/* Make navbar fixed to top and above other content */
+.navbar.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
 }
 
 .logo {
@@ -480,7 +489,7 @@ a {
 /* Generic Page Hero Section */
 .page-hero-section {
 	position: relative;
-	padding: 80px 40px;
+	padding: 100px 40px 60px; /* top padding increased to account for fixed navbar */
 	color: #fff;
 	text-align: left;
 	overflow: hidden;
@@ -938,8 +947,28 @@ a {
 	background-clip: text;
 	color: transparent;
 	/* Slide-in once, keep the subtle hero-fade infinite animation */
-	animation: hero-slide-in 0.8s cubic-bezier(.2,.9,.2,1) both, hero-fade 3s ease-in-out infinite alternate;
+	/* keep existing effects but hide default text for the typewriter replacement */
+	animation: hero-fade 3s ease-in-out infinite alternate;
 	transform-origin: left center;
+}
+
+/* Typing effect (for Typewriter component) */
+.typewriter {
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	border-right: 2px solid rgba(255,255,255,0.9); /* caret */
+}
+
+.typewriter.blink::after {
+	content: '';
+	display: inline-block;
+	width: 0.6ch;
+	animation: blink-caret 0.7s steps(1) infinite;
+}
+
+@keyframes blink-caret {
+	50% { border-color: transparent; }
 }
 
 @keyframes hero-fade{

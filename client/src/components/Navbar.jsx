@@ -5,7 +5,7 @@ export default function Navbar(){
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="navbar">
+    <header className="navbar fixed">
       <div className="logo">
         <img src="/logo.png" alt="IRONHEX Logo" style={{width:330,height:80}} />
       </div>
