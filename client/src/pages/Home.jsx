@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import Typewriter from '../components/Typewriter'
 // Contact form moved to footer per design
