@@ -360,11 +360,26 @@ export default function Admin() {
         ) : (
           <div className="space-y-4">
             {messages.map((msg) => (
-              <div key={msg.id} className="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow">
+              <div key={msg.id} className={`bg-white shadow-md rounded-lg overflow-hidden border-2 hover:shadow-lg transition-shadow ${
+                !msg.is_read ? 'border-blue-400' : msg.reply_count > 0 ? 'border-green-400' : 'border-gray-200'
+              }`}>
                 <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
                   <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900">{msg.name}</h3>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="text-lg font-semibold text-gray-900">{msg.name}</h3>
+                        {/* Status Badges */}
+                        {!msg.is_read && (
+                          <span className="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                            NEW
+                          </span>
+                        )}
+                        {msg.reply_count > 0 && (
+                          <span className="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                            ✓ {msg.reply_count} {msg.reply_count === 1 ? 'Reply' : 'Replies'}
+                          </span>
+                        )}
+                      </div>
                       <a href={`mailto:${msg.email}`} className="text-sm text-primary hover:underline">
                         {msg.email}
                       </a>
@@ -374,6 +389,11 @@ export default function Admin() {
                       <span className="text-xs text-gray-500 block mt-1">
                         {new Date(msg.timestamp).toLocaleDateString()} {new Date(msg.timestamp).toLocaleTimeString()}
                       </span>
+                      {msg.is_read && msg.read_at && (
+                        <span className="text-xs text-gray-400 block mt-1">
+                          Read: {new Date(msg.read_at).toLocaleString()}
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -392,7 +412,7 @@ export default function Admin() {
                       <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
                       </svg>
-                      Reply to Message
+                      {msg.reply_count > 0 ? 'Reply Again' : 'Reply to Message'}
                     </button>
                   </div>
                 </div>
@@ -406,6 +426,7 @@ export default function Admin() {
       {showReplyModal && selectedMessage && (
         <MessageReplyModal
           message={selectedMessage}
+          currentUser={currentUser}
           onClose={() => {
             setShowReplyModal(false)
             setSelectedMessage(null)

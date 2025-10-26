@@ -64,6 +64,45 @@ def send_email_notification(name: str, email: str, subject: str, message: str):
         return False
 
 
+def send_reply_email(to_email: str, from_email: str, subject: str, body: str, recipient_name: str):
+    """Send reply email to customer"""
+    if not (SMTP_HOST and SMTP_USER and SMTP_PASS):
+        print('SMTP not configured, skipping reply email send')
+        print(f"Would send to {to_email} from {from_email}")
+        print(f"Subject: {subject}")
+        print(f"Body: {body}")
+        return False
+
+    # Create HTML email
+    html_body = f"""
+    <html>
+        <body>
+            <p>Dear {recipient_name},</p>
+            {body}
+            <br><br>
+            <p style="color: #6b7280; font-size: 12px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+                This email was sent from {from_email}<br>
+                IRONHEX - Technology Solutions
+            </p>
+        </body>
+    </html>
+    """
+    
+    email_message = f"From: {from_email}\nTo: {to_email}\nSubject: {subject}\nMIME-Version: 1.0\nContent-Type: text/html; charset=utf-8\n\n{html_body}"
+
+    try:
+        context = ssl.create_default_context()
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+            server.starttls(context=context)
+            server.login(SMTP_USER, SMTP_PASS)
+            server.sendmail(from_email, to_email, email_message.encode('utf-8'))
+        print(f"✅ Reply email sent to {to_email}")
+        return True
+    except Exception as e:
+        print(f'❌ Error sending reply email: {e}')
+        return False
+
+
 @app.post('/api/messages', response_model=schemas.MessageOut)
 async def create_message(msg: schemas.MessageCreate, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     db_msg = models.Message(name=msg.name, email=msg.email, subject=msg.subject, message=msg.message)
@@ -337,6 +376,7 @@ async def reset_password(
 async def send_message_reply(
     message_id: int,
     reply_data: schemas.MessageReplyCreate,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(auth.get_current_admin_user)
 ):
@@ -355,15 +395,25 @@ async def send_message_reply(
         reply_body=reply_data.reply_body
     )
     db.add(reply)
-    
-    # TODO: Send actual email here
-    # For now, just save the reply to database
-    print(f"Reply to {message.email} from {reply_data.reply_from_email}")
-    print(f"Subject: {reply_data.reply_subject}")
-    print(f"Body: {reply_data.reply_body}")
-    
     db.commit()
     db.refresh(reply)
+    
+    # Send email in background
+    background_tasks.add_task(
+        send_reply_email,
+        to_email=message.email,
+        from_email=reply_data.reply_from_email,
+        subject=reply_data.reply_subject,
+        body=reply_data.reply_body,
+        recipient_name=message.name
+    )
+    
+    # Mark message as read if not already
+    if not message.is_read:
+        message.is_read = True
+        message.read_by_admin_id = current_user.id
+        message.read_at = datetime.utcnow()
+        db.commit()
     
     # Add admin username to response
     return schemas.MessageReplyWithAdmin(

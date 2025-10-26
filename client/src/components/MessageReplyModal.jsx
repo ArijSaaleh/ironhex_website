@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import RichTextEditor from './RichTextEditor'
 
-export default function MessageReplyModal({ message, onClose, onSuccess }) {
+export default function MessageReplyModal({ message, currentUser, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
-    replyFromEmail: 'contact@ironhex-tech.com',
+    replyFromEmail: currentUser?.email || 'contact@ironhex-tech.com',
     replySubject: '',
     replyBody: ''
   })
@@ -12,24 +12,17 @@ export default function MessageReplyModal({ message, onClose, onSuccess }) {
   const [replies, setReplies] = useState([])
   const [showReplies, setShowReplies] = useState(false)
 
-  const availableEmails = [
-    'contact@ironhex-tech.com',
-    'support@ironhex-tech.com',
-    'info@ironhex-tech.com',
-    'arij.saleh@ironhex-tech.com',
-    'imen.chihi@ironhex-tech.com'
-  ]
-
   useEffect(() => {
-    // Set default subject as Re: original subject
+    // Set default email to current user's email and subject
     setFormData(prev => ({
       ...prev,
+      replyFromEmail: currentUser?.email || 'contact@ironhex-tech.com',
       replySubject: `Re: ${message.subject || 'Your Inquiry'}`
     }))
     
     // Fetch existing replies
     fetchReplies()
-  }, [message])
+  }, [message, currentUser])
 
   const fetchReplies = async () => {
     try {
@@ -182,21 +175,19 @@ export default function MessageReplyModal({ message, onClose, onSuccess }) {
 
             {/* Reply Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* From Email Selection */}
+              {/* From Email - Read Only */}
               <div>
                 <label htmlFor="replyFromEmail" className="block text-sm font-medium text-gray-700 mb-2">
-                  Reply From:
+                  Sending From:
                 </label>
-                <select
+                <input
+                  type="email"
                   id="replyFromEmail"
                   value={formData.replyFromEmail}
-                  onChange={(e) => setFormData({ ...formData, replyFromEmail: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                >
-                  {availableEmails.map((email) => (
-                    <option key={email} value={email}>{email}</option>
-                  ))}
-                </select>
+                  readOnly
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-700 cursor-not-allowed"
+                />
+                <p className="mt-1 text-xs text-gray-500">Replies will be sent from your account email</p>
               </div>
 
               {/* Subject */}
