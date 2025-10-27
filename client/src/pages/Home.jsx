@@ -6,10 +6,10 @@ export default function Home(){
     <main className="pt-16">
       <section className="relative overflow-hidden min-h-[60vh] flex items-center bg-gray-900">
         <div className="absolute inset-0 bg-[url('/hero.png')] bg-center bg-cover filter blur-sm brightness-50"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/75 to-black/25"></div>
+        {/**<div className="absolute inset-0 bg-gradient-to-r from-primary/75 to-black/25"></div>*/}
         <div className="relative z-10 max-w-3xl mx-auto px-6">
           <h1 className="text-4xl md:text-5xl font-extrabold text-white">
-            <Typewriter text={"Unbreakable Security for an Interconected World"} speed={50} />
+            <Typewriter text={"Unbreakable Security for an Interconnected World"} speed={90} />
           </h1>
           <p className="mt-4 text-lg text-white/90">Protecting your business with advanced cybersecurity and intelligent IOT solutions</p>
           <div className="mt-6">

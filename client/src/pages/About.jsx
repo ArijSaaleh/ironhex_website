@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function About(){
   return (
-    <div>
-      <section className="py-16 bg-gray-50">
+    <div className="mt-20">
+      <section className="py-16 bg-gray-50 ">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h1 className="text-green text-3xl font-bold">About IRONHEX</h1>
           <h2 className="text-2xl font-semibold mt-2">Securing Tomorrow, Today</h2>

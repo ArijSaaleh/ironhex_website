@@ -10,7 +10,7 @@ export default function Footer(){
           {/* Company Info */}
           <div className="space-y-4">
             <Link to="/" className="block">
-              <img src="/logo.png" alt="IRONHEX Logo" className="h-12 w-auto object-contain" />
+              <img src="/logo_icon.png" alt="IRONHEX Logo" className="h-24 w-auto object-contain" />
             </Link>
             <p className="text-gray-300 leading-relaxed">
               Providing robust cybersecurity and innovative IoT solutions to secure your digital future.

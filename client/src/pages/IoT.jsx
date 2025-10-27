@@ -1,17 +1,17 @@
 import React from 'react'
-
+import Typewriter from '../components/Typewriter'
 export default function IoT(){
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative overflow-hidden min-h-[60vh] flex items-center bg-gray-900">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[url('https://community.nasscom.in/sites/default/files/media/images/iot-mobile-app-development.png')] bg-center bg-cover"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/70"></div>
-        </div>
-        <div className="relative z-10 max-w-4xl mx-auto px-6 py-20">
+          <div className="absolute inset-0 bg-[url('https://san.win.tue.nl/education/IoT-inf4all/figs/things.gif')] bg-center bg-cover"></div>
+         { <div className="absolute inset-0 bg-gradient-to-r from-green-800/95 to-black/20"></div>} </div>
+        <div className="relative z-10 mt-10 max-w-4xl mx-auto px-6 py-20">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
-            Secure & Seamless IoT Integration
+           <Typewriter text={"Secure & Seamless IoT Integration"} speed={90} />
+            
           </h1>
           <p className="mt-6 text-lg md:text-xl text-gray-200 max-w-2xl">
             Unlock the full potential of your connected devices with IRONHEX's intelligent IoT solutions, designed for security and efficiency.
