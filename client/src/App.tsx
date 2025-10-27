@@ -13,6 +13,10 @@ import ResetPassword from "./pages/ResetPassword";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
+import SoftwareSolutions from "./pages/SoftwareSolutions";
+import FAQ from "./pages/FAQ";
+import TunisianRegulations from "./pages/TunisianRegulations";
+import { Toaster } from "./components/ui/toaster";
 
 export default function App() {
   return (
@@ -28,16 +32,26 @@ export default function App() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route 
-          path="/admin/users" 
+
+        <Route path="/admin/messages" element={<Admin />} />
+        <Route path="/admin/users" element={<Admin />} />
+        <Route
+          path="/services/software"
+          element={<SoftwareSolutions />}
+        />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/regulations" element={<TunisianRegulations />} />
+        <Route
+          path="/admin/users"
           element={
             <ProtectedRoute>
               <UserManagement />
             </ProtectedRoute>
-          } 
+          }
         />
       </Routes>
       <Footer />
+      <Toaster />
     </div>
   );
 }

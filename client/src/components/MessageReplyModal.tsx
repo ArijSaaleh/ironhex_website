@@ -1,15 +1,51 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect, FormEvent } from 'react'
 import RichTextEditor from './RichTextEditor'
 
-export default function MessageReplyModal({ message, currentUser, onClose, onSuccess }) {
-  const [formData, setFormData] = useState({
+interface Message {
+  id: number;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  timestamp: string;
+}
+
+interface CurrentUser {
+  email: string;
+  username: string;
+}
+
+interface Reply {
+  id: number;
+  reply_from_email: string;
+  admin_username: string;
+  reply_subject: string;
+  reply_body: string;
+  sent_at: string;
+}
+
+interface MessageReplyModalProps {
+  message: Message;
+  currentUser: CurrentUser;
+  onClose: () => void;
+  onSuccess: () => void;
+}
+
+interface ReplyFormData {
+  replyFromEmail: string;
+  replySubject: string;
+  replyBody: string;
+}
+
+export default function MessageReplyModal({ message, currentUser, onClose, onSuccess }: MessageReplyModalProps) {
+  const [formData, setFormData] = useState<ReplyFormData>({
     replyFromEmail: currentUser?.email || 'contact@ironhex-tech.com',
     replySubject: '',
     replyBody: ''
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [replies, setReplies] = useState([])
+  const [replies, setReplies] = useState<Reply[]>([])
   const [showReplies, setShowReplies] = useState(false)
 
   useEffect(() => {
@@ -42,7 +78,7 @@ export default function MessageReplyModal({ message, currentUser, onClose, onSuc
     }
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError('')
     setLoading(true)
@@ -77,7 +113,7 @@ export default function MessageReplyModal({ message, currentUser, onClose, onSuc
     }
   }
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleString('en-US', {
       year: 'numeric',
       month: 'short',

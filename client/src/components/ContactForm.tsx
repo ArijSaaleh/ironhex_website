@@ -1,29 +1,38 @@
-import React, { useState } from 'react'
+import { useState, FormEvent, ChangeEvent } from 'react'
 
-export default function ContactForm(){
-  const [form, setForm] = useState({name:'', email:'', subject:'', message:''})
-  const [status, setStatus] = useState(null)
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
 
-  function handleChange(e){
-    setForm({...form, [e.target.name]: e.target.value})
+type Status = 'sending' | 'sent' | 'error' | null;
+
+export default function ContactForm() {
+  const [form, setForm] = useState<FormData>({ name: '', email: '', subject: '', message: '' })
+  const [status, setStatus] = useState<Status>(null)
+
+  function handleChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  async function handleSubmit(e){
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setStatus('sending')
-    try{
+    try {
       const res = await fetch('http://localhost:8000/api/messages', {
         method: 'POST',
-        headers: {'Content-Type':'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
       })
-      if(res.ok){
+      if (res.ok) {
         setStatus('sent')
-        setForm({name:'', email:'', subject:'', message:''})
-      }else{
+        setForm({ name: '', email: '', subject: '', message: '' })
+      } else {
         setStatus('error')
       }
-    }catch(err){
+    } catch (err) {
       setStatus('error')
     }
   }
@@ -74,7 +83,7 @@ export default function ContactForm(){
           value={form.message}
           onChange={handleChange}
           required
-          rows="4"
+          rows={4}
           className={`${inputClasses} resize-none`}
         />
       </div>

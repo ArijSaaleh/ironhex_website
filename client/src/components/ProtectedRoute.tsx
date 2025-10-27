@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState, ReactNode } from 'react'
 import { Navigate } from 'react-router-dom'
 
-export default function ProtectedRoute({ children }) {
+interface ProtectedRouteProps {
+  children: ReactNode;
+}
+
+export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const [isChecking, setIsChecking] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 

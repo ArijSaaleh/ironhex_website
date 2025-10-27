@@ -1,7 +1,19 @@
-import React, { useState } from 'react'
+import { useState, FormEvent, ChangeEvent } from 'react'
 
-export default function ChangePasswordModal({ onClose, onSuccess, isRequired = false }) {
-  const [formData, setFormData] = useState({
+interface ChangePasswordModalProps {
+  onClose: () => void;
+  onSuccess: () => void;
+  isRequired?: boolean;
+}
+
+interface PasswordFormData {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+export default function ChangePasswordModal({ onClose, onSuccess, isRequired = false }: ChangePasswordModalProps) {
+  const [formData, setFormData] = useState<PasswordFormData>({
     currentPassword: '',
     newPassword: '',
     confirmPassword: ''
@@ -9,7 +21,7 @@ export default function ChangePasswordModal({ onClose, onSuccess, isRequired = f
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -17,7 +29,7 @@ export default function ChangePasswordModal({ onClose, onSuccess, isRequired = f
     setError('')
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError('')
 

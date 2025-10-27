@@ -1,7 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
-export default function RichTextEditor({ value, onChange, placeholder = "Type your message..." }) {
-  const editorRef = useRef(null)
+interface RichTextEditorProps {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+}
+
+export default function RichTextEditor({ value, onChange, placeholder = "Type your message..." }: RichTextEditorProps) {
+  const editorRef = useRef<HTMLDivElement>(null)
   const [showToolbar, setShowToolbar] = useState(false)
 
   useEffect(() => {
@@ -16,13 +22,13 @@ export default function RichTextEditor({ value, onChange, placeholder = "Type yo
     }
   }
 
-  const execCommand = (command, value = null) => {
+  const execCommand = (command: string, value: string | null = null) => {
     document.execCommand(command, false, value)
     editorRef.current?.focus()
     handleInput()
   }
 
-  const insertSignature = (signature) => {
+  const insertSignature = (signature: string) => {
     const signatureHtml = `
       <br><br>
       <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #e5e7eb;">

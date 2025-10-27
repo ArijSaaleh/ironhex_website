@@ -39,14 +39,21 @@ export default function Navbar(){
                   <Link to="/services/cybersecurity"
                         className="block px-4 py-2 text-gray-700 hover:text-primary transition-colors"
                         onClick={closeMenus}>
-                    Cybersecurity Services
+                    Cybersecurity 
                   </Link>
                 </li>
                 <li className="hover:bg-gray-50">
                   <Link to="/services/iot"
                         className="block px-4 py-2 text-gray-700 hover:text-primary transition-colors"
                         onClick={closeMenus}>
-                    IoT Services
+                    IoT 
+                  </Link>
+                </li>
+                <li className="hover:bg-gray-50">
+                  <Link to="/services/software"
+                        className="block px-4 py-2 text-gray-700 hover:text-primary transition-colors"
+                        onClick={closeMenus}>
+                    SaaS
                   </Link>
                 </li>
               </ul>

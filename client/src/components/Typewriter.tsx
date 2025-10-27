@@ -1,6 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-export default function Typewriter({ text = '', speed = 60, className = '' }){
+interface TypewriterProps {
+  text?: string;
+  speed?: number;
+  className?: string;
+}
+
+export default function Typewriter({ text = '', speed = 60, className = '' }: TypewriterProps) {
   const [display, setDisplay] = useState('')
 
   useEffect(() => {
