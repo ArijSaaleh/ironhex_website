@@ -48,7 +48,7 @@ Modern, multilingual website for IRONHEX with JWT authentication, admin dashboar
 
 ## 🌟 Overview└── README.md
 
-```
+
 
 IRONHEX is a full-stack web platform showcasing cybersecurity and IoT services with:
 
@@ -64,13 +64,15 @@ IRONHEX is a full-stack web platform showcasing cybersecurity and IoT services w
 
 - **Git**
 
----
+
 
 ### 1. Clone the Repository
 
-## ✨ Features```bash
+## ✨ Features
 
-git clone https://github.com/ArijSaaleh/ironhex_website.git
+```bash
+    git clone https://github.com/ArijSaaleh/ironhex_website.git
+```
 
 ### 🎨 Frontend Featurescd ironhexwebsite
 
@@ -93,7 +95,6 @@ git clone https://github.com/ArijSaaleh/ironhex_website.git
 - ✅ **Password Reset** - Email-based password recoverypython -m venv .venv
 
 
-
 ### 🔐 Backend Features# Activate virtual environment
 
 - ✅ **JWT Authentication** - Secure token-based auth# Windows:
@@ -112,7 +113,7 @@ git clone https://github.com/ArijSaaleh/ironhex_website.git
 
 
 
----# Create .env file (copy from .env.example)
+## Create .env file (copy from .env.example)
 
 cp .env.example .env
 
@@ -136,7 +137,8 @@ cp .env.example .env
 
 # Or use: uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
-### Backend```
+### Backend
+```
 
 - **FastAPI** - Modern Python web framework
 
@@ -160,7 +162,8 @@ npm install
 
 ```
 
-ironhexwebsite/# Start development server
+ironhexwebsite/
+# Start development server
 
 ├── client/                     # React Frontendnpm run dev
 
@@ -208,7 +211,8 @@ ironhexwebsite/# Start development server
 
 │   └── package.json
 
-│### Frontend
+│
+### Frontend
 
 ├── server/                     # FastAPI Backend- **Modern UI** - Built with React, Vite, and Tailwind CSS
 
@@ -224,7 +228,8 @@ ironhexwebsite/# Start development server
 
 │   └── requirements.txt
 
-│### Backend
+│
+### Backend
 
 ├── .gitignore- **JWT Authentication** - Secure token-based auth
 
@@ -232,14 +237,15 @@ ironhexwebsite/# Start development server
 
 └── README.md- **User Management** - Admin-only user creation and management
 
-```- **Contact Form API** - Store and retrieve messages
+```
+- **Contact Form API** - Store and retrieve messages
 
 - **CORS Configured** - Frontend-backend communication
 
 ---- **Email Notifications** - Optional SMTP integration for contact form
 
 
-
+```
 ## 🚀 Quick Start## 📡 API Endpoints
 
 
@@ -262,7 +268,7 @@ git clone https://github.com/ArijSaaleh/ironhex_website.git- `POST /api/auth/log
 
 cd ironhexwebsite- `POST /api/auth/change-password` - Change password
 
-```
+
 
 ### Admin Only Endpoints
 
@@ -320,7 +326,8 @@ python
 
 **Terminal 1 - Backend:**
 
-# Start the server```bash
+# Start the server
+```bash
 
 python main.pycd server
 
@@ -380,7 +387,7 @@ SECRET_KEY=your-super-secret-key-change-this
 
 ACCESS_TOKEN_EXPIRE_MINUTES=60- **SQLite** database (`messages.db`) stores all data
 
-- **Auto-migration** on startup (creates tables if they don't exist)
+- **Auto-migration** on startup (creates tables if they dont exist)
 
 # Optional - Email- **Reset database**: Delete `messages.db` and run `python init_admins.py`
 
@@ -405,7 +412,7 @@ EMAIL_TO=admin@ironhex.com- `id`, `username`, `email`, `hashed_password`
 ## 🌍 Internationalization- `id`, `name`, `email`, `subject`, `message`
 
 - `timestamp`, `delivered`
-
+```
 ### Supported Languages
 
 - 🇬🇧 **English** (en) - Default## 🔒 Security Features
@@ -442,7 +449,8 @@ function MyComponent() {- Activate virtual environment
 
   return <h1>{t('nav.home')}</h1>;
 
-}### Frontend not loading?
+} ```
+### Frontend not loading?
 
 ```- Check Node version: `node --version` (need 18+)
 
@@ -451,7 +459,7 @@ function MyComponent() {- Activate virtual environment
 ---- Check if backend is running on port 8000
 
 
-
+```
 ## 🎨 Theme System### Database errors?
 
 - Delete `server/messages.db`
@@ -469,19 +477,20 @@ function MyComponent() {- Activate virtual environment
 - **Persistence** - Choice saved in localStorage- Restart backend server
 
 
-
----## 📦 Dependencies
-
+## 📦 Dependencies
 
 
-## 📦 Deployment### Backend
+
+## 📦 Deployment
+
+### Backend
 
 - FastAPI - Web framework
 
 ### Frontend - Vercel- SQLAlchemy - ORM
 
 ```bash- Pydantic - Data validation
-
+```
 # Automatic deployment via vercel.json- python-jose - JWT handling
 
 # Just push to main branch- passlib[bcrypt] - Password hashing
@@ -497,7 +506,7 @@ npm run build- React 18
 vercel --prod- React Router DOM
 
 ```- Vite
-
+```
 - Tailwind CSS
 
 ### Backend - Render/Railway- PostCSS & Autoprefixer
