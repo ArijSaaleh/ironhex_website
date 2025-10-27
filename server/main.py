@@ -462,6 +462,72 @@ async def health():
     return {'status': 'ok'}
 
 
+# Demo Request Endpoints
+@app.post('/api/demo-requests', response_model=schemas.DemoRequestOut)
+def create_demo_request(
+    demo_req: schemas.DemoRequestCreate,
+    db: Session = Depends(get_db)
+):
+    """Create a new demo request"""
+    db_demo_request = models.DemoRequest(**demo_req.dict())
+    db.add(db_demo_request)
+    db.commit()
+    db.refresh(db_demo_request)
+    return db_demo_request
+
+
+@app.get('/api/demo-requests', response_model=list[schemas.DemoRequestOut])
+def get_demo_requests(
+    current_user: models.User = Depends(auth.get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Get all demo requests (admin only)"""
+    demo_requests = db.query(models.DemoRequest).order_by(models.DemoRequest.timestamp.desc()).all()
+    return demo_requests
+
+
+@app.patch('/api/demo-requests/{request_id}/mark-read')
+def mark_demo_request_read(
+    request_id: int,
+    current_user: models.User = Depends(auth.get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Mark a demo request as read"""
+    demo_request = db.query(models.DemoRequest).filter(models.DemoRequest.id == request_id).first()
+    if not demo_request:
+        raise HTTPException(status_code=404, detail='Demo request not found')
+    
+    demo_request.is_read = True
+    demo_request.read_at = datetime.utcnow()
+    db.commit()
+    return {'status': 'success'}
+
+
+@app.patch('/api/demo-requests/{request_id}', response_model=schemas.DemoRequestOut)
+def update_demo_request(
+    request_id: int,
+    update_data: schemas.DemoRequestUpdate,
+    current_user: models.User = Depends(auth.get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Update demo request status, notes, or schedule"""
+    demo_request = db.query(models.DemoRequest).filter(models.DemoRequest.id == request_id).first()
+    if not demo_request:
+        raise HTTPException(status_code=404, detail='Demo request not found')
+    
+    # Update fields if provided
+    if update_data.status is not None:
+        demo_request.status = update_data.status
+    if update_data.demo_scheduled_at is not None:
+        demo_request.demo_scheduled_at = update_data.demo_scheduled_at
+    if update_data.notes is not None:
+        demo_request.notes = update_data.notes
+    
+    db.commit()
+    db.refresh(demo_request)
+    return demo_request
+
+
 if __name__ == '__main__':
     import uvicorn
     uvicorn.run('main:app', host='0.0.0.0', port=8000, reload=True)

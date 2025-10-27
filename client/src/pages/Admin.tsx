@@ -16,6 +16,12 @@ export default function Admin() {
   const [mustChangePassword, setMustChangePassword] = useState(false)
   const [showReplyModal, setShowReplyModal] = useState(false)
   const [selectedMessage, setSelectedMessage] = useState(null)
+  const [analytics, setAnalytics] = useState({
+    totalMessages: 0,
+    unreadMessages: 0,
+    repliedMessages: 0,
+    todayMessages: 0
+  })
 
   // Check if token is valid on mount
   useEffect(() => {
@@ -120,6 +126,22 @@ export default function Admin() {
       if (response.ok) {
         const data = await response.json()
         setMessages(data)
+        
+        // Calculate analytics
+        const today = new Date()
+        today.setHours(0, 0, 0, 0)
+        
+        const stats = {
+          totalMessages: data.length,
+          unreadMessages: data.filter(m => !m.is_read).length,
+          repliedMessages: data.filter(m => m.reply_count > 0).length,
+          todayMessages: data.filter(m => {
+            const msgDate = new Date(m.timestamp)
+            msgDate.setHours(0, 0, 0, 0)
+            return msgDate.getTime() === today.getTime()
+          }).length
+        }
+        setAnalytics(stats)
       } else if (response.status === 401) {
         // Unauthorized - token expired
         setIsLoggedIn(false)
@@ -299,40 +321,26 @@ export default function Admin() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-              <p className="mt-2 text-sm text-gray-600">
-                Welcome back, <span className="font-medium">{currentUser?.username}</span>
-              </p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Top Banner with Logo */}
+      <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-xl border-b-4 border-primary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <img src="/logo_icon.png" alt="IRONHEX Logo" className="h-16 w-auto" />
+              <div>
+                <h1 className="text-2xl font-bold text-white">IRONHEX</h1>
+                <p className="text-gray-300 text-sm">Admin Control Panel</p>
+              </div>
             </div>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                to="/admin/users"
-                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-              >
-                <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-                Manage Users
-              </Link>
-              <button
-                onClick={handleRefresh}
-                disabled={loading}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50"
-              >
-                <svg className={`-ml-1 mr-2 h-5 w-5 ${loading ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-                Refresh
-              </button>
+            <div className="flex items-center gap-4">
+              <div className="text-right">
+                <p className="text-gray-400 text-xs uppercase tracking-wide">Logged in as</p>
+                <p className="text-white font-semibold text-lg">{currentUser?.username}</p>
+              </div>
               <button
                 onClick={handleLogout}
-                className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                className="inline-flex items-center px-4 py-2 border border-red-500 rounded-lg text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 shadow-sm transition-all"
               >
                 <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -342,72 +350,228 @@ export default function Admin() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Action Buttons */}
+        <div className="mb-8">
+          <div className="flex flex-wrap gap-3 justify-end">
+            <Link
+              to="/admin/users"
+              className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary shadow-sm"
+            >
+              <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+              Manage Users
+            </Link>
+            <Link
+              to="/admin/demo-requests"
+              className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary shadow-sm"
+            >
+              <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              Demo Requests
+            </Link>
+            <button
+              onClick={handleRefresh}
+              disabled={loading}
+              className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 shadow-sm"
+            >
+              <svg className={`-ml-1 mr-2 h-5 w-5 ${loading ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              Refresh
+            </button>
+          </div>
+        </div>
+
+        {/* Analytics Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {/* Total Messages */}
+          <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-blue-100 text-sm font-medium uppercase tracking-wide">Total Messages</p>
+                <p className="text-4xl font-bold mt-2">{analytics.totalMessages}</p>
+              </div>
+              <div className="bg-blue-400 bg-opacity-30 rounded-full p-3">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                </svg>
+              </div>
+            </div>
+            <div className="mt-4 flex items-center text-sm text-blue-100">
+              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+              All time
+            </div>
+          </div>
+
+          {/* Unread Messages */}
+          <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-orange-100 text-sm font-medium uppercase tracking-wide">Unread</p>
+                <p className="text-4xl font-bold mt-2">{analytics.unreadMessages}</p>
+              </div>
+              <div className="bg-orange-400 bg-opacity-30 rounded-full p-3">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+            </div>
+            <div className="mt-4 flex items-center text-sm text-orange-100">
+              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Needs attention
+            </div>
+          </div>
+
+          {/* Replied Messages */}
+          <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-green-100 text-sm font-medium uppercase tracking-wide">Replied</p>
+                <p className="text-4xl font-bold mt-2">{analytics.repliedMessages}</p>
+              </div>
+              <div className="bg-green-400 bg-opacity-30 rounded-full p-3">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+            <div className="mt-4 flex items-center text-sm text-green-100">
+              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              {analytics.totalMessages > 0 ? Math.round((analytics.repliedMessages / analytics.totalMessages) * 100) : 0}% response rate
+            </div>
+          </div>
+
+          {/* Today's Messages */}
+          <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-purple-100 text-sm font-medium uppercase tracking-wide">Today</p>
+                <p className="text-4xl font-bold mt-2">{analytics.todayMessages}</p>
+              </div>
+              <div className="bg-purple-400 bg-opacity-30 rounded-full p-3">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+            </div>
+            <div className="mt-4 flex items-center text-sm text-purple-100">
+              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Last 24 hours
+            </div>
+          </div>
+        </div>
+
+        {/* Messages Section Header */}
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-gray-900">Recent Messages</h2>
+          <p className="text-sm text-gray-600 mt-1">Manage and respond to contact form submissions</p>
+        </div>
 
         {/* Messages List */}
         {loading ? (
-          <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-            <p className="mt-2 text-gray-600">Loading messages...</p>
+          <div className="text-center py-16 bg-white rounded-xl shadow">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-4 border-primary"></div>
+            <p className="mt-4 text-gray-600 font-medium">Loading messages...</p>
           </div>
         ) : messages.length === 0 ? (
-          <div className="text-center py-12 bg-white rounded-lg shadow">
-            <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-            </svg>
-            <h3 className="mt-2 text-sm font-medium text-gray-900">No messages</h3>
-            <p className="mt-1 text-sm text-gray-500">No contact form submissions yet.</p>
+          <div className="text-center py-16 bg-white rounded-xl shadow">
+            <div className="bg-gray-100 rounded-full p-4 w-20 h-20 mx-auto flex items-center justify-center">
+              <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+              </svg>
+            </div>
+            <h3 className="mt-4 text-lg font-semibold text-gray-900">No messages yet</h3>
+            <p className="mt-2 text-sm text-gray-500">Contact form submissions will appear here.</p>
           </div>
         ) : (
           <div className="space-y-4">
             {messages.map((msg) => (
-              <div key={msg.id} className={`bg-white shadow-md rounded-lg overflow-hidden border-2 hover:shadow-lg transition-shadow ${
-                !msg.is_read ? 'border-blue-400' : msg.reply_count > 0 ? 'border-green-400' : 'border-gray-200'
+              <div key={msg.id} className={`bg-white shadow-lg rounded-xl overflow-hidden border-l-4 hover:shadow-xl transition-all ${
+                !msg.is_read ? 'border-l-orange-500 bg-orange-50 bg-opacity-30' : msg.reply_count > 0 ? 'border-l-green-500' : 'border-l-gray-300'
               }`}>
-                <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
+                <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-white border-b border-gray-100">
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="text-lg font-semibold text-gray-900">{msg.name}</h3>
-                        {/* Status Badges */}
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="bg-primary bg-opacity-10 rounded-full p-2">
+                          <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900">{msg.name}</h3>
+                          <a href={`mailto:${msg.email}`} className="text-sm text-primary hover:underline font-medium">
+                            {msg.email}
+                          </a>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 flex-wrap">
                         {!msg.is_read && (
-                          <span className="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
-                            NEW
+                          <span className="px-3 py-1 text-xs font-bold rounded-full bg-orange-500 text-white shadow-sm">
+                            🔔 NEW
                           </span>
                         )}
                         {msg.reply_count > 0 && (
-                          <span className="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                          <span className="px-3 py-1 text-xs font-bold rounded-full bg-green-500 text-white shadow-sm">
                             ✓ {msg.reply_count} {msg.reply_count === 1 ? 'Reply' : 'Replies'}
                           </span>
                         )}
+                        <span className="px-3 py-1 text-xs font-medium rounded-full bg-gray-200 text-gray-700">
+                          ID: {msg.id}
+                        </span>
                       </div>
-                      <a href={`mailto:${msg.email}`} className="text-sm text-primary hover:underline">
-                        {msg.email}
-                      </a>
                     </div>
                     <div className="text-right">
-                      <span className="text-xs text-gray-500 block">ID: {msg.id}</span>
-                      <span className="text-xs text-gray-500 block mt-1">
-                        {new Date(msg.timestamp).toLocaleDateString()} {new Date(msg.timestamp).toLocaleTimeString()}
-                      </span>
+                      <div className="flex items-center text-sm text-gray-600 mb-1">
+                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        {new Date(msg.timestamp).toLocaleDateString()}
+                      </div>
+                      <div className="flex items-center text-sm text-gray-600">
+                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {new Date(msg.timestamp).toLocaleTimeString()}
+                      </div>
                       {msg.is_read && msg.read_at && (
                         <span className="text-xs text-gray-400 block mt-1">
-                          Read: {new Date(msg.read_at).toLocaleString()}
+                          ✓ Read: {new Date(msg.read_at).toLocaleString()}
                         </span>
                       )}
                     </div>
                   </div>
                 </div>
-                <div className="px-6 py-4">
-                  <h4 className="text-md font-medium text-gray-900 mb-2">
-                    <span className="text-gray-600">Subject:</span> {msg.subject || 'No subject'}
-                  </h4>
-                  <p className="text-gray-700 whitespace-pre-wrap leading-relaxed mb-4">{msg.message}</p>
+                <div className="px-6 py-5">
+                  <div className="mb-4">
+                    <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Subject</span>
+                    <h4 className="text-lg font-semibold text-gray-900 mt-1">
+                      {msg.subject || 'No subject'}
+                    </h4>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                    <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Message</span>
+                    <p className="text-gray-700 whitespace-pre-wrap leading-relaxed mt-2">{msg.message}</p>
+                  </div>
                   
                   {/* Reply Button */}
-                  <div className="flex justify-end">
+                  <div className="flex justify-end mt-5">
                     <button
                       onClick={() => handleReply(msg)}
-                      className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
+                      className="inline-flex items-center px-6 py-3 border border-transparent rounded-lg text-sm font-semibold text-white bg-gradient-to-r from-primary to-blue-600 hover:from-primary-dark hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all shadow-md hover:shadow-lg transform hover:scale-105"
                     >
                       <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />

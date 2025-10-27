@@ -7,6 +7,7 @@ export default function UserManagement() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const [showCreateForm, setShowCreateForm] = useState(false)
+  const [currentUser, setCurrentUser] = useState(null)
   
   // Form state
   const [formData, setFormData] = useState({
@@ -19,8 +20,25 @@ export default function UserManagement() {
   const token = localStorage.getItem('access_token')
 
   useEffect(() => {
+    fetchCurrentUser()
     fetchUsers()
   }, [])
+
+  const fetchCurrentUser = async () => {
+    try {
+      const response = await fetch('/api/auth/me', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      if (response.ok) {
+        const user = await response.json()
+        setCurrentUser(user)
+      }
+    } catch (err) {
+      console.error('Failed to fetch current user:', err)
+    }
+  }
 
   const fetchUsers = async () => {
     setLoading(true)
@@ -126,38 +144,65 @@ export default function UserManagement() {
     }
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem('access_token')
+    window.location.href = '/admin'
+  }
+
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">User Management</h1>
-              <p className="mt-2 text-sm text-gray-600">
-                Manage admin users and their access
-              </p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Top Banner with Logo */}
+      <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-xl border-b-4 border-primary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <img src="/logo_icon.png" alt="IRONHEX Logo" className="h-16 w-auto" />
+              <div>
+                <h1 className="text-2xl font-bold text-white">IRONHEX</h1>
+                <p className="text-gray-300 text-sm">User Management</p>
+              </div>
             </div>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                to="/admin"
-                className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-              >
-                <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Back to Dashboard
-              </Link>
+            <div className="flex items-center gap-4">
+              <div className="text-right">
+                <p className="text-gray-400 text-xs uppercase tracking-wide">Logged in as</p>
+                <p className="text-white font-semibold text-lg">{currentUser?.username || 'Admin'}</p>
+              </div>
               <button
-                onClick={() => setShowCreateForm(!showCreateForm)}
-                className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                onClick={handleLogout}
+                className="inline-flex items-center px-4 py-2 border border-red-500 rounded-lg text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 shadow-sm transition-all"
               >
                 <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
-                {showCreateForm ? 'Cancel' : 'Create New User'}
+                Logout
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Action Buttons */}
+        <div className="mb-8">
+          <div className="flex flex-wrap gap-3 justify-end">
+            <Link
+              to="/admin"
+              className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary shadow-sm"
+            >
+              <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              Back to Dashboard
+            </Link>
+            <button
+              onClick={() => setShowCreateForm(!showCreateForm)}
+              className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary shadow-sm"
+            >
+              <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+              {showCreateForm ? 'Cancel' : 'Create New User'}
+            </button>
           </div>
         </div>
 

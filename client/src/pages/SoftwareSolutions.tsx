@@ -5,255 +5,321 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
-import { ShoppingCart, Download, Check } from 'lucide-react';
+import { GraduationCap, ShoppingBag, Briefcase, Heart, Calendar, Monitor } from 'lucide-react';
 
-interface SoftwareProduct {
+interface WebsitePlatform {
   id: string;
   name: string;
   description: string;
   features: string[];
-  price: string;
-  category: 'security' | 'iot' | 'enterprise';
+  technologies: string[];
+  icon: any;
+  demoUrl?: string;
+  category: string;
 }
 
-const softwareProducts: SoftwareProduct[] = [
+const websitePlatforms: WebsitePlatform[] = [
   {
-    id: 'firewall-pro',
-    name: 'IRONHEX Firewall Pro',
-    description: 'Advanced next-generation firewall solution with AI-powered threat detection',
+    id: 'elearning-platform',
+    name: 'E-Learning Platform',
+    description: 'Complete learning management system with course creation, student management, and interactive content',
     features: [
-      'Real-time threat intelligence',
-      'DPI (Deep Packet Inspection)',
-      'VPN support',
-      'Centralized management dashboard',
-      '24/7 Technical support'
+      'Course creation and management',
+      'Video streaming and live classes',
+      'Student progress tracking',
+      'Quizzes and assignments',
+      'Certificates and badges',
+      'Payment integration',
+      'Discussion forums',
+      'Mobile responsive design'
     ],
-    price: 'Contact for pricing',
-    category: 'security'
+    technologies: ['React', 'Node.js', 'MongoDB', 'WebRTC'],
+    icon: GraduationCap,
+    category: 'Education'
   },
   {
-    id: 'iot-platform',
-    name: 'IRONHEX IoT Platform',
-    description: 'Complete IoT device management and monitoring platform',
+    id: 'ecommerce-platform',
+    name: 'E-Commerce Platform',
+    description: 'Full-featured online store with product management, shopping cart, and secure payment processing',
     features: [
-      'Device provisioning and management',
-      'Real-time monitoring',
-      'Data analytics and visualization',
-      'Remote firmware updates',
-      'API integration'
+      'Product catalog management',
+      'Shopping cart and checkout',
+      'Multiple payment gateways',
+      'Order tracking and management',
+      'Customer reviews and ratings',
+      'Inventory management',
+      'Sales analytics and reports',
+      'SEO optimized'
     ],
-    price: 'Starting at $299/month',
-    category: 'iot'
+    technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
+    icon: ShoppingBag,
+    category: 'E-Commerce'
   },
   {
-    id: 'security-suite',
-    name: 'Enterprise Security Suite',
-    description: 'Comprehensive security solution for enterprise environments',
+    id: 'business-management',
+    name: 'Business Management System',
+    description: 'Comprehensive ERP solution for managing operations, inventory, HR, and finances',
     features: [
-      'Endpoint protection',
-      'Email security',
-      'Data loss prevention',
-      'SIEM integration',
-      'Compliance reporting'
+      'Customer relationship management (CRM)',
+      'Inventory and supply chain management',
+      'HR and payroll management',
+      'Financial accounting',
+      'Project management tools',
+      'Real-time reporting and analytics',
+      'Multi-user access control',
+      'Document management'
     ],
-    price: 'Contact for pricing',
-    category: 'security'
+    technologies: ['React', 'Python', 'MySQL', 'Redis'],
+    icon: Briefcase,
+    category: 'Business'
   },
   {
-    id: 'vulnerability-scanner',
-    name: 'Vulnerability Scanner Pro',
-    description: 'Automated vulnerability assessment and management tool',
+    id: 'healthcare-portal',
+    name: 'Healthcare Management Portal',
+    description: 'Patient management system with appointment scheduling, medical records, and telemedicine',
     features: [
-      'Automated scanning',
-      'Risk prioritization',
-      'Remediation guidance',
-      'Compliance templates',
-      'Custom reporting'
+      'Patient registration and profiles',
+      'Appointment scheduling',
+      'Electronic medical records (EMR)',
+      'Prescription management',
+      'Telemedicine video consultations',
+      'Billing and insurance claims',
+      'Lab results management',
+      'HIPAA compliant'
     ],
-    price: '$199/month',
-    category: 'security'
+    technologies: ['React', 'Node.js', 'MongoDB', 'WebRTC'],
+    icon: Heart,
+    category: 'Healthcare'
+  },
+  {
+    id: 'event-booking',
+    name: 'Event & Booking Platform',
+    description: 'Event management and booking system with ticketing, scheduling, and attendee management',
+    features: [
+      'Event creation and publishing',
+      'Online ticket sales',
+      'Seat selection and allocation',
+      'QR code ticket validation',
+      'Email notifications',
+      'Attendee check-in system',
+      'Revenue tracking',
+      'Calendar integration'
+    ],
+    technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
+    icon: Calendar,
+    category: 'Events'
+  },
+  {
+    id: 'portfolio-showcase',
+    name: 'Portfolio & Showcase Platform',
+    description: 'Professional portfolio website builder for agencies, freelancers, and creatives',
+    features: [
+      'Drag-and-drop page builder',
+      'Portfolio gallery with filters',
+      'Client testimonials section',
+      'Contact form integration',
+      'Blog with CMS',
+      'SEO optimization tools',
+      'Analytics dashboard',
+      'Custom domain support'
+    ],
+    technologies: ['React', 'Next.js', 'Tailwind CSS', 'Headless CMS'],
+    icon: Monitor,
+    category: 'Portfolio'
   }
 ];
 
-const getCategoryColor = (category: string) => {
-  switch (category) {
-    case 'security':
-      return 'bg-red-100 text-red-800';
-    case 'iot':
-      return 'bg-blue-100 text-blue-800';
-    case 'enterprise':
-      return 'bg-purple-100 text-purple-800';
-    default:
-      return 'bg-gray-100 text-gray-800';
-  }
-};
-
-interface PurchaseFormData {
-  companyName: string;
-  contactName: string;
+interface DemoFormData {
+  fullName: string;
   email: string;
   phone: string;
+  companyName: string;
+  message: string;
 }
 
 export default function SoftwareSolutions() {
-  const [selectedProduct, setSelectedProduct] = useState<SoftwareProduct | null>(null);
+  const [selectedPlatform, setSelectedPlatform] = useState<WebsitePlatform | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [formData, setFormData] = useState<PurchaseFormData>({
-    companyName: '',
-    contactName: '',
+  const [formData, setFormData] = useState<DemoFormData>({
+    fullName: '',
     email: '',
-    phone: ''
+    phone: '',
+    companyName: '',
+    message: ''
   });
   const { toast } = useToast();
 
-  const handlePurchaseClick = (product: SoftwareProduct) => {
-    setSelectedProduct(product);
+  const handleDemoRequest = (platform: WebsitePlatform) => {
+    setSelectedPlatform(platform);
     setIsDialogOpen(true);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
 
-  const handleSubmitPurchase = async (e: React.FormEvent) => {
+  const handleSubmitDemo = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Here you would typically send the purchase request to your backend
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      toast({
-        title: "Purchase Request Submitted!",
-        description: `Thank you for your interest in ${selectedProduct?.name}. Our sales team will contact you shortly.`,
+      const response = await fetch('/api/demo-requests', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          platform_id: selectedPlatform?.id,
+          platform_name: selectedPlatform?.name,
+          platform_category: selectedPlatform?.category,
+          full_name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          company_name: formData.companyName || null,
+          message: formData.message || null
+        })
       });
-      
-      // Reset form and close dialog
-      setFormData({ companyName: '', contactName: '', email: '', phone: '' });
-      setIsDialogOpen(false);
-      setSelectedProduct(null);
+
+      if (response.ok) {
+        toast({
+          title: "Demo Request Submitted!",
+          description: `Thank you for your interest in ${selectedPlatform?.name}. Our team will contact you within 24 hours to schedule a demo.`,
+        });
+        
+        // Reset form and close dialog
+        setFormData({ fullName: '', email: '', phone: '', companyName: '', message: '' });
+        setIsDialogOpen(false);
+        setSelectedPlatform(null);
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to submit demo request');
+      }
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to submit purchase request. Please try again.",
+        description: error instanceof Error ? error.message : "Failed to submit demo request. Please try again.",
         variant: "destructive"
       });
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-24 pb-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-24 pb-12 transition-colors">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Software Solutions
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+            Ready-Made Website Solutions
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Ready-to-deploy software solutions designed to enhance your security posture and IoT infrastructure
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Professional, fully-functional website platforms ready to deploy. Request a live demo to see them in action.
           </p>
         </div>
 
-        {/* Products Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
-          {softwareProducts.map((product) => (
-            <Card key={product.id} className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="flex justify-between items-start mb-2">
-                  <CardTitle className="text-2xl">{product.name}</CardTitle>
-                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getCategoryColor(product.category)}`}>
-                    {product.category.toUpperCase()}
-                  </span>
-                </div>
-                <CardDescription className="text-base">
-                  {product.description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {/* Features List */}
-                <div className="mb-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">Key Features:</h4>
-                  <ul className="space-y-2">
-                    {product.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-700">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+        {/* Platform Cards */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {websitePlatforms.map((platform) => {
+            const Icon = platform.icon;
+            return (
+              <Card key={platform.id} className="hover:shadow-xl transition-all hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="bg-primary bg-opacity-10 dark:bg-opacity-20 p-3 rounded-lg">
+                      <Icon className="h-8 w-8 text-primary" />
+                    </div>
+                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300">
+                      {platform.category}
+                    </span>
+                  </div>
+                  <CardTitle className="text-2xl dark:text-white">{platform.name}</CardTitle>
+                  <CardDescription className="text-base mt-2 dark:text-gray-300">
+                    {platform.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {/* Features List */}
+                  <div className="mb-6">
+                    <h4 className="font-semibold text-gray-900 dark:text-white mb-3 text-sm uppercase tracking-wide">Key Features:</h4>
+                    <ul className="space-y-2">
+                      {platform.features.slice(0, 5).map((feature, index) => (
+                        <li key={index} className="flex items-start gap-2 text-sm">
+                          <svg className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                        </li>
+                      ))}
+                      {platform.features.length > 5 && (
+                        <li className="text-sm text-gray-500 dark:text-gray-400 italic pl-7">
+                          +{platform.features.length - 5} more features
+                        </li>
+                      )}
+                    </ul>
+                  </div>
 
-                {/* Pricing */}
-                <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-                  <p className="text-sm text-gray-600 mb-1">Pricing</p>
-                  <p className="text-2xl font-bold text-primary">{product.price}</p>
-                </div>
+                  {/* Technologies */}
+                  <div className="mb-6">
+                    <h4 className="font-semibold text-gray-900 dark:text-white mb-2 text-xs uppercase tracking-wide">Technologies:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {platform.technologies.map((tech, index) => (
+                        <span key={index} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-xs font-medium">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
 
-                {/* Actions */}
-                <div className="flex gap-3">
-                  <Button className="flex-1" onClick={() => handlePurchaseClick(product)}>
-                    <ShoppingCart className="h-4 w-4 mr-2" />
-                    Purchase
+                  {/* Demo Button */}
+                  <Button className="w-full" onClick={() => handleDemoRequest(platform)}>
+                    <Monitor className="h-4 w-4 mr-2" />
+                    Request Live Demo
                   </Button>
-                  <Button variant="outline">
-                    <Download className="h-4 w-4 mr-2" />
-                    Demo
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
-        {/* Contact Section */}
-        <div className="mt-16 bg-primary text-white rounded-lg p-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">Need a Custom Solution?</h2>
-          <p className="text-lg mb-6 text-white/90">
-            Our team can develop tailored software solutions to meet your specific requirements
+        {/* Custom Solution CTA */}
+        <div className="mt-16 bg-gradient-to-r from-primary to-blue-600 dark:from-primary/90 dark:to-blue-700 text-white rounded-xl p-8 text-center shadow-xl">
+          <h2 className="text-3xl font-bold mb-4">Need a Custom Website Solution?</h2>
+          <p className="text-lg mb-6 text-white/90 max-w-2xl mx-auto">
+            Our team can develop a tailored website platform specifically designed for your unique business requirements
           </p>
-          <Button variant="secondary" size="lg">
-            Contact Our Sales Team
+          <Button variant="secondary" size="lg" className="shadow-lg">
+            Contact Us for Custom Development
           </Button>
         </div>
 
-        {/* Purchase Dialog */}
+        {/* Demo Request Dialog */}
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent className="sm:max-w-[500px]">
+          <DialogContent className="sm:max-w-[550px] dark:bg-gray-800 dark:border-gray-700">
             <DialogHeader>
-              <DialogTitle>Purchase {selectedProduct?.name}</DialogTitle>
-              <DialogDescription>
-                Fill in your details and our sales team will contact you to complete the purchase.
+              <DialogTitle className="flex items-center gap-2 dark:text-white">
+                <Monitor className="h-5 w-5 text-primary" />
+                Request Demo - {selectedPlatform?.name}
+              </DialogTitle>
+              <DialogDescription className="dark:text-gray-300">
+                Fill in your details and we'll schedule a personalized demo session to showcase the platform's capabilities.
               </DialogDescription>
             </DialogHeader>
-            <form onSubmit={handleSubmitPurchase}>
+            <form onSubmit={handleSubmitDemo}>
               <div className="grid gap-4 py-4">
                 <div className="grid gap-2">
-                  <Label htmlFor="companyName">Company Name *</Label>
+                  <Label htmlFor="fullName">Full Name *</Label>
                   <Input
-                    id="companyName"
-                    name="companyName"
-                    value={formData.companyName}
-                    onChange={handleInputChange}
-                    placeholder="Your company name"
-                    required
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="contactName">Contact Name *</Label>
-                  <Input
-                    id="contactName"
-                    name="contactName"
-                    value={formData.contactName}
+                    id="fullName"
+                    name="fullName"
+                    value={formData.fullName}
                     onChange={handleInputChange}
                     placeholder="Your full name"
                     required
                   />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="email">Email *</Label>
+                  <Label htmlFor="email">Email Address *</Label>
                   <Input
                     id="email"
                     name="email"
@@ -276,17 +342,41 @@ export default function SoftwareSolutions() {
                     required
                   />
                 </div>
-                <div className="bg-gray-50 p-4 rounded-lg mt-2">
-                  <p className="text-sm text-gray-600 mb-1">Selected Product:</p>
-                  <p className="font-semibold text-gray-900">{selectedProduct?.name}</p>
-                  <p className="text-primary font-bold mt-1">{selectedProduct?.price}</p>
+                <div className="grid gap-2">
+                  <Label htmlFor="companyName">Company Name (Optional)</Label>
+                  <Input
+                    id="companyName"
+                    name="companyName"
+                    value={formData.companyName}
+                    onChange={handleInputChange}
+                    placeholder="Your company name"
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="message">Additional Information (Optional)</Label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="Tell us about your requirements or specific features you're interested in..."
+                    className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  />
+                </div>
+                <div className="bg-blue-50 p-4 rounded-lg mt-2 border border-blue-200">
+                  <p className="text-sm text-blue-900 font-medium mb-1">Selected Platform:</p>
+                  <p className="font-bold text-blue-900">{selectedPlatform?.name}</p>
+                  <p className="text-xs text-blue-700 mt-1">{selectedPlatform?.category}</p>
                 </div>
               </div>
               <DialogFooter>
                 <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
                   Cancel
                 </Button>
-                <Button type="submit">Submit Request</Button>
+                <Button type="submit" className="bg-primary">
+                  <Monitor className="h-4 w-4 mr-2" />
+                  Submit Demo Request
+                </Button>
               </DialogFooter>
             </form>
           </DialogContent>

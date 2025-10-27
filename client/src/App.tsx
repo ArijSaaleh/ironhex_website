@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import PrivacyMessages from "./pages/PrivacyMessages";
 import Services from "./pages/Services";
@@ -8,20 +8,30 @@ import Cybersecurity from "./pages/Cybersecurity";
 import IoT from "./pages/IoT";
 import Admin from "./pages/Admin";
 import UserManagement from "./pages/UserManagement";
+import DemoRequests from "./pages/DemoRequests";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 import ProtectedRoute from "./components/ProtectedRoute";
 import SoftwareSolutions from "./pages/SoftwareSolutions";
 import FAQ from "./pages/FAQ";
 import TunisianRegulations from "./pages/TunisianRegulations";
 import { Toaster } from "./components/ui/toaster";
+import { ThemeProvider } from "./contexts/ThemeContext";
+import { LanguageProvider } from "./contexts/LanguageContext";
 
-export default function App() {
+function AppContent() {
+  const location = useLocation();
+  
+  // Hide Navbar and Footer on admin pages
+  const isAdminPage = location.pathname.startsWith('/admin') || 
+                      location.pathname === '/privatemessages';
+  
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+      {!isAdminPage && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -34,11 +44,7 @@ export default function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
 
         <Route path="/admin/messages" element={<Admin />} />
-        <Route path="/admin/users" element={<Admin />} />
-        <Route
-          path="/services/software"
-          element={<SoftwareSolutions />}
-        />
+        <Route path="/services/software" element={<SoftwareSolutions />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/regulations" element={<TunisianRegulations />} />
         <Route
@@ -49,9 +55,28 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/admin/demo-requests"
+          element={
+            <ProtectedRoute>
+              <DemoRequests />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
-      <Footer />
+      {!isAdminPage && <Footer />}
+      {!isAdminPage && <ScrollToTop />}
       <Toaster />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <ThemeProvider>
+        <AppContent />
+      </ThemeProvider>
+    </LanguageProvider>
   );
 }

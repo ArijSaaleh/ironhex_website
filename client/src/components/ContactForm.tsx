@@ -1,4 +1,5 @@
 import { useState, FormEvent, ChangeEvent } from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
 
 interface FormData {
   name: string;
@@ -12,6 +13,7 @@ type Status = 'sending' | 'sent' | 'error' | null;
 export default function ContactForm() {
   const [form, setForm] = useState<FormData>({ name: '', email: '', subject: '', message: '' })
   const [status, setStatus] = useState<Status>(null)
+  const { t } = useLanguage()
 
   function handleChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -45,7 +47,7 @@ export default function ContactForm() {
         <input 
           name="name"
           type="text"
-          placeholder="Your name"
+          placeholder={t('contact.name')}
           value={form.name}
           onChange={handleChange}
           required
@@ -57,7 +59,7 @@ export default function ContactForm() {
         <input 
           name="email"
           type="email"
-          placeholder="Your email"
+          placeholder={t('contact.email')}
           value={form.email}
           onChange={handleChange}
           required
@@ -69,7 +71,7 @@ export default function ContactForm() {
         <input 
           name="subject"
           type="text"
-          placeholder="Subject"
+          placeholder={t('contact.subject')}
           value={form.subject}
           onChange={handleChange}
           className={inputClasses}
@@ -79,7 +81,7 @@ export default function ContactForm() {
       <div>
         <textarea 
           name="message"
-          placeholder="Message"
+          placeholder={t('contact.message')}
           value={form.message}
           onChange={handleChange}
           required
@@ -94,7 +96,7 @@ export default function ContactForm() {
           disabled={status === 'sending'}
           className="px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {status === 'sending' ? 'Sending...' : 'Send Message'}
+          {status === 'sending' ? t('contact.sending') : t('contact.send')}
         </button>
       </div>
 

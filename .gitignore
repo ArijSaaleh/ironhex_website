@@ -1,23 +1,59 @@
-# Node / Vite
+# Dependencies
+node_modules/
 client/node_modules/
-client/dist/
-*/node_modules/
-*/vite.config.js
-# Python
 server/.venv/
-*/.env
 server/__pycache__/
-server/*.pyc
+
+# Build outputs
+client/dist/
+client/build/
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.development
+server/.env
+client/.env
+
+# Database
 server/messages.db
+server/*.db
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
 # OS files
 .DS_Store
 Thumbs.db
+*.log
 
-# IDE
-.vscode/
+# Temporary files
+*.tmp
+*.temp
+.cache/
 
-node_modules
-.env
+# Documentation (optional - remove if you want to track these)
+COMPLETE_FEATURE_IMPLEMENTATION.md
+FIXES_AND_FEATURES.md
+PROJECT_SUMMARY.md
+SETUP.md
 
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
 server/reset_db.py
