@@ -86,7 +86,7 @@ export default function Footer(){
                 </Link>
               </li>
               <li className="text-gray-300 text-sm font-medium">{t('footer.ourServices')}
-                <ul className="space-y-2 pl-4 mt-2">
+                {/**<ul className="space-y-2 pl-4 mt-2">
                   <li>
                     <Link to="/services/cybersecurity" onClick={scrollToTop} className="text-gray-400 hover:text-white transition-colors text-sm">
                       {t('nav.cybersecurity')}
@@ -102,7 +102,7 @@ export default function Footer(){
                       {t('nav.software')}
                     </Link>
                   </li>
-                </ul>
+                </ul>*/}
               </li>
               <li>
                 <Link to="/regulations" onClick={scrollToTop} className="text-gray-300 hover:text-white transition-colors text-sm">

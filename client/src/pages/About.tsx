@@ -45,7 +45,7 @@ export default function About(){
           <div className="mt-6 grid md:grid-cols-2 gap-8">
             <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow border border-gray-200 dark:border-gray-600 text-left">
               <div className="w-40 h-40 rounded-full overflow-hidden mx-auto mb-4 border-4 border-green-200 dark:border-primary/40">
-                <img src="https://media.easy-peasy.ai/4b1cd954-9633-4c43-858e-11c91db2961e/8016318f-4607-40d4-9378-c6bffb94b001.png" alt="CISO Image" className="w-full h-full object-cover" />
+                <img src="imen.png" alt="CISO Image" className="w-full h-full object-cover" />
               </div>
               <h3 className="text-xl font-semibold text-center text-gray-900 dark:text-white">{t('about.founder1.name')}</h3>
               <p className="text-center text-sm text-primary font-semibold">{t('about.founder1.role')}</p>
