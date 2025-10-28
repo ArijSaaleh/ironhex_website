@@ -106,11 +106,10 @@ const translations: Record<Language, Record<string, string>> = {
     
     // About Page
     'about.title': 'About IRONHEX',
-    'about.subtitle': 'Securing Tomorrow, Today',
+    'about.subtitle': 'Safeguarding What Matters, Today and Beyond',
     'about.intro': 'Founded on expertise, driven by innovation, and committed to a secure digital future.',
     'about.story.title': 'Our Story: Born from Vision and Expertise',
     'about.story.p1': 'IRONHEX was founded in Tunisia in 2025 by two visionary female engineers, each bringing a unique and powerful skillset to the burgeoning fields of cybersecurity and the Internet of Things (IoT). Their shared passion for innovation and an unwavering commitment to digital security laid the groundwork for a company designed to protect and empower businesses in an increasingly connected world.',
-    'about.story.p2': 'Recognizing the critical intersection of robust security and seamless IoT integration, they set out to create solutions that not only safeguard digital assets but also unlock new possibilities through intelligent, connected technologies.',
     'about.mission.title': 'Our Mission',
     'about.mission.desc': 'To provide cutting-edge cybersecurity and intelligent IoT solutions that empower businesses to thrive securely in a complex digital landscape, fostering innovation while ensuring data integrity and privacy.',
     'about.vision.title': 'Our Vision',
@@ -355,7 +354,6 @@ const translations: Record<Language, Record<string, string>> = {
     'about.intro': 'Fondé sur l\'expertise, porté par l\'innovation et engagé pour un avenir numérique sécurisé.',
     'about.story.title': 'Notre Histoire: Née de la Vision et de l\'Expertise',
     'about.story.p1': 'IRONHEX a été fondée en Tunisie en 2025 par deux ingénieures visionnaires, chacune apportant un ensemble de compétences unique et puissant aux domaines émergents de la cybersécurité et de l\'Internet des Objets (IoT). Leur passion commune pour l\'innovation et leur engagement indéfectible envers la sécurité numérique ont jeté les bases d\'une entreprise conçue pour protéger et autonomiser les entreprises dans un monde de plus en plus connecté.',
-    'about.story.p2': 'Reconnaissant l\'intersection critique entre une sécurité robuste et une intégration IoT transparente, elles se sont lancées dans la création de solutions qui non seulement protègent les actifs numériques mais débloquent également de nouvelles possibilités grâce à des technologies intelligentes et connectées.',
     'about.mission.title': 'Notre Mission',
     'about.mission.desc': 'Fournir des solutions de cybersécurité de pointe et des solutions IoT intelligentes qui permettent aux entreprises de prospérer en toute sécurité dans un paysage numérique complexe, favorisant l\'innovation tout en garantissant l\'intégrité et la confidentialité des données.',
     'about.vision.title': 'Notre Vision',
@@ -600,7 +598,6 @@ const translations: Record<Language, Record<string, string>> = {
     'about.intro': 'تأسست على الخبرة، مدفوعة بالابتكار، وملتزمة بمستقبل رقمي آمن.',
     'about.story.title': 'قصتنا: وُلدت من الرؤية والخبرة',
     'about.story.p1': 'تأسست IRONHEX في تونس عام 2025 على يد مهندستين صاحبتي رؤية، كل منهما تجلب مجموعة مهارات فريدة وقوية إلى المجالات الناشئة للأمن السيبراني وإنترنت الأشياء (IoT). شغفهما المشترك بالابتكار والتزامهما الثابت بالأمن الرقمي وضع الأساس لشركة مصممة لحماية وتمكين الشركات في عالم متصل بشكل متزايد.',
-    'about.story.p2': 'إدراكًا للتقاطع الحاسم بين الأمن القوي والتكامل السلس لإنترنت الأشياء، شرعوا في إنشاء حلول لا تحمي الأصول الرقمية فحسب، بل تفتح أيضًا إمكانيات جديدة من خلال التقنيات الذكية والمتصلة.',
     'about.mission.title': 'مهمتنا',
     'about.mission.desc': 'تقديم حلول أمن سيبراني متطورة وحلول إنترنت الأشياء الذكية التي تمكن الشركات من الازدهار بأمان في مشهد رقمي معقد، وتعزيز الابتكار مع ضمان سلامة البيانات والخصوصية.',
     'about.vision.title': 'رؤيتنا',
