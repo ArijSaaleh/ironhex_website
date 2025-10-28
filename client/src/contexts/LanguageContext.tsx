@@ -35,9 +35,9 @@ const translations: Record<Language, Record<string, string>> = {
     'footer.rights': 'All rights reserved.',
     
     // Home
-    'home.hero.title': 'Unbreakable Security for an Interconnected World',
+    'home.hero.title': 'Strong Security for an Interconnected World',
     'home.hero.description': 'Protecting your business with advanced cybersecurity and intelligent IOT solutions',
-    'home.hero.cta': 'Get a Free Security Assessment',
+    'home.hero.cta': 'Contact Us',
     'home.services.title': 'Our Core Services',
     'home.services.cyber.title': 'Cybersecurity Services',
     'home.services.cyber.desc': 'Proactive defense against evolving digital threats',
