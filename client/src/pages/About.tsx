@@ -1,11 +1,18 @@
 import React from 'react'
 import { useLanguage } from '../contexts/LanguageContext'
+import SEO from '../components/SEO'
 
 export default function About(){
   const { t } = useLanguage()
   
   return (
-    <div className="mt-20">
+    <>
+      <SEO
+        title={t('about.title')}
+        description={t('about.intro')}
+        keywords="IronHex, cybersecurity company, Tunisia, about us, mission, vision, founders"
+      />
+      <div className="mt-20">
       <section className="py-16 bg-gray-50 dark:bg-gray-800 transition-colors">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h1 className="text-green text-3xl font-bold dark:text-primary">{t('about.title')}</h1>
@@ -71,5 +78,6 @@ export default function About(){
         </div>
       </section>
     </div>
+    </>
   )
 }

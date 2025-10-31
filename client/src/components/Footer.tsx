@@ -13,9 +13,9 @@ export default function Footer(){
   return (
     <footer id="contact-us-footer" className="bg-gray-900 text-white mt-12">
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid md:grid-cols-2 lg:grid-cols-12 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Company Info */}
-          <div className="lg:col-span-3 space-y-4">
+          <div className="space-y-4">
             <Link to="/" className="block">
               <img src="/logo_icon.png" alt="IRONHEX Logo" className="h-24 w-auto object-contain" />
             </Link>
@@ -24,10 +24,23 @@ export default function Footer(){
             </p>
           </div>
 
-          {/* Contact Info & Map */}
-          <div className="lg:col-span-3 space-y-4">
+          {/* Contact Info & Enhanced Map */}
+          <div className="space-y-4">
             <h3 className="text-lg font-semibold text-white">{t('footer.getInTouch')}</h3>
             
+            {/* Email */}
+            <div className="flex items-start space-x-3">
+              <svg className="w-5 h-5 text-primary mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <div>
+                <p className="text-gray-300 font-medium text-sm">{t('footer.email')}</p>
+                <a href="mailto:contact@ironhex-tech.com" className="text-gray-400 hover:text-primary transition-colors text-sm">
+                  contact@ironhex-tech.com
+                </a>
+              </div>
+            </div>
+
             {/* Phone */}
             <div className="flex items-start space-x-3">
               <svg className="w-5 h-5 text-primary mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -35,7 +48,7 @@ export default function Footer(){
               </svg>
               <div>
                 <p className="text-gray-300 font-medium text-sm">{t('footer.phone')}</p>
-                <a href="tel:+21670123456" className="text-gray-400 hover:text-white transition-colors text-sm">
+                <a href="tel:+21670123456" className="text-gray-400 hover:text-primary transition-colors text-sm">
                   +216 70 123 456
                 </a>
               </div>
@@ -56,12 +69,12 @@ export default function Footer(){
               </div>
             </div>
 
-            {/* Map */}
-            <div className="mt-4 rounded-lg overflow-hidden border border-gray-700">
+            {/* Enhanced Map - Larger */}
+            <div className="mt-4 rounded-lg overflow-hidden border-2 border-gray-700 shadow-xl hover:border-primary transition-colors">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25689.89843729843!2d10.188088!3d36.74516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12fd34e10b1c6c0f%3A0x8b8e1e8e1e8e1e8e!2sMegrine%2C%20Tunisia!5e0!3m2!1sen!2sus!4v1635000000000!5m2!1sen!2sus"
                 width="100%"
-                height="180"
+                height="250"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
@@ -71,64 +84,54 @@ export default function Footer(){
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="lg:col-span-2 space-y-4">
-            <h3 className="text-lg font-semibold text-white">{t('footer.quickLinks')}</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link to="/" onClick={scrollToTop} className="text-gray-300 hover:text-white transition-colors text-sm">
-                  {t('nav.home')}
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" onClick={scrollToTop} className="text-gray-300 hover:text-white transition-colors text-sm">
-                  {t('nav.about')}
-                </Link>
-              </li>
-              <li className="text-gray-300 text-sm font-medium">{t('footer.ourServices')}
-                {/**<ul className="space-y-2 pl-4 mt-2">
-                  <li>
-                    <Link to="/services/cybersecurity" onClick={scrollToTop} className="text-gray-400 hover:text-white transition-colors text-sm">
-                      {t('nav.cybersecurity')}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/services/iot" onClick={scrollToTop} className="text-gray-400 hover:text-white transition-colors text-sm">
-                      {t('nav.iot')}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/services/software" onClick={scrollToTop} className="text-gray-400 hover:text-white transition-colors text-sm">
-                      {t('nav.software')}
-                    </Link>
-                  </li>
-                </ul>*/}
-              </li>
-              <li>
-                <Link to="/regulations" onClick={scrollToTop} className="text-gray-300 hover:text-white transition-colors text-sm">
-                  {t('nav.regulations')}
-                </Link>
-              </li>
-              <li>
-                <Link to="/faq" onClick={scrollToTop} className="text-gray-300 hover:text-white transition-colors text-sm">
-                  {t('nav.faq')}
-                </Link>
-              </li>
-            </ul>
-          </div>
-
           {/* Contact Form */}
-          <div className="lg:col-span-4 space-y-4">
+          <div className="space-y-4">
             <h3 className="text-lg font-semibold text-white">{t('footer.contactUs')}</h3>
             <ContactForm />
           </div>
         </div>
       </div>
-      
-      {/* Copyright */}
+
+      {/* Bottom Links & Copyright */}
       <div className="border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-6 py-6">
-          <p className="text-center text-gray-400">
+        <div className="max-w-7xl mx-auto px-6 py-6 space-y-4">
+          {/* Legal Links */}
+          <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-sm">
+            <Link 
+              to="/regulations" 
+              onClick={scrollToTop}
+              className="text-gray-400 hover:text-primary transition-colors"
+            >
+              {t('nav.regulations')}
+            </Link>
+            <span className="text-gray-600">•</span>
+            <Link 
+              to="/faq" 
+              onClick={scrollToTop}
+              className="text-gray-400 hover:text-primary transition-colors"
+            >
+              {t('nav.faq')}
+            </Link>
+            <span className="text-gray-600">•</span>
+            <Link 
+              to="/terms" 
+              onClick={scrollToTop}
+              className="text-gray-400 hover:text-primary transition-colors"
+            >
+              {t('nav.terms')}
+            </Link>
+            <span className="text-gray-600">•</span>
+            <Link 
+              to="/privacy" 
+              onClick={scrollToTop}
+              className="text-gray-400 hover:text-primary transition-colors"
+            >
+              {t('nav.privacy')}
+            </Link>
+          </div>
+          
+          {/* Copyright */}
+          <p className="text-center text-gray-400 text-sm">
             &copy; {new Date().getFullYear()} {t('footer.company')}. {t('footer.rights')}
           </p>
         </div>

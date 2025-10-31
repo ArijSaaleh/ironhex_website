@@ -42,7 +42,7 @@ SMTP_PORT = int(os.getenv('SMTP_PORT', '587'))
 SMTP_USER = os.getenv('SMTP_USER')
 SMTP_PASS = os.getenv('SMTP_PASS')
 EMAIL_TO = os.getenv('EMAIL_TO')
-
+SUPPORT_EMAIL = "support@ironhex-tech.com"
 
 def send_email_notification(name: str, email: str, subject: str, message: str):
     if not (SMTP_HOST and SMTP_USER and SMTP_PASS and EMAIL_TO):

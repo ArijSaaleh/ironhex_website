@@ -1,12 +1,20 @@
 import { Link } from 'react-router-dom'
 import Typewriter from '../components/Typewriter'
 import { useLanguage } from '../contexts/LanguageContext'
+import SEO from '../components/SEO'
 
 export default function Home(){
   const { t } = useLanguage()
   
   return (
-    <main className="pt-16">
+    <>
+      <SEO 
+        title={t('home.hero.title')}
+        description={t('home.hero.description')}
+        keywords="cybersecurity, IoT, security services, Tunisia, IRONHEX"
+        url="/"
+      />
+      <main className="pt-16">
       <section className="relative overflow-hidden min-h-[60vh] flex items-center bg-gray-900 dark:bg-gray-950">
         <div className="absolute inset-0 bg-[url('/hero.png')] bg-center bg-cover filter blur-sm brightness-50 dark:brightness-40"></div>
         <div className="relative z-10 max-w-3xl mx-auto px-6">
@@ -102,5 +110,6 @@ export default function Home(){
         </div>
       </section>
     </main>
+    </>
   )
 }

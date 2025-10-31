@@ -1,12 +1,19 @@
 import React from 'react'
 import Typewriter from '../components/Typewriter'
 import { useLanguage } from '../contexts/LanguageContext'
+import SEO from '../components/SEO'
 
 export default function IoT(){
   const { t } = useLanguage()
   
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
+    <>
+      <SEO
+        title={t('iot.hero.title')}
+        description={t('iot.hero.desc')}
+        keywords="IoT security, Internet of Things, smart devices security, Tunisia, IronHex IoT"
+      />
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
       {/* Hero Section */}
       <section className="relative overflow-hidden min-h-[60vh] flex items-center bg-gray-900 dark:bg-gray-950">
         <div className="absolute inset-0">
@@ -106,6 +113,7 @@ export default function IoT(){
         </div>
       </section>
     </div>
+    </>
   )
 }
 

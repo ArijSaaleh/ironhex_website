@@ -1,12 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext'
+import SEO from '../components/SEO'
 
 export default function Services(){
   const { t } = useLanguage()
   
   return (
-    <section className="py-16 bg-white dark:bg-gray-900 transition-colors min-h-screen">
+    <>
+      <SEO
+        title={t('services.title')}
+        description={t('services.subtitle')}
+        keywords="cybersecurity services, IoT security, software development, Tunisia, IronHex services"
+      />
+      <section className="py-16 bg-white dark:bg-gray-900 transition-colors min-h-screen">
       <div className="max-w-5xl mx-auto px-6 text-center">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white">{t('services.title')}</h2>
         <p className="mt-4 text-lg text-gray-700 dark:text-gray-300">{t('services.subtitle')}</p>
@@ -28,5 +35,6 @@ export default function Services(){
         </div>
       </div>
     </section>
+    </>
   )
 }

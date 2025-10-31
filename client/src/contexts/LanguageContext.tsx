@@ -20,6 +20,8 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.contact': 'Contact',
     'nav.faq': 'FAQ',
     'nav.regulations': 'Tunisian Regulations',
+    'nav.terms': 'Terms of Service',
+    'nav.privacy': 'Privacy Policy',
     
     // Footer
     'footer.company': 'IRONHEX',
@@ -27,6 +29,7 @@ const translations: Record<Language, Record<string, string>> = {
     'footer.quickLinks': 'Quick Links',
     'footer.ourServices': 'Our Services',
     'footer.getInTouch': 'Get in Touch',
+    'footer.email': 'Email',
     'footer.phone': 'Phone',
     'footer.address': 'Address',
     'footer.location': 'Megrine, Ben Arous',
@@ -106,7 +109,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // About Page
     'about.title': 'About IRONHEX',
-    'about.subtitle': 'Safeguarding What Matters, Today and Beyond',
+    'about.subtitle': 'Secure Today, Save Tomorrow',
     'about.intro': 'Founded on expertise, driven by innovation, and committed to a secure digital future.',
     'about.story.title': 'Our Story: Born from Vision and Expertise',
     'about.story.p1': 'IRONHEX was founded in Tunisia in 2025 by two visionary female engineers, each bringing a unique and powerful skillset to the burgeoning fields of cybersecurity and the Internet of Things (IoT). Their shared passion for innovation and an unwavering commitment to digital security laid the groundwork for a company designed to protect and empower businesses in an increasingly connected world.',
@@ -252,6 +255,147 @@ const translations: Record<Language, Record<string, string>> = {
     'reg.cta.title': 'Need Help with Compliance?',
     'reg.cta.desc': 'Contact our experts to ensure your organization meets all regulatory requirements',
     'reg.cta.button': 'Get Started',
+
+    // Terms of Service
+    'terms.title': 'Terms of Service',
+    'terms.lastUpdated': 'Last Updated: October 31, 2025',
+    'terms.intro': 'Welcome to IRONHEX. By accessing or using our services, you agree to be bound by these Terms of Service. Please read them carefully.',
+    
+    'terms.acceptance.title': '1. Acceptance of Terms',
+    'terms.acceptance.content': 'By accessing and using IRONHEX services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these terms, please do not use our services.',
+    
+    'terms.services.title': '2. Description of Services',
+    'terms.services.content': 'IRONHEX provides cybersecurity solutions, IoT integration services, and software development services to businesses and organizations. Our services include but are not limited to security assessments, penetration testing, security monitoring, IoT device management, and custom software development.',
+    
+    'terms.responsibilities.title': '3. User Responsibilities',
+    'terms.responsibilities.intro': 'When using our services, you agree to:',
+    'terms.responsibilities.1': 'Provide accurate and complete information',
+    'terms.responsibilities.2': 'Maintain the confidentiality of your account credentials',
+    'terms.responsibilities.3': 'Use our services only for lawful purposes',
+    'terms.responsibilities.4': 'Not interfere with or disrupt our services',
+    'terms.responsibilities.5': 'Not attempt unauthorized access to our systems',
+    'terms.responsibilities.6': 'Comply with all applicable laws and regulations',
+    'terms.responsibilities.7': 'Notify us immediately of any security breaches',
+    
+    'terms.ip.title': '4. Intellectual Property',
+    'terms.ip.content': 'All content, features, and functionality of IRONHEX services, including but not limited to text, graphics, logos, software, and documentation, are the exclusive property of IRONHEX and are protected by international copyright, trademark, and other intellectual property laws.',
+    
+    'terms.availability.title': '5. Service Availability',
+    'terms.availability.content': 'While we strive to provide reliable services, we do not guarantee that our services will be uninterrupted, timely, secure, or error-free. We reserve the right to modify, suspend, or discontinue any part of our services at any time without notice.',
+    
+    'terms.confidentiality.title': '6. Confidentiality',
+    'terms.confidentiality.intro': 'We take the confidentiality of your information seriously and commit to:',
+    'terms.confidentiality.1': 'Protecting your confidential information with industry-standard security measures',
+    'terms.confidentiality.2': 'Not disclosing your information to third parties without your consent',
+    'terms.confidentiality.3': 'Using your information only for providing and improving our services',
+    'terms.confidentiality.4': 'Maintaining appropriate technical and organizational security measures',
+    
+    'terms.liability.title': '7. Limitation of Liability',
+    'terms.liability.content': 'To the maximum extent permitted by law, IRONHEX shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses resulting from your use of our services.',
+    
+    'terms.indemnification.title': '8. Indemnification',
+    'terms.indemnification.intro': 'You agree to indemnify, defend, and hold harmless IRONHEX and its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses arising out of or in any way connected with:',
+    'terms.indemnification.1': 'Your access to or use of our services',
+    'terms.indemnification.2': 'Your violation of these Terms of Service',
+    'terms.indemnification.3': 'Your violation of any third-party rights',
+    'terms.indemnification.4': 'Any unauthorized use of our services',
+    
+    'terms.governing.title': '9. Governing Law',
+    'terms.governing.content': 'These Terms of Service shall be governed by and construed in accordance with the laws of Tunisia. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of the courts of Tunisia.',
+    
+    'terms.payment.title': '10. Payment Terms',
+    'terms.payment.content': 'Payment terms for our services will be specified in individual service agreements. All fees are non-refundable unless otherwise stated in writing. Late payments may result in service suspension.',
+    
+    'terms.termination.title': '11. Termination',
+    'terms.termination.content': 'We reserve the right to terminate or suspend your access to our services at any time, without prior notice, for conduct that we believe violates these Terms of Service or is harmful to other users, us, or third parties, or for any other reason.',
+    
+    'terms.changes.title': '12. Changes to Terms',
+    'terms.changes.content': 'We reserve the right to modify these Terms of Service at any time. We will notify users of any material changes by posting the new terms on our website. Your continued use of our services after such changes constitutes acceptance of the new terms.',
+    
+    'terms.contact.title': '13. Contact Information',
+    'terms.contact.content': 'If you have any questions about these Terms of Service, please contact us at:',
+    'terms.contact.email': 'Email: contact@ironhex-tech.com',
+    'terms.contact.phone': 'Phone: +216 70 123 456',
+    'terms.contact.address': 'Address: Megrine, Tunisia',
+
+    // Privacy Policy
+    'privacy.title': 'Privacy Policy',
+    'privacy.lastUpdated': 'Last Updated: October 31, 2025',
+    'privacy.intro': 'At IRONHEX, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information.',
+    
+    'privacy.collection.title': '1. Information We Collect',
+    'privacy.collection.personal.title': 'Personal Information',
+    'privacy.collection.personal.content': 'We collect information that you provide directly to us, including name, email address, phone number, company name, job title, and any other information you choose to provide when contacting us or using our services.',
+    'privacy.collection.automatic.title': 'Automatically Collected Information',
+    'privacy.collection.automatic.content': 'When you visit our website, we automatically collect certain information about your device, including IP address, browser type, operating system, referring URLs, and pages visited.',
+    'privacy.collection.technical.title': 'Technical Information',
+    'privacy.collection.technical.content': 'During service provision, we may collect technical information necessary to provide cybersecurity and IoT services, including network configurations, device information, and security logs.',
+    
+    'privacy.usage.title': '2. How We Use Your Information',
+    'privacy.usage.intro': 'We use the information we collect to:',
+    'privacy.usage.1': 'Provide, maintain, and improve our services',
+    'privacy.usage.2': 'Respond to your inquiries and provide customer support',
+    'privacy.usage.3': 'Send you technical notices and security alerts',
+    'privacy.usage.4': 'Communicate about products, services, and events',
+    'privacy.usage.5': 'Analyze usage patterns and improve user experience',
+    'privacy.usage.6': 'Detect, prevent, and address security issues',
+    'privacy.usage.7': 'Comply with legal obligations',
+    
+    'privacy.sharing.title': '3. Information Sharing',
+    'privacy.sharing.intro': 'We do not sell your personal information. We may share your information only in the following circumstances:',
+    'privacy.sharing.1': 'With your explicit consent',
+    'privacy.sharing.2': 'With service providers who assist in our operations',
+    'privacy.sharing.3': 'To comply with legal obligations',
+    'privacy.sharing.4': 'To protect our rights and safety',
+    'privacy.sharing.5': 'In connection with a business transfer or acquisition',
+    
+    'privacy.security.title': '4. Data Security',
+    'privacy.security.intro': 'We implement appropriate technical and organizational measures to protect your information:',
+    'privacy.security.1': 'Encryption of data in transit and at rest',
+    'privacy.security.2': 'Regular security assessments and audits',
+    'privacy.security.3': 'Access controls and authentication mechanisms',
+    'privacy.security.4': 'Employee training on data protection',
+    'privacy.security.5': 'Incident response procedures',
+    'privacy.security.6': 'Regular backups and disaster recovery plans',
+    
+    'privacy.retention.title': '5. Data Retention',
+    'privacy.retention.content': 'We retain your personal information for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law. When we no longer need your information, we securely delete or anonymize it.',
+    
+    'privacy.rights.title': '6. Your Rights',
+    'privacy.rights.intro': 'You have the following rights regarding your personal information:',
+    'privacy.rights.1': 'Access: Request access to your personal information',
+    'privacy.rights.2': 'Correction: Request correction of inaccurate information',
+    'privacy.rights.3': 'Deletion: Request deletion of your information',
+    'privacy.rights.4': 'Portability: Request a copy of your data in a portable format',
+    'privacy.rights.5': 'Restriction: Request restriction of processing',
+    'privacy.rights.6': 'Objection: Object to processing of your information',
+    'privacy.rights.7': 'Withdraw Consent: Withdraw consent at any time',
+    'privacy.rights.8': 'Opt-Out: Opt-out of marketing communications',
+    
+    'privacy.cookies.title': '7. Cookies and Tracking',
+    'privacy.cookies.content': 'We use cookies and similar tracking technologies to collect information about your browsing activities. You can control cookies through your browser settings. Note that disabling cookies may affect the functionality of our website.',
+    
+    'privacy.thirdparty.title': '8. Third-Party Links',
+    'privacy.thirdparty.content': 'Our website may contain links to third-party websites. We are not responsible for the privacy practices of these websites. We encourage you to read their privacy policies.',
+    
+    'privacy.children.title': '9. Children\'s Privacy',
+    'privacy.children.content': 'Our services are not directed to individuals under the age of 18. We do not knowingly collect personal information from children. If we learn that we have collected information from a child, we will delete it promptly.',
+    
+    'privacy.international.title': '10. International Data Transfers',
+    'privacy.international.content': 'Your information may be transferred to and processed in countries other than your country of residence. We ensure appropriate safeguards are in place to protect your information in accordance with this Privacy Policy.',
+    
+    'privacy.gdpr.title': '11. GDPR Compliance',
+    'privacy.gdpr.content': 'For users in the European Economic Area (EEA), we comply with the General Data Protection Regulation (GDPR). We process your personal data based on legal grounds including consent, contract performance, legal obligations, and legitimate interests.',
+    
+    'privacy.changes.title': '12. Changes to Privacy Policy',
+    'privacy.changes.content': 'We may update this Privacy Policy from time to time. We will notify you of any material changes by posting the new policy on our website and updating the "Last Updated" date. Your continued use of our services after changes constitutes acceptance of the updated policy.',
+    
+    'privacy.contact.title': '13. Contact Us',
+    'privacy.contact.content': 'If you have any questions about this Privacy Policy or our privacy practices, please contact us at:',
+    'privacy.contact.dpo': 'Data Protection Officer',
+    'privacy.contact.email': 'Email: contact@ironhex-tech.com',
+    'privacy.contact.phone': 'Phone: +216 70 123 456',
+    'privacy.contact.address': 'Address: Megrine, Tunisia',
   },
   fr: {
     // Navbar
@@ -264,6 +408,8 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.contact': 'Contact',
     'nav.faq': 'FAQ',
     'nav.regulations': 'Réglementations Tunisiennes',
+    'nav.terms': 'Conditions d\'Utilisation',
+    'nav.privacy': 'Politique de Confidentialité',
     
     // Footer
     'footer.company': 'IRONHEX',
@@ -271,6 +417,7 @@ const translations: Record<Language, Record<string, string>> = {
     'footer.quickLinks': 'Liens Rapides',
     'footer.ourServices': 'Nos Services',
     'footer.getInTouch': 'Contactez-nous',
+    'footer.email': 'Email',
     'footer.phone': 'Téléphone',
     'footer.address': 'Adresse',
     'footer.location': 'Mégrine, Ben Arous',
@@ -496,6 +643,147 @@ const translations: Record<Language, Record<string, string>> = {
     'reg.cta.title': 'Besoin d\'Aide pour la Conformité?',
     'reg.cta.desc': 'Contactez nos experts pour vous assurer que votre organisation respecte toutes les exigences réglementaires',
     'reg.cta.button': 'Commencer',
+
+    // Terms of Service
+    'terms.title': 'Conditions d\'Utilisation',
+    'terms.lastUpdated': 'Dernière mise à jour : 31 octobre 2025',
+    'terms.intro': 'Bienvenue chez IRONHEX. En accédant ou en utilisant nos services, vous acceptez d\'être lié par ces Conditions d\'Utilisation. Veuillez les lire attentivement.',
+    
+    'terms.acceptance.title': '1. Acceptation des Conditions',
+    'terms.acceptance.content': 'En accédant et en utilisant les services IRONHEX, vous reconnaissez avoir lu, compris et accepté d\'être lié par ces Conditions d\'Utilisation et notre Politique de Confidentialité. Si vous n\'acceptez pas ces conditions, veuillez ne pas utiliser nos services.',
+    
+    'terms.services.title': '2. Description des Services',
+    'terms.services.content': 'IRONHEX fournit des solutions de cybersécurité, des services d\'intégration IoT et des services de développement logiciel aux entreprises et organisations. Nos services incluent, mais ne sont pas limités aux évaluations de sécurité, tests d\'intrusion, surveillance de la sécurité, gestion des appareils IoT et développement de logiciels personnalisés.',
+    
+    'terms.responsibilities.title': '3. Responsabilités de l\'Utilisateur',
+    'terms.responsibilities.intro': 'En utilisant nos services, vous acceptez de :',
+    'terms.responsibilities.1': 'Fournir des informations exactes et complètes',
+    'terms.responsibilities.2': 'Maintenir la confidentialité de vos identifiants de compte',
+    'terms.responsibilities.3': 'Utiliser nos services uniquement à des fins légales',
+    'terms.responsibilities.4': 'Ne pas interférer avec ou perturber nos services',
+    'terms.responsibilities.5': 'Ne pas tenter d\'accès non autorisé à nos systèmes',
+    'terms.responsibilities.6': 'Se conformer à toutes les lois et réglementations applicables',
+    'terms.responsibilities.7': 'Nous informer immédiatement de toute faille de sécurité',
+    
+    'terms.ip.title': '4. Propriété Intellectuelle',
+    'terms.ip.content': 'Tout le contenu, les fonctionnalités et les fonctionnalités des services IRONHEX, y compris mais sans s\'y limiter le texte, les graphiques, les logos, les logiciels et la documentation, sont la propriété exclusive d\'IRONHEX et sont protégés par les lois internationales sur le droit d\'auteur, les marques et autres droits de propriété intellectuelle.',
+    
+    'terms.availability.title': '5. Disponibilité du Service',
+    'terms.availability.content': 'Bien que nous nous efforcions de fournir des services fiables, nous ne garantissons pas que nos services seront ininterrompus, ponctuels, sécurisés ou sans erreur. Nous nous réservons le droit de modifier, suspendre ou interrompre toute partie de nos services à tout moment sans préavis.',
+    
+    'terms.confidentiality.title': '6. Confidentialité',
+    'terms.confidentiality.intro': 'Nous prenons au sérieux la confidentialité de vos informations et nous nous engageons à :',
+    'terms.confidentiality.1': 'Protéger vos informations confidentielles avec des mesures de sécurité conformes aux normes de l\'industrie',
+    'terms.confidentiality.2': 'Ne pas divulguer vos informations à des tiers sans votre consentement',
+    'terms.confidentiality.3': 'Utiliser vos informations uniquement pour fournir et améliorer nos services',
+    'terms.confidentiality.4': 'Maintenir des mesures de sécurité techniques et organisationnelles appropriées',
+    
+    'terms.liability.title': '7. Limitation de Responsabilité',
+    'terms.liability.content': 'Dans toute la mesure permise par la loi, IRONHEX ne sera pas responsable des dommages indirects, accessoires, spéciaux, consécutifs ou punitifs, ou de toute perte de profits ou de revenus, qu\'ils soient encourus directement ou indirectement, ou de toute perte de données, d\'utilisation, de clientèle ou d\'autres pertes intangibles résultant de votre utilisation de nos services.',
+    
+    'terms.indemnification.title': '8. Indemnisation',
+    'terms.indemnification.intro': 'Vous acceptez d\'indemniser, de défendre et de dégager de toute responsabilité IRONHEX et ses dirigeants, administrateurs, employés et agents contre toutes réclamations, responsabilités, dommages, pertes et dépenses découlant de ou de quelque manière que ce soit liés à :',
+    'terms.indemnification.1': 'Votre accès ou utilisation de nos services',
+    'terms.indemnification.2': 'Votre violation de ces Conditions d\'Utilisation',
+    'terms.indemnification.3': 'Votre violation de droits de tiers',
+    'terms.indemnification.4': 'Toute utilisation non autorisée de nos services',
+    
+    'terms.governing.title': '9. Loi Applicable',
+    'terms.governing.content': 'Ces Conditions d\'Utilisation sont régies et interprétées conformément aux lois de la Tunisie. Tout litige découlant de ces conditions sera soumis à la juridiction exclusive des tribunaux de Tunisie.',
+    
+    'terms.payment.title': '10. Conditions de Paiement',
+    'terms.payment.content': 'Les conditions de paiement de nos services seront spécifiées dans les accords de service individuels. Tous les frais sont non remboursables sauf indication contraire par écrit. Les retards de paiement peuvent entraîner une suspension du service.',
+    
+    'terms.termination.title': '11. Résiliation',
+    'terms.termination.content': 'Nous nous réservons le droit de résilier ou de suspendre votre accès à nos services à tout moment, sans préavis, pour une conduite que nous estimons violer ces Conditions d\'Utilisation ou nuire à d\'autres utilisateurs, à nous ou à des tiers, ou pour toute autre raison.',
+    
+    'terms.changes.title': '12. Modifications des Conditions',
+    'terms.changes.content': 'Nous nous réservons le droit de modifier ces Conditions d\'Utilisation à tout moment. Nous informerons les utilisateurs de tout changement important en publiant les nouvelles conditions sur notre site Web. Votre utilisation continue de nos services après de tels changements constitue l\'acceptation des nouvelles conditions.',
+    
+    'terms.contact.title': '13. Informations de Contact',
+    'terms.contact.content': 'Si vous avez des questions concernant ces Conditions d\'Utilisation, veuillez nous contacter à :',
+    'terms.contact.email': 'Email : contact@ironhex-tech.com',
+    'terms.contact.phone': 'Téléphone : +216 70 123 456',
+    'terms.contact.address': 'Adresse : Mégrine, Tunisie',
+
+    // Privacy Policy
+    'privacy.title': 'Politique de Confidentialité',
+    'privacy.lastUpdated': 'Dernière mise à jour : 31 octobre 2025',
+    'privacy.intro': 'Chez IRONHEX, nous nous engageons à protéger votre vie privée et à assurer la sécurité de vos informations personnelles. Cette Politique de Confidentialité explique comment nous collectons, utilisons, divulguons et protégeons vos informations.',
+    
+    'privacy.collection.title': '1. Informations que Nous Collectons',
+    'privacy.collection.personal.title': 'Informations Personnelles',
+    'privacy.collection.personal.content': 'Nous collectons les informations que vous nous fournissez directement, notamment le nom, l\'adresse e-mail, le numéro de téléphone, le nom de l\'entreprise, le titre du poste et toute autre information que vous choisissez de fournir lorsque vous nous contactez ou utilisez nos services.',
+    'privacy.collection.automatic.title': 'Informations Collectées Automatiquement',
+    'privacy.collection.automatic.content': 'Lorsque vous visitez notre site Web, nous collectons automatiquement certaines informations sur votre appareil, notamment l\'adresse IP, le type de navigateur, le système d\'exploitation, les URL de référence et les pages visitées.',
+    'privacy.collection.technical.title': 'Informations Techniques',
+    'privacy.collection.technical.content': 'Lors de la prestation de services, nous pouvons collecter des informations techniques nécessaires pour fournir des services de cybersécurité et d\'IoT, notamment les configurations réseau, les informations sur les appareils et les journaux de sécurité.',
+    
+    'privacy.usage.title': '2. Comment Nous Utilisons Vos Informations',
+    'privacy.usage.intro': 'Nous utilisons les informations que nous collectons pour :',
+    'privacy.usage.1': 'Fournir, maintenir et améliorer nos services',
+    'privacy.usage.2': 'Répondre à vos demandes et fournir un support client',
+    'privacy.usage.3': 'Vous envoyer des avis techniques et des alertes de sécurité',
+    'privacy.usage.4': 'Communiquer sur les produits, services et événements',
+    'privacy.usage.5': 'Analyser les modèles d\'utilisation et améliorer l\'expérience utilisateur',
+    'privacy.usage.6': 'Détecter, prévenir et résoudre les problèmes de sécurité',
+    'privacy.usage.7': 'Se conformer aux obligations légales',
+    
+    'privacy.sharing.title': '3. Partage d\'Informations',
+    'privacy.sharing.intro': 'Nous ne vendons pas vos informations personnelles. Nous pouvons partager vos informations uniquement dans les circonstances suivantes :',
+    'privacy.sharing.1': 'Avec votre consentement explicite',
+    'privacy.sharing.2': 'Avec des prestataires de services qui nous aident dans nos opérations',
+    'privacy.sharing.3': 'Pour se conformer aux obligations légales',
+    'privacy.sharing.4': 'Pour protéger nos droits et notre sécurité',
+    'privacy.sharing.5': 'Dans le cadre d\'un transfert ou d\'une acquisition d\'entreprise',
+    
+    'privacy.security.title': '4. Sécurité des Données',
+    'privacy.security.intro': 'Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos informations :',
+    'privacy.security.1': 'Chiffrement des données en transit et au repos',
+    'privacy.security.2': 'Évaluations et audits de sécurité réguliers',
+    'privacy.security.3': 'Contrôles d\'accès et mécanismes d\'authentification',
+    'privacy.security.4': 'Formation des employés à la protection des données',
+    'privacy.security.5': 'Procédures de réponse aux incidents',
+    'privacy.security.6': 'Sauvegardes régulières et plans de reprise après sinistre',
+    
+    'privacy.retention.title': '5. Conservation des Données',
+    'privacy.retention.content': 'Nous conservons vos informations personnelles aussi longtemps que nécessaire pour remplir les objectifs décrits dans cette Politique de Confidentialité, sauf si une période de conservation plus longue est requise ou permise par la loi. Lorsque nous n\'avons plus besoin de vos informations, nous les supprimons ou les anonymisons en toute sécurité.',
+    
+    'privacy.rights.title': '6. Vos Droits',
+    'privacy.rights.intro': 'Vous disposez des droits suivants concernant vos informations personnelles :',
+    'privacy.rights.1': 'Accès : Demander l\'accès à vos informations personnelles',
+    'privacy.rights.2': 'Correction : Demander la correction d\'informations inexactes',
+    'privacy.rights.3': 'Suppression : Demander la suppression de vos informations',
+    'privacy.rights.4': 'Portabilité : Demander une copie de vos données dans un format portable',
+    'privacy.rights.5': 'Restriction : Demander la restriction du traitement',
+    'privacy.rights.6': 'Objection : Vous opposer au traitement de vos informations',
+    'privacy.rights.7': 'Retrait du Consentement : Retirer votre consentement à tout moment',
+    'privacy.rights.8': 'Désinscription : Vous désinscrire des communications marketing',
+    
+    'privacy.cookies.title': '7. Cookies et Suivi',
+    'privacy.cookies.content': 'Nous utilisons des cookies et des technologies de suivi similaires pour collecter des informations sur vos activités de navigation. Vous pouvez contrôler les cookies via les paramètres de votre navigateur. Notez que la désactivation des cookies peut affecter la fonctionnalité de notre site Web.',
+    
+    'privacy.thirdparty.title': '8. Liens Tiers',
+    'privacy.thirdparty.content': 'Notre site Web peut contenir des liens vers des sites Web tiers. Nous ne sommes pas responsables des pratiques de confidentialité de ces sites Web. Nous vous encourageons à lire leurs politiques de confidentialité.',
+    
+    'privacy.children.title': '9. Confidentialité des Enfants',
+    'privacy.children.content': 'Nos services ne s\'adressent pas aux personnes de moins de 18 ans. Nous ne collectons pas sciemment d\'informations personnelles auprès d\'enfants. Si nous apprenons que nous avons collecté des informations auprès d\'un enfant, nous les supprimerons rapidement.',
+    
+    'privacy.international.title': '10. Transferts Internationaux de Données',
+    'privacy.international.content': 'Vos informations peuvent être transférées et traitées dans des pays autres que votre pays de résidence. Nous veillons à ce que des garanties appropriées soient en place pour protéger vos informations conformément à cette Politique de Confidentialité.',
+    
+    'privacy.gdpr.title': '11. Conformité au RGPD',
+    'privacy.gdpr.content': 'Pour les utilisateurs de l\'Espace Économique Européen (EEE), nous nous conformons au Règlement Général sur la Protection des Données (RGPD). Nous traitons vos données personnelles sur la base de motifs juridiques incluant le consentement, l\'exécution du contrat, les obligations légales et les intérêts légitimes.',
+    
+    'privacy.changes.title': '12. Modifications de la Politique de Confidentialité',
+    'privacy.changes.content': 'Nous pouvons mettre à jour cette Politique de Confidentialité de temps à autre. Nous vous informerons de tout changement important en publiant la nouvelle politique sur notre site Web et en mettant à jour la date de "Dernière mise à jour". Votre utilisation continue de nos services après les modifications constitue l\'acceptation de la politique mise à jour.',
+    
+    'privacy.contact.title': '13. Nous Contacter',
+    'privacy.contact.content': 'Si vous avez des questions concernant cette Politique de Confidentialité ou nos pratiques en matière de confidentialité, veuillez nous contacter à :',
+    'privacy.contact.dpo': 'Délégué à la Protection des Données',
+    'privacy.contact.email': 'Email : contact@ironhex-tech.com',
+    'privacy.contact.phone': 'Téléphone : +216 70 123 456',
+    'privacy.contact.address': 'Adresse : Mégrine, Tunisie',
   },
   ar: {
     // Navbar
@@ -508,6 +796,8 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.contact': 'اتصل بنا',
     'nav.faq': 'الأسئلة الشائعة',
     'nav.regulations': 'اللوائح التونسية',
+    'nav.terms': 'شروط الخدمة',
+    'nav.privacy': 'سياسة الخصوصية',
     
     // Footer
     'footer.company': 'IRONHEX',
@@ -515,6 +805,7 @@ const translations: Record<Language, Record<string, string>> = {
     'footer.quickLinks': 'روابط سريعة',
     'footer.ourServices': 'خدماتنا',
     'footer.getInTouch': 'تواصل معنا',
+    'footer.email': 'البريد الإلكتروني',
     'footer.phone': 'الهاتف',
     'footer.address': 'العنوان',
     'footer.location': 'المقرن، بن عروس',
@@ -740,6 +1031,147 @@ const translations: Record<Language, Record<string, string>> = {
     'reg.cta.title': 'تحتاج مساعدة في الامتثال؟',
     'reg.cta.desc': 'اتصل بخبرائنا لضمان امتثال مؤسستك لجميع المتطلبات التنظيمية',
     'reg.cta.button': 'ابدأ الآن',
+
+    // Terms of Service
+    'terms.title': 'شروط الخدمة',
+    'terms.lastUpdated': 'آخر تحديث: 31 أكتوبر 2025',
+    'terms.intro': 'مرحباً بك في IRONHEX. من خلال الوصول إلى خدماتنا أو استخدامها، فإنك توافق على الالتزام بشروط الخدمة هذه. يرجى قراءتها بعناية.',
+    
+    'terms.acceptance.title': '1. قبول الشروط',
+    'terms.acceptance.content': 'من خلال الوصول إلى خدمات IRONHEX واستخدامها، فإنك تقر بأنك قد قرأت وفهمت ووافقت على الالتزام بشروط الخدمة هذه وسياسة الخصوصية الخاصة بنا. إذا كنت لا توافق على هذه الشروط، يرجى عدم استخدام خدماتنا.',
+    
+    'terms.services.title': '2. وصف الخدمات',
+    'terms.services.content': 'تقدم IRONHEX حلول الأمن السيبراني، وخدمات تكامل إنترنت الأشياء، وخدمات تطوير البرمجيات للشركات والمؤسسات. تشمل خدماتنا على سبيل المثال لا الحصر تقييمات الأمن، واختبار الاختراق، ومراقبة الأمن، وإدارة أجهزة إنترنت الأشياء، وتطوير البرمجيات المخصصة.',
+    
+    'terms.responsibilities.title': '3. مسؤوليات المستخدم',
+    'terms.responsibilities.intro': 'عند استخدام خدماتنا، فإنك توافق على:',
+    'terms.responsibilities.1': 'تقديم معلومات دقيقة وكاملة',
+    'terms.responsibilities.2': 'الحفاظ على سرية بيانات اعتماد حسابك',
+    'terms.responsibilities.3': 'استخدام خدماتنا فقط للأغراض القانونية',
+    'terms.responsibilities.4': 'عدم التدخل في خدماتنا أو تعطيلها',
+    'terms.responsibilities.5': 'عدم محاولة الوصول غير المصرح به إلى أنظمتنا',
+    'terms.responsibilities.6': 'الامتثال لجميع القوانين واللوائح المعمول بها',
+    'terms.responsibilities.7': 'إخطارنا فوراً بأي خروقات أمنية',
+    
+    'terms.ip.title': '4. الملكية الفكرية',
+    'terms.ip.content': 'جميع المحتويات والميزات والوظائف الخاصة بخدمات IRONHEX، بما في ذلك على سبيل المثال لا الحصر النصوص والرسومات والشعارات والبرامج والوثائق، هي ملكية حصرية لـ IRONHEX ومحمية بموجب قوانين حقوق النشر والعلامات التجارية وغيرها من قوانين الملكية الفكرية الدولية.',
+    
+    'terms.availability.title': '5. توفر الخدمة',
+    'terms.availability.content': 'بينما نسعى جاهدين لتقديم خدمات موثوقة، فإننا لا نضمن أن خدماتنا ستكون متواصلة أو في الوقت المناسب أو آمنة أو خالية من الأخطاء. نحتفظ بالحق في تعديل أو تعليق أو إيقاف أي جزء من خدماتنا في أي وقت دون إشعار.',
+    
+    'terms.confidentiality.title': '6. السرية',
+    'terms.confidentiality.intro': 'نحن نأخذ سرية معلوماتك على محمل الجد ونلتزم بـ:',
+    'terms.confidentiality.1': 'حماية معلوماتك السرية بتدابير أمنية متوافقة مع معايير الصناعة',
+    'terms.confidentiality.2': 'عدم الكشف عن معلوماتك لأطراف ثالثة دون موافقتك',
+    'terms.confidentiality.3': 'استخدام معلوماتك فقط لتقديم خدماتنا وتحسينها',
+    'terms.confidentiality.4': 'الحفاظ على تدابير أمنية تقنية وتنظيمية مناسبة',
+    
+    'terms.liability.title': '7. حدود المسؤولية',
+    'terms.liability.content': 'إلى أقصى حد يسمح به القانون، لن تكون IRONHEX مسؤولة عن أي أضرار غير مباشرة أو عرضية أو خاصة أو تبعية أو عقابية، أو أي خسارة في الأرباح أو الإيرادات، سواء تم تكبدها بشكل مباشر أو غير مباشر، أو أي خسارة للبيانات أو الاستخدام أو السمعة أو غيرها من الخسائر غير الملموسة الناتجة عن استخدامك لخدماتنا.',
+    
+    'terms.indemnification.title': '8. التعويض',
+    'terms.indemnification.intro': 'أنت توافق على تعويض والدفاع عن IRONHEX ومسؤوليها ومديريها وموظفيها ووكلائها وحمايتهم من أي مطالبات ومسؤوليات وأضرار وخسائر ونفقات ناشئة عن أو متصلة بأي شكل من الأشكال بـ:',
+    'terms.indemnification.1': 'وصولك إلى خدماتنا أو استخدامها',
+    'terms.indemnification.2': 'انتهاكك لشروط الخدمة هذه',
+    'terms.indemnification.3': 'انتهاكك لحقوق أي طرف ثالث',
+    'terms.indemnification.4': 'أي استخدام غير مصرح به لخدماتنا',
+    
+    'terms.governing.title': '9. القانون الحاكم',
+    'terms.governing.content': 'تخضع شروط الخدمة هذه وتفسر وفقاً لقوانين تونس. أي نزاعات ناشئة عن هذه الشروط تخضع للاختصاص الحصري لمحاكم تونس.',
+    
+    'terms.payment.title': '10. شروط الدفع',
+    'terms.payment.content': 'سيتم تحديد شروط الدفع لخدماتنا في اتفاقيات الخدمة الفردية. جميع الرسوم غير قابلة للاسترداد ما لم ينص على خلاف ذلك كتابياً. قد تؤدي التأخيرات في الدفع إلى تعليق الخدمة.',
+    
+    'terms.termination.title': '11. الإنهاء',
+    'terms.termination.content': 'نحتفظ بالحق في إنهاء أو تعليق وصولك إلى خدماتنا في أي وقت، دون إشعار مسبق، لسلوك نعتقد أنه يخالف شروط الخدمة هذه أو يضر بمستخدمين آخرين أو بنا أو بأطراف ثالثة، أو لأي سبب آخر.',
+    
+    'terms.changes.title': '12. التغييرات على الشروط',
+    'terms.changes.content': 'نحتفظ بالحق في تعديل شروط الخدمة هذه في أي وقت. سنخطر المستخدمين بأي تغييرات جوهرية من خلال نشر الشروط الجديدة على موقعنا الإلكتروني. استمرارك في استخدام خدماتنا بعد هذه التغييرات يشكل قبولاً للشروط الجديدة.',
+    
+    'terms.contact.title': '13. معلومات الاتصال',
+    'terms.contact.content': 'إذا كان لديك أي أسئلة حول شروط الخدمة هذه، يرجى الاتصال بنا على:',
+    'terms.contact.email': 'البريد الإلكتروني: contact@ironhex-tech.com',
+    'terms.contact.phone': 'الهاتف: 456 123 70 216+',
+    'terms.contact.address': 'العنوان: مقرين، تونس',
+
+    // Privacy Policy
+    'privacy.title': 'سياسة الخصوصية',
+    'privacy.lastUpdated': 'آخر تحديث: 31 أكتوبر 2025',
+    'privacy.intro': 'في IRONHEX، نحن ملتزمون بحماية خصوصيتك وضمان أمان معلوماتك الشخصية. توضح سياسة الخصوصية هذه كيفية جمع معلوماتك واستخدامها والكشف عنها وحمايتها.',
+    
+    'privacy.collection.title': '1. المعلومات التي نجمعها',
+    'privacy.collection.personal.title': 'المعلومات الشخصية',
+    'privacy.collection.personal.content': 'نجمع المعلومات التي تقدمها لنا مباشرة، بما في ذلك الاسم وعنوان البريد الإلكتروني ورقم الهاتف واسم الشركة والمسمى الوظيفي وأي معلومات أخرى تختار تقديمها عند الاتصال بنا أو استخدام خدماتنا.',
+    'privacy.collection.automatic.title': 'المعلومات المجمعة تلقائياً',
+    'privacy.collection.automatic.content': 'عند زيارة موقعنا الإلكتروني، نجمع تلقائياً معلومات معينة عن جهازك، بما في ذلك عنوان IP ونوع المتصفح ونظام التشغيل وعناوين URL المرجعية والصفحات التي تمت زيارتها.',
+    'privacy.collection.technical.title': 'المعلومات التقنية',
+    'privacy.collection.technical.content': 'أثناء تقديم الخدمة، قد نجمع معلومات تقنية ضرورية لتقديم خدمات الأمن السيبراني وإنترنت الأشياء، بما في ذلك تكوينات الشبكة ومعلومات الجهاز وسجلات الأمان.',
+    
+    'privacy.usage.title': '2. كيف نستخدم معلوماتك',
+    'privacy.usage.intro': 'نستخدم المعلومات التي نجمعها من أجل:',
+    'privacy.usage.1': 'توفير خدماتنا والحفاظ عليها وتحسينها',
+    'privacy.usage.2': 'الرد على استفساراتك وتقديم دعم العملاء',
+    'privacy.usage.3': 'إرسال إشعارات فنية وتنبيهات أمنية',
+    'privacy.usage.4': 'التواصل بشأن المنتجات والخدمات والفعاليات',
+    'privacy.usage.5': 'تحليل أنماط الاستخدام وتحسين تجربة المستخدم',
+    'privacy.usage.6': 'اكتشاف المشكلات الأمنية ومنعها ومعالجتها',
+    'privacy.usage.7': 'الامتثال للالتزامات القانونية',
+    
+    'privacy.sharing.title': '3. مشاركة المعلومات',
+    'privacy.sharing.intro': 'نحن لا نبيع معلوماتك الشخصية. قد نشارك معلوماتك فقط في الظروف التالية:',
+    'privacy.sharing.1': 'بموافقتك الصريحة',
+    'privacy.sharing.2': 'مع مقدمي الخدمات الذين يساعدوننا في عملياتنا',
+    'privacy.sharing.3': 'للامتثال للالتزامات القانونية',
+    'privacy.sharing.4': 'لحماية حقوقنا وسلامتنا',
+    'privacy.sharing.5': 'فيما يتعلق بنقل الأعمال أو الاستحواذ',
+    
+    'privacy.security.title': '4. أمن البيانات',
+    'privacy.security.intro': 'نطبق تدابير تقنية وتنظيمية مناسبة لحماية معلوماتك:',
+    'privacy.security.1': 'تشفير البيانات أثناء النقل وأثناء الراحة',
+    'privacy.security.2': 'تقييمات وعمليات تدقيق أمنية منتظمة',
+    'privacy.security.3': 'ضوابط الوصول وآليات المصادقة',
+    'privacy.security.4': 'تدريب الموظفين على حماية البيانات',
+    'privacy.security.5': 'إجراءات الاستجابة للحوادث',
+    'privacy.security.6': 'نسخ احتياطية منتظمة وخطط التعافي من الكوارث',
+    
+    'privacy.retention.title': '5. الاحتفاظ بالبيانات',
+    'privacy.retention.content': 'نحتفظ بمعلوماتك الشخصية طالما كان ذلك ضرورياً لتحقيق الأغراض الموضحة في سياسة الخصوصية هذه، ما لم يكن القانون يتطلب أو يسمح بفترة احتفاظ أطول. عندما لا نعود بحاجة إلى معلوماتك، نقوم بحذفها أو إخفاء هويتها بشكل آمن.',
+    
+    'privacy.rights.title': '6. حقوقك',
+    'privacy.rights.intro': 'لديك الحقوق التالية فيما يتعلق بمعلوماتك الشخصية:',
+    'privacy.rights.1': 'الوصول: طلب الوصول إلى معلوماتك الشخصية',
+    'privacy.rights.2': 'التصحيح: طلب تصحيح المعلومات غير الدقيقة',
+    'privacy.rights.3': 'الحذف: طلب حذف معلوماتك',
+    'privacy.rights.4': 'النقل: طلب نسخة من بياناتك بتنسيق قابل للنقل',
+    'privacy.rights.5': 'التقييد: طلب تقييد المعالجة',
+    'privacy.rights.6': 'الاعتراض: الاعتراض على معالجة معلوماتك',
+    'privacy.rights.7': 'سحب الموافقة: سحب موافقتك في أي وقت',
+    'privacy.rights.8': 'إلغاء الاشتراك: إلغاء الاشتراك في الاتصالات التسويقية',
+    
+    'privacy.cookies.title': '7. ملفات تعريف الارتباط والتتبع',
+    'privacy.cookies.content': 'نستخدم ملفات تعريف الارتباط وتقنيات التتبع المماثلة لجمع معلومات حول أنشطة التصفح الخاصة بك. يمكنك التحكم في ملفات تعريف الارتباط من خلال إعدادات المتصفح. لاحظ أن تعطيل ملفات تعريف الارتباط قد يؤثر على وظائف موقعنا الإلكتروني.',
+    
+    'privacy.thirdparty.title': '8. روابط الأطراف الثالثة',
+    'privacy.thirdparty.content': 'قد يحتوي موقعنا الإلكتروني على روابط لمواقع أطراف ثالثة. نحن لسنا مسؤولين عن ممارسات الخصوصية لهذه المواقع. نشجعك على قراءة سياسات الخصوصية الخاصة بهم.',
+    
+    'privacy.children.title': '9. خصوصية الأطفال',
+    'privacy.children.content': 'خدماتنا غير موجهة للأفراد الذين تقل أعمارهم عن 18 عاماً. نحن لا نجمع عن قصد معلومات شخصية من الأطفال. إذا علمنا أننا قد جمعنا معلومات من طفل، فسنحذفها على الفور.',
+    
+    'privacy.international.title': '10. النقل الدولي للبيانات',
+    'privacy.international.content': 'قد يتم نقل معلوماتك ومعالجتها في دول غير بلد إقامتك. نضمن وجود ضمانات مناسبة لحماية معلوماتك وفقاً لسياسة الخصوصية هذه.',
+    
+    'privacy.gdpr.title': '11. الامتثال للائحة حماية البيانات العامة',
+    'privacy.gdpr.content': 'بالنسبة للمستخدمين في المنطقة الاقتصادية الأوروبية (EEA)، نحن نلتزم باللائحة العامة لحماية البيانات (GDPR). نعالج بياناتك الشخصية بناءً على أسس قانونية تشمل الموافقة وتنفيذ العقد والالتزامات القانونية والمصالح المشروعة.',
+    
+    'privacy.changes.title': '12. التغييرات على سياسة الخصوصية',
+    'privacy.changes.content': 'قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر. سنخطرك بأي تغييرات جوهرية من خلال نشر السياسة الجديدة على موقعنا الإلكتروني وتحديث تاريخ "آخر تحديث". استمرارك في استخدام خدماتنا بعد التغييرات يشكل قبولاً للسياسة المحدثة.',
+    
+    'privacy.contact.title': '13. اتصل بنا',
+    'privacy.contact.content': 'إذا كان لديك أي أسئلة حول سياسة الخصوصية هذه أو ممارسات الخصوصية لدينا، يرجى الاتصال بنا على:',
+    'privacy.contact.dpo': 'مسؤول حماية البيانات',
+    'privacy.contact.email': 'البريد الإلكتروني: contact@ironhex-tech.com',
+    'privacy.contact.phone': 'الهاتف: 456 123 70 216+',
+    'privacy.contact.address': 'العنوان: مقرين، تونس',
   },
 };
 
