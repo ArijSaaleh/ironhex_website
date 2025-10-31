@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { GraduationCap, ShoppingBag, Briefcase, Heart, Calendar, Monitor } from 'lucide-react';
+import Typewriter from '../components/Typewriter';
 
 interface WebsitePlatform {
   id: string;
@@ -206,17 +207,25 @@ export default function SoftwareSolutions() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-24 pb-12 transition-colors">
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Ready-Made Website Solutions
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden min-h-[50vh] flex items-center bg-gray-900 dark:bg-gray-950">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80')] bg-center bg-cover"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-green-800/90 to-gray-900/20 dark:from-green-900/95 dark:to-black/40"></div>
+        </div>
+        <div className="relative z-10 max-w-4xl mx-auto px-6 py-20 text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+            <Typewriter text="Ready-Made Website Solutions" speed={90} />
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="mt-6 text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
             Professional, fully-functional website platforms ready to deploy. Request a live demo to see them in action.
           </p>
         </div>
+      </section>
+
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        {/* Header removed - now in hero */}
 
         {/* Platform Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
