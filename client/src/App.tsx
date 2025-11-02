@@ -43,7 +43,7 @@ function AppContent() {
   
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+      <div className="min-h-screen transition-colors">
         <ScrollProgress />
         {!isAdminPage && <Navbar />}
         <Suspense fallback={<LoadingSpinner />}>

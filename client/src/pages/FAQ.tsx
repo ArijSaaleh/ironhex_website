@@ -6,6 +6,7 @@ import {
 } from '@/components/ui/accordion';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLanguage } from '../contexts/LanguageContext';
+import CustomCursor from '../components/CustomCursor';
 
 interface FAQItem {
   questionKey: string;
@@ -33,7 +34,9 @@ export default function FAQ() {
   const categories = ['general', 'services', 'technical', 'billing'] as const;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-24 pb-12 transition-colors">
+    <>
+      <CustomCursor />
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-24 pb-12 transition-colors cursor-none">
       <div className="max-w-4xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-12">
@@ -51,21 +54,29 @@ export default function FAQ() {
             const categoryFaqs = faqKeys.filter((faq) => faq.category === category);
             
             return (
-              <Card key={category} className="dark:bg-gray-800 dark:border-gray-700 transition-colors">
-                <CardHeader>
-                  <CardTitle className="text-2xl dark:text-white">{t(`faq.cat.${category}`)}</CardTitle>
-                  <CardDescription className="dark:text-gray-400">
-                    {categoryFaqs.length} {categoryFaqs.length !== 1 ? t('faq.questions_plural') : t('faq.questions')}
-                  </CardDescription>
+              <Card key={category} className="group relative bg-white dark:bg-gray-800 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 dark:border-gray-700 hover:border-primary/30 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <CardHeader className="relative z-10">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-lg">
+                      <i className="fas fa-question text-white text-lg"></i>
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl font-bold dark:text-white">{t(`faq.cat.${category}`)}</CardTitle>
+                      <CardDescription className="dark:text-gray-400 text-sm">
+                        {categoryFaqs.length} {categoryFaqs.length !== 1 ? t('faq.questions_plural') : t('faq.questions')}
+                      </CardDescription>
+                    </div>
+                  </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="relative z-10">
                   <Accordion type="single" collapsible className="w-full">
                     {categoryFaqs.map((faq, index) => (
-                      <AccordionItem key={index} value={`${category}-${index}`}>
-                        <AccordionTrigger className="text-left dark:text-white dark:hover:text-gray-200">
+                      <AccordionItem key={index} value={`${category}-${index}`} className="border-gray-200 dark:border-gray-700">
+                        <AccordionTrigger className="text-left dark:text-white dark:hover:text-primary hover:text-primary transition-colors font-semibold py-4">
                           {t(faq.questionKey)}
                         </AccordionTrigger>
-                        <AccordionContent className="text-gray-700 dark:text-gray-300">
+                        <AccordionContent className="text-gray-700 dark:text-gray-300 leading-relaxed pb-4">
                           {t(faq.answerKey)}
                         </AccordionContent>
                       </AccordionItem>
@@ -92,5 +103,6 @@ export default function FAQ() {
         </div>
       </div>
     </div>
+    </>
   );
 }

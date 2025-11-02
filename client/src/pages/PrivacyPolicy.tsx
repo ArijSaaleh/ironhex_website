@@ -1,18 +1,20 @@
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import SEO from '../components/SEO';
+import CustomCursor from '../components/CustomCursor';
 
 export default function PrivacyPolicy() {
   const { t } = useLanguage();
 
   return (
     <>
+      <CustomCursor />
       <SEO
         title={`${t('privacy.title')} - IRONHEX`}
         description="IRONHEX privacy policy - How we collect, use, and protect your personal information"
         keywords="privacy policy, data protection, GDPR, personal information, IRONHEX"
       />
-      <div className="min-h-screen bg-white dark:bg-gray-900 pt-20">
+      <div className="min-h-screen bg-white dark:bg-gray-900 pt-20 cursor-none">
         {/* Header */}
         <section className="bg-gray-50 dark:bg-gray-800 py-16 transition-colors">
           <div className="max-w-4xl mx-auto px-6">

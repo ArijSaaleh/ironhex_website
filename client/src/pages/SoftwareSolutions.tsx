@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { GraduationCap, ShoppingBag, Briefcase, Heart, Calendar, Monitor } from 'lucide-react';
 import Typewriter from '../components/Typewriter';
+import CustomCursor from '../components/CustomCursor';
 
 interface WebsitePlatform {
   id: string;
@@ -207,43 +208,144 @@ export default function SoftwareSolutions() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden min-h-[50vh] flex items-center bg-gray-900 dark:bg-gray-950">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80')] bg-center bg-cover"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-green-800/90 to-gray-900/20 dark:from-green-900/95 dark:to-black/40"></div>
+    <>
+      <CustomCursor />
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors cursor-none">
+        {/* Hero Section - Modern Light Design */}
+      <section className="relative overflow-hidden min-h-[70vh] flex items-center bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 mt-20">
+        {/* Subtle Pattern Background */}
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'linear-gradient(to right, #10b981 1px, transparent 1px), linear-gradient(to bottom, #10b981 1px, transparent 1px)',
+            backgroundSize: '50px 50px'
+          }}></div>
         </div>
-        <div className="relative z-10 max-w-4xl mx-auto px-6 py-20 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
-            <Typewriter text="Ready-Made Website Solutions" speed={90} />
-          </h1>
-          <p className="mt-6 text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
-            Professional, fully-functional website platforms ready to deploy. Request a live demo to see them in action.
-          </p>
+
+        {/* Decorative Elements */}
+        <div className="absolute top-20 right-20 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left Content */}
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 border border-purple-500/20 rounded-full text-purple-600 text-sm font-semibold">
+              <i className="fas fa-code"></i>
+              <span>Ready-Made Solutions</span>
+            </div>
+
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white leading-tight">
+              <Typewriter text="Website Platforms" speed={90} />
+            </h1>
+            
+            <h2 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-600">
+              Built for Your Business
+            </h2>
+            
+            <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+              Professional, fully-functional website platforms ready to deploy. Request a live demo to see them in action.
+            </p>
+
+            <div className="flex flex-wrap gap-4 pt-4">
+              <a
+                href="#platforms"
+                className="group inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-emerald-600 text-white font-bold hover:shadow-2xl hover:shadow-primary/50 transition-all hover:-translate-y-1"
+              >
+                <i className="fas fa-rocket"></i>
+                Explore Platforms
+                <i className="fas fa-arrow-down group-hover:translate-y-1 transition-transform"></i>
+              </a>
+              <a
+                href="#contact-us-footer"
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-xl border-2 border-gray-300 text-gray-900 dark:text-white dark:border-gray-600 font-semibold hover:border-primary hover:text-primary transition-all hover:-translate-y-1"
+              >
+                <i className="fas fa-comments"></i>
+                Custom Solution
+              </a>
+            </div>
+
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap gap-4 pt-6">
+              <div className="flex items-center gap-2 bg-white dark:bg-gray-800 px-4 py-2 rounded-lg shadow-md">
+                <i className="fas fa-bolt text-primary text-xl"></i>
+                <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Quick Deploy</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white dark:bg-gray-800 px-4 py-2 rounded-lg shadow-md">
+                <i className="fas fa-shield-check text-primary text-xl"></i>
+                <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Fully Tested</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Content - Software Image */}
+          <div className="relative">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+              <img 
+                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=500&fit=crop" 
+                alt="Software Solutions"
+                className="w-full h-[500px] object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent"></div>
+              <div className="absolute bottom-6 left-6 right-6">
+                <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
+                      <i className="fas fa-laptop-code text-white text-xl"></i>
+                    </div>
+                    <div>
+                      <p className="font-bold text-gray-900">6 Platforms</p>
+                      <p className="text-sm text-gray-600">Ready to Deploy</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Floating Cards */}
+            <div className="absolute -top-6 -right-6 bg-white dark:bg-gray-800 rounded-xl shadow-xl p-4 animate-float">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center">
+                  <i className="fas fa-check-circle text-purple-500"></i>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Success Rate</p>
+                  <p className="font-bold text-gray-900 dark:text-white">100%</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        {/* Header removed - now in hero */}
+      <div className="max-w-7xl mx-auto px-6 py-24">
+        {/* Section Header */}
+        <div id="platforms" className="text-center mb-16">
+          <span className="text-primary font-semibold text-sm uppercase tracking-wider">Our Platforms</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mt-3 mb-4">
+            Choose Your Solution
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Select from our ready-made platforms or request a custom solution tailored to your needs
+          </p>
+        </div>
 
-        {/* Platform Cards */}
+        {/* Platform Cards - Premium Design */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {websitePlatforms.map((platform) => {
             const Icon = platform.icon;
             return (
-              <Card key={platform.id} className="hover:shadow-xl transition-all hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
-                <CardHeader>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="bg-primary bg-opacity-10 dark:bg-opacity-20 p-3 rounded-lg">
-                      <Icon className="h-8 w-8 text-primary" />
+              <Card key={platform.id} className="group relative bg-white dark:bg-gray-800 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 dark:border-gray-700 hover:border-primary/30 hover:-translate-y-3 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <CardHeader className="relative z-10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-2xl p-4 shadow-lg group-hover:scale-110 transition-transform">
+                      <Icon className="h-full w-full text-white" />
                     </div>
-                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300">
+                    <span className="px-4 py-2 rounded-full text-xs font-bold bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md">
                       {platform.category}
                     </span>
                   </div>
-                  <CardTitle className="text-2xl dark:text-white">{platform.name}</CardTitle>
-                  <CardDescription className="text-base mt-2 dark:text-gray-300">
+                  <CardTitle className="text-2xl font-bold dark:text-white mb-3">{platform.name}</CardTitle>
+                  <CardDescription className="text-base mt-2 dark:text-gray-300 leading-relaxed">
                     {platform.description}
                   </CardDescription>
                 </CardHeader>
@@ -292,14 +394,34 @@ export default function SoftwareSolutions() {
         </div>
 
         {/* Custom Solution CTA */}
-        <div className="mt-16 bg-gradient-to-r from-primary to-blue-600 dark:from-primary/90 dark:to-blue-700 text-white rounded-xl p-8 text-center shadow-xl">
-          <h2 className="text-3xl font-bold mb-4">Need a Custom Website Solution?</h2>
-          <p className="text-lg mb-6 text-white/90 max-w-2xl mx-auto">
-            Our team can develop a tailored website platform specifically designed for your unique business requirements
-          </p>
-          <Button variant="secondary" size="lg" className="shadow-lg">
-            Contact Us for Custom Development
-          </Button>
+        <div className="mt-20 bg-gray-50 dark:bg-gray-800 rounded-3xl p-12">
+          <div className="relative bg-gradient-to-br from-primary via-emerald-600 to-primary rounded-3xl shadow-2xl overflow-hidden p-12">
+            {/* Decorative Pattern */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+              <div className="absolute bottom-10 right-10 w-80 h-80 bg-white rounded-full blur-3xl"></div>
+            </div>
+
+            <div className="relative z-10 text-center">
+              <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                <i className="fas fa-magic"></i>
+                Custom Development
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Need a Custom Website Solution?</h2>
+              <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Our team can develop a tailored website platform specifically designed for your unique business requirements
+              </p>
+              
+              <a 
+                href="#contact-us-footer"
+                className="group inline-flex items-center gap-3 bg-white text-primary px-8 py-4 rounded-xl font-bold hover:shadow-2xl hover:scale-105 transition-all"
+              >
+                <i className="fas fa-comments"></i>
+                Contact Us for Custom Development
+                <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* Demo Request Dialog */}
@@ -392,5 +514,6 @@ export default function SoftwareSolutions() {
         </Dialog>
       </div>
     </div>
+    </>
   );
 }
