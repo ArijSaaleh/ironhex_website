@@ -53,7 +53,7 @@ export default function Home(){
             </h1>
             
             {/* Description */}
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed">
+            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
               {t('home.hero.description')}
             </p>
 
@@ -453,21 +453,21 @@ export default function Home(){
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <img src="https://www.ooredoo.com/wp-content/uploads/2015/12/Ooredoo-Logo_CMYK_On-White-BG_FA-01.png" 
                    alt="Ooredoo Partner" 
-                   className="relative z-10 h-12 w-auto grayscale group-hover:grayscale-0 transition-all duration-300 opacity-70 group-hover:opacity-100" />
+                   className="relative z-10 h-12 w-auto transition-all duration-300" />
             </div>
             
             <div className="group relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-800/50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-primary/30 hover:-translate-y-2 flex items-center justify-center">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <img src="https://www.wikiberal.org/images/c/c3/Logo_Google.png" 
                    alt="Google Partner" 
-                   className="relative z-10 h-12 w-auto grayscale group-hover:grayscale-0 transition-all duration-300 opacity-70 group-hover:opacity-100" />
+                   className="relative z-10 h-12 w-auto transition-all duration-300" />
             </div>
             
             <div className="group relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-800/50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-primary/30 hover:-translate-y-2 flex items-center justify-center">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/LoRaWAN_Logo.svg/2560px-LoRaWAN_Logo.svg.png" 
                    alt="LoRaWAN Partner" 
-                   className="relative z-10 h-12 w-auto grayscale group-hover:grayscale-0 transition-all duration-300 opacity-70 group-hover:opacity-100" />
+                   className="relative z-10 h-12 w-auto transition-all duration-300" />
             </div>
           </div>
         </div>
