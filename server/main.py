@@ -13,32 +13,22 @@ from app.config.settings import settings
 from app.routers import messages, auth, demo
 from app.utils import initialize_database
 
+# Initialize database
+init_db()
+
+# Create super admins automatically on startup
+db = SessionLocal()
+try:
+    initialize_database(db)
+finally:
+    db.close()
+
 # Create FastAPI application
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
     description="Secure API for IRONHEX website contact management"
 )
-
-@app.on_event("startup")
-async def startup_event():
-    """Initialize database and create super admins on startup"""
-    try:
-        print("🚀 Starting application...")
-        init_db()
-        print("✅ Database initialized")
-        
-        db = SessionLocal()
-        try:
-            initialize_database(db)
-            print("✅ Super admins checked/created")
-        finally:
-            db.close()
-        print("✅ Application startup complete!")
-    except Exception as e:
-        print(f"❌ Startup error: {e}")
-        import traceback
-        traceback.print_exc()
 
 # Configure CORS
 origins = [
