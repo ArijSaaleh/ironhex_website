@@ -17,11 +17,36 @@ export default function Admin() {
   const [mustChangePassword, setMustChangePassword] = useState(false)
   const [showReplyModal, setShowReplyModal] = useState(false)
   const [selectedMessage, setSelectedMessage] = useState(null)
+  const [activeView, setActiveView] = useState('dashboard') // 'dashboard', 'messages', 'demo-requests', 'users'
+  const [sidebarOpen, setSidebarOpen] = useState(true)
+  
+  // Demo requests state
+  const [demoRequests, setDemoRequests] = useState([])
+  const [editingRequest, setEditingRequest] = useState(null)
+  const [editForm, setEditForm] = useState({
+    status: '',
+    notes: '',
+    demo_scheduled_at: ''
+  })
+  
+  // Users management state
+  const [users, setUsers] = useState([])
+  const [showCreateUserForm, setShowCreateUserForm] = useState(false)
+  const [userFormData, setUserFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  })
+  
   const [analytics, setAnalytics] = useState({
     totalMessages: 0,
     unreadMessages: 0,
     repliedMessages: 0,
-    todayMessages: 0
+    todayMessages: 0,
+    totalDemoRequests: 0,
+    pendingDemos: 0,
+    totalUsers: 0
   })
 
   // Check if token is valid on mount
@@ -47,6 +72,8 @@ export default function Admin() {
         
         if (!user.must_change_password) {
           fetchMessages()
+          fetchDemoRequests()
+          fetchUsers()
         }
       } else {
         // Token invalid or expired
@@ -102,6 +129,8 @@ export default function Admin() {
           
           if (!data.must_change_password && !user.must_change_password) {
             fetchMessages(accessToken)
+            fetchDemoRequests(accessToken)
+            fetchUsers(accessToken)
           }
         }
       } else {
@@ -118,7 +147,7 @@ export default function Admin() {
   const fetchMessages = async (authToken = token) => {
     setLoading(true)
     try {
-  const response = await fetch(api('/api/messages'), {
+      const response = await fetch(api('/api/messages'), {
         headers: {
           'Authorization': `Bearer ${authToken}`
         }
@@ -127,22 +156,7 @@ export default function Admin() {
       if (response.ok) {
         const data = await response.json()
         setMessages(data)
-        
-        // Calculate analytics
-        const today = new Date()
-        today.setHours(0, 0, 0, 0)
-        
-        const stats = {
-          totalMessages: data.length,
-          unreadMessages: data.filter(m => !m.is_read).length,
-          repliedMessages: data.filter(m => m.reply_count > 0).length,
-          todayMessages: data.filter(m => {
-            const msgDate = new Date(m.timestamp)
-            msgDate.setHours(0, 0, 0, 0)
-            return msgDate.getTime() === today.getTime()
-          }).length
-        }
-        setAnalytics(stats)
+        updateAnalytics(data, demoRequests, users)
       } else if (response.status === 401) {
         // Unauthorized - token expired
         setIsLoggedIn(false)
@@ -156,6 +170,62 @@ export default function Admin() {
     } finally {
       setLoading(false)
     }
+  }
+
+  const fetchDemoRequests = async (authToken = token) => {
+    try {
+      const response = await fetch(api('/api/demo-requests'), {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setDemoRequests(data)
+        updateAnalytics(messages, data, users)
+      }
+    } catch (err) {
+      console.error('Failed to fetch demo requests:', err)
+    }
+  }
+
+  const fetchUsers = async (authToken = token) => {
+    try {
+      const response = await fetch(api('/api/auth/users'), {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setUsers(data)
+        updateAnalytics(messages, demoRequests, data)
+      }
+    } catch (err) {
+      console.error('Failed to fetch users:', err)
+    }
+  }
+
+  const updateAnalytics = (msgs, demos, usrs) => {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    
+    const stats = {
+      totalMessages: msgs.length,
+      unreadMessages: msgs.filter(m => !m.is_read).length,
+      repliedMessages: msgs.filter(m => m.reply_count > 0).length,
+      todayMessages: msgs.filter(m => {
+        const msgDate = new Date(m.timestamp)
+        msgDate.setHours(0, 0, 0, 0)
+        return msgDate.getTime() === today.getTime()
+      }).length,
+      totalDemoRequests: demos.length,
+      pendingDemos: demos.filter(d => d.status === 'pending').length,
+      totalUsers: usrs.length
+    }
+    setAnalytics(stats)
   }
 
   const handleLogout = async () => {
@@ -233,152 +303,308 @@ export default function Admin() {
 
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8">
-          <div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Admin Login
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary opacity-10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500 opacity-10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-500 opacity-5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        </div>
+
+        {/* Login Card */}
+        <div className="max-w-md w-full space-y-8 relative z-10">
+          {/* Logo Section */}
+          <div className="text-center">
+            <div className="flex justify-center mb-6">
+              <div className="relative">
+                <div className="absolute inset-0 bg-primary blur-xl opacity-50 animate-pulse"></div>
+                <img src="/logo_icon.png" alt="IRONHEX Logo" className="h-24 w-auto relative z-10 drop-shadow-2xl" />
+              </div>
+            </div>
+            <h2 className="text-4xl font-extrabold text-white mb-2">
+              Welcome Back
             </h2>
-            <p className="mt-2 text-center text-sm text-gray-600">
-              Sign in to access the admin dashboard
+            <p className="text-gray-400 text-sm">
+              Sign in to access your admin dashboard
             </p>
           </div>
-          <form className="mt-8 space-y-6" onSubmit={handleLogin}>
-            <div className="space-y-4">
+
+          {/* Login Form Card */}
+          <div className="bg-gray-800/50 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-gray-700/50">
+            <form className="space-y-6" onSubmit={handleLogin}>
+              {/* Username Input */}
               <div>
-                <label htmlFor="username" className="sr-only">
+                <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-2">
                   Username
                 </label>
-                <input
-                  id="username"
-                  name="username"
-                  type="text"
-                  required
-                  className="appearance-none rounded-lg relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-                  placeholder="Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </div>
-              <div>
-                <label htmlFor="password" className="sr-only">
-                  Password
-                </label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  className="appearance-none rounded-lg relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-            </div>
-
-            {error && (
-              <div className="rounded-md bg-red-50 p-4">
-                <div className="flex">
-                  <div className="flex-shrink-0">
-                    <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg className="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                   </div>
-                  <div className="ml-3">
-                    <p className="text-sm text-red-800">{error}</p>
-                  </div>
+                  <input
+                    id="username"
+                    name="username"
+                    type="text"
+                    required
+                    className="block w-full pl-12 pr-4 py-3 bg-gray-900/50 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    placeholder="Enter your username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
                 </div>
               </div>
-            )}
 
-            <div>
-              <button
-                type="submit"
-                disabled={loading}
-                className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-              >
-                <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                  <svg className="h-5 w-5 text-white group-hover:text-white" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+              {/* Password Input */}
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+                  Password
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg className="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                  </div>
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    required
+                    className="block w-full pl-12 pr-4 py-3 bg-gray-900/50 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* Error Message */}
+              {error && (
+                <div className="rounded-lg bg-red-500/10 border border-red-500/50 p-4 animate-shake">
+                  <div className="flex">
+                    <div className="flex-shrink-0">
+                      <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-sm text-red-300">{error}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Submit Button */}
+              <div>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="group relative w-full flex justify-center py-3.5 px-4 border border-transparent text-sm font-semibold rounded-lg text-white bg-gradient-to-r from-primary to-blue-600 hover:from-primary-dark hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+                >
+                  {loading ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Signing in...
+                    </>
+                  ) : (
+                    <>
+                      <span className="absolute left-0 inset-y-0 flex items-center pl-4">
+                        <svg className="h-5 w-5 text-white/80 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        </svg>
+                      </span>
+                      Sign in to Dashboard
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* Forgot Password Link */}
+              <div className="text-center">
+                <Link 
+                  to="/forgot-password" 
+                  className="text-sm text-gray-400 hover:text-primary transition-colors font-medium inline-flex items-center gap-1"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                   </svg>
-                </span>
-                {loading ? 'Signing in...' : 'Sign in'}
-              </button>
-            </div>
+                  Forgot your password?
+                </Link>
+              </div>
+            </form>
+          </div>
 
-            <div className="text-center">
-              <Link 
-                to="/forgot-password" 
-                className="text-sm text-primary hover:text-primary-dark font-medium"
-              >
-                Forgot your password?
-              </Link>
-            </div>
-          </form>
+          {/* Footer Text */}
+          <div className="text-center">
+            <p className="text-xs text-gray-500">
+              Protected by enterprise-grade security
+            </p>
+          </div>
         </div>
       </div>
     )
   }
 
+  const handleRefreshAll = () => {
+    fetchMessages()
+    fetchDemoRequests()
+    fetchUsers()
+  }
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Top Banner with Logo */}
-      <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-xl border-b-4 border-primary">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex">
+      {/* Sidebar */}
+      <div className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-gray-800/50 backdrop-blur-xl border-r border-gray-700/50 transition-all duration-300 flex flex-col`}>
+        {/* Logo Section */}
+        <div className="p-4 border-b border-gray-700/50">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <img src="/logo_icon.png" alt="IRONHEX Logo" className="h-16 w-auto" />
-              <div>
-                <h1 className="text-2xl font-bold text-white">IRONHEX</h1>
-                <p className="text-gray-300 text-sm">Admin Control Panel</p>
+            {sidebarOpen ? (
+              <div className="flex items-center space-x-3">
+                <img src="/logo_icon.png" alt="IRONHEX" className="h-10 w-auto" />
+                <div>
+                  <h1 className="text-white font-bold text-lg">IRONHEX</h1>
+                  <p className="text-gray-400 text-xs">Admin Panel</p>
+                </div>
               </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="text-right">
-                <p className="text-gray-400 text-xs uppercase tracking-wide">Logged in as</p>
-                <p className="text-white font-semibold text-lg">{currentUser?.username}</p>
-              </div>
-              <button
-                onClick={handleLogout}
-                className="inline-flex items-center px-4 py-2 border border-red-500 rounded-lg text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 shadow-sm transition-all"
-              >
-                <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                </svg>
-                Logout
-              </button>
-            </div>
+            ) : (
+              <img src="/logo_icon.png" alt="IRONHEX" className="h-10 w-auto mx-auto" />
+            )}
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {sidebarOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                )}
+              </svg>
+            </button>
           </div>
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex-1 p-4 space-y-2">
+          <button
+            onClick={() => setActiveView('dashboard')}
+            className={`w-full flex items-center ${sidebarOpen ? 'justify-start px-4' : 'justify-center'} py-3 rounded-lg transition-all ${
+              activeView === 'dashboard'
+                ? 'bg-primary text-white shadow-lg'
+                : 'text-gray-400 hover:bg-gray-700/50 hover:text-white'
+            }`}
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            {sidebarOpen && <span className="ml-3 font-medium">Dashboard</span>}
+          </button>
+
+          <button
+            onClick={() => setActiveView('messages')}
+            className={`w-full flex items-center ${sidebarOpen ? 'justify-start px-4' : 'justify-center'} py-3 rounded-lg transition-all relative ${
+              activeView === 'messages'
+                ? 'bg-primary text-white shadow-lg'
+                : 'text-gray-400 hover:bg-gray-700/50 hover:text-white'
+            }`}
+          >
+            <div className="relative">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+              </svg>
+              {analytics.unreadMessages > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center font-bold">
+                  {analytics.unreadMessages}
+                </span>
+              )}
+            </div>
+            {sidebarOpen && <span className="ml-3 font-medium">Contact Messages</span>}
+          </button>
+
+          <button
+            onClick={() => setActiveView('demo-requests')}
+            className={`w-full flex items-center ${sidebarOpen ? 'justify-start px-4' : 'justify-center'} py-3 rounded-lg transition-all relative ${
+              activeView === 'demo-requests'
+                ? 'bg-primary text-white shadow-lg'
+                : 'text-gray-400 hover:bg-gray-700/50 hover:text-white'
+            }`}
+          >
+            <div className="relative">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              {analytics.pendingDemos > 0 && (
+                <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center font-bold">
+                  {analytics.pendingDemos}
+                </span>
+              )}
+            </div>
+            {sidebarOpen && <span className="ml-3 font-medium">Demo Requests</span>}
+          </button>
+
+          <button
+            onClick={() => setActiveView('users')}
+            className={`w-full flex items-center ${sidebarOpen ? 'justify-start px-4' : 'justify-center'} py-3 rounded-lg transition-all ${
+              activeView === 'users'
+                ? 'bg-primary text-white shadow-lg'
+                : 'text-gray-400 hover:bg-gray-700/50 hover:text-white'
+            }`}
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            {sidebarOpen && <span className="ml-3 font-medium">User Management</span>}
+          </button>
+        </nav>
+
+        {/* User Info & Logout */}
+        <div className="p-4 border-t border-gray-700/50">
+          {sidebarOpen ? (
+            <div className="mb-3">
+              <p className="text-gray-400 text-xs uppercase tracking-wide">Logged in as</p>
+              <p className="text-white font-semibold truncate">{currentUser?.username}</p>
+            </div>
+          ) : null}
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center justify-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            {sidebarOpen && <span className="ml-2 font-medium">Logout</span>}
+          </button>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Action Buttons */}
-        <div className="mb-8">
-          <div className="flex flex-wrap gap-3 justify-end">
-            <Link
-              to="/admin/users"
-              className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary shadow-sm"
-            >
-              <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-              Manage Users
-            </Link>
-            <Link
-              to="/admin/demo-requests"
-              className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary shadow-sm"
-            >
-              <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              Demo Requests
-            </Link>
+      {/* Main Content */}
+      <div className="flex-1 overflow-auto">
+        {/* Top Header */}
+        <div className="bg-gray-800/30 backdrop-blur-xl border-b border-gray-700/50 sticky top-0 z-10">
+          <div className="px-8 py-4 flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-white">
+                {activeView === 'dashboard' && 'Dashboard Overview'}
+                {activeView === 'messages' && 'Contact Messages'}
+                {activeView === 'demo-requests' && 'Demo Requests'}
+                {activeView === 'users' && 'User Management'}
+              </h2>
+              <p className="text-gray-400 text-sm mt-1">
+                {activeView === 'dashboard' && 'Welcome to your admin control panel'}
+                {activeView === 'messages' && 'Manage and respond to contact form submissions'}
+                {activeView === 'demo-requests' && 'Track and manage demo requests'}
+                {activeView === 'users' && 'Manage admin users and permissions'}
+              </p>
+            </div>
             <button
-              onClick={handleRefresh}
+              onClick={handleRefreshAll}
               disabled={loading}
-              className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 shadow-sm"
+              className="inline-flex items-center px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg transition-colors disabled:opacity-50 shadow-lg"
             >
               <svg className={`-ml-1 mr-2 h-5 w-5 ${loading ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -388,7 +614,12 @@ export default function Admin() {
           </div>
         </div>
 
-        {/* Analytics Cards */}
+        {/* Content Area */}
+        <div className="p-8">
+          {/* Dashboard View */}
+          {activeView === 'dashboard' && (
+            <>
+              {/* Analytics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {/* Total Messages */}
           <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white transform hover:scale-105 transition-transform">
@@ -475,45 +706,106 @@ export default function Admin() {
           </div>
         </div>
 
-        {/* Messages Section Header */}
+        {/* Quick Stats Section */}
         <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">Recent Messages</h2>
-          <p className="text-sm text-gray-600 mt-1">Manage and respond to contact form submissions</p>
+          <h3 className="text-xl font-bold text-white mb-4">Quick Overview</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <button
+              onClick={() => setActiveView('messages')}
+              className="bg-gray-800/50 backdrop-blur-xl rounded-lg p-4 border border-gray-700/50 hover:border-primary transition-all text-left"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-gray-400 text-sm">Demo Requests</p>
+                  <p className="text-2xl font-bold text-white">{analytics.totalDemoRequests}</p>
+                </div>
+                <div className="bg-purple-500/20 rounded-full p-3">
+                  <svg className="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+              </div>
+              {analytics.pendingDemos > 0 && (
+                <p className="text-orange-400 text-xs mt-2">{analytics.pendingDemos} pending</p>
+              )}
+            </button>
+
+            <button
+              onClick={() => setActiveView('users')}
+              className="bg-gray-800/50 backdrop-blur-xl rounded-lg p-4 border border-gray-700/50 hover:border-primary transition-all text-left"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-gray-400 text-sm">Admin Users</p>
+                  <p className="text-2xl font-bold text-white">{analytics.totalUsers}</p>
+                </div>
+                <div className="bg-blue-500/20 rounded-full p-3">
+                  <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                </div>
+              </div>
+              <p className="text-gray-500 text-xs mt-2">Active accounts</p>
+            </button>
+
+            <div className="bg-gray-800/50 backdrop-blur-xl rounded-lg p-4 border border-gray-700/50">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-gray-400 text-sm">Response Rate</p>
+                  <p className="text-2xl font-bold text-white">
+                    {analytics.totalMessages > 0 ? Math.round((analytics.repliedMessages / analytics.totalMessages) * 100) : 0}%
+                  </p>
+                </div>
+                <div className="bg-green-500/20 rounded-full p-3">
+                  <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+              </div>
+              <p className="text-gray-500 text-xs mt-2">{analytics.repliedMessages} of {analytics.totalMessages} replied</p>
+            </div>
+          </div>
         </div>
 
-        {/* Messages List */}
+        {/* Recent Activity */}
+        <div className="mb-6">
+          <h3 className="text-xl font-bold text-white mb-4">Recent Messages</h3>
+          <p className="text-sm text-gray-400">Latest contact form submissions</p>
+        </div>
+
+        {/* Messages Preview */}
         {loading ? (
-          <div className="text-center py-16 bg-white rounded-xl shadow">
+          <div className="text-center py-16 bg-gray-800/30 rounded-xl shadow">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-4 border-primary"></div>
-            <p className="mt-4 text-gray-600 font-medium">Loading messages...</p>
+            <p className="mt-4 text-gray-100 font-medium">Loading messages...</p>
           </div>
         ) : messages.length === 0 ? (
-          <div className="text-center py-16 bg-white rounded-xl shadow">
-            <div className="bg-gray-100 rounded-full p-4 w-20 h-20 mx-auto flex items-center justify-center">
+          <div className="text-center py-16 bg-gray-800/30 rounded-xl shadow">
+            <div className="bg-gray-700/50 rounded-full p-4 w-20 h-20 mx-auto flex items-center justify-center">
               <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
               </svg>
             </div>
-            <h3 className="mt-4 text-lg font-semibold text-gray-900">No messages yet</h3>
-            <p className="mt-2 text-sm text-gray-500">Contact form submissions will appear here.</p>
+            <h3 className="mt-4 text-lg font-semibold text-gray-100">No messages yet</h3>
+            <p className="mt-2 text-sm text-gray-400">Contact form submissions will appear here.</p>
           </div>
         ) : (
           <div className="space-y-4">
-            {messages.map((msg) => (
-              <div key={msg.id} className={`bg-white shadow-lg rounded-xl overflow-hidden border-l-4 hover:shadow-xl transition-all ${
-                !msg.is_read ? 'border-l-orange-500 bg-orange-50 bg-opacity-30' : msg.reply_count > 0 ? 'border-l-green-500' : 'border-l-gray-300'
+            {messages.slice(0, 3).map((msg) => (
+              <div key={msg.id} className={`bg-gray-800/50 backdrop-blur-xl shadow-lg rounded-xl overflow-hidden border-l-4 hover:shadow-2xl transition-all ${
+                !msg.is_read ? 'border-l-orange-500' : msg.reply_count > 0 ? 'border-l-green-500' : 'border-l-gray-600'
               }`}>
-                <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-white border-b border-gray-100">
+                <div className="px-6 py-4 bg-gradient-to-r from-gray-800/80 to-gray-700/80 border-b border-gray-600/50">
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <div className="bg-primary bg-opacity-10 rounded-full p-2">
+                        <div className="bg-primary bg-opacity-20 rounded-full p-2">
                           <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                           </svg>
                         </div>
                         <div>
-                          <h3 className="text-lg font-bold text-gray-900">{msg.name}</h3>
+                          <h3 className="text-lg font-bold text-white">{msg.name}</h3>
                           <a href={`mailto:${msg.email}`} className="text-sm text-primary hover:underline font-medium">
                             {msg.email}
                           </a>
@@ -530,26 +822,26 @@ export default function Admin() {
                             ✓ {msg.reply_count} {msg.reply_count === 1 ? 'Reply' : 'Replies'}
                           </span>
                         )}
-                        <span className="px-3 py-1 text-xs font-medium rounded-full bg-gray-200 text-gray-700">
+                        <span className="px-3 py-1 text-xs font-medium rounded-full bg-gray-700 text-gray-300">
                           ID: {msg.id}
                         </span>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="flex items-center text-sm text-gray-600 mb-1">
+                      <div className="flex items-center text-sm text-gray-400 mb-1">
                         <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                         {new Date(msg.timestamp).toLocaleDateString()}
                       </div>
-                      <div className="flex items-center text-sm text-gray-600">
+                      <div className="flex items-center text-sm text-gray-400">
                         <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         {new Date(msg.timestamp).toLocaleTimeString()}
                       </div>
                       {msg.is_read && msg.read_at && (
-                        <span className="text-xs text-gray-400 block mt-1">
+                        <span className="text-xs text-gray-500 block mt-1">
                           ✓ Read: {new Date(msg.read_at).toLocaleString()}
                         </span>
                       )}
@@ -558,26 +850,32 @@ export default function Admin() {
                 </div>
                 <div className="px-6 py-5">
                   <div className="mb-4">
-                    <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Subject</span>
-                    <h4 className="text-lg font-semibold text-gray-900 mt-1">
+                    <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Subject</span>
+                    <h4 className="text-lg font-semibold text-white mt-1">
                       {msg.subject || 'No subject'}
                     </h4>
                   </div>
-                  <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                    <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Message</span>
-                    <p className="text-gray-700 whitespace-pre-wrap leading-relaxed mt-2">{msg.message}</p>
+                  <div className="bg-gray-900/50 rounded-lg p-4 border border-gray-700/50">
+                    <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Message</span>
+                    <p className="text-gray-300 whitespace-pre-wrap leading-relaxed mt-2">{msg.message}</p>
                   </div>
                   
-                  {/* Reply Button */}
-                  <div className="flex justify-end mt-5">
+                  {/* View All Button */}
+                  <div className="flex justify-between items-center mt-5">
+                    <button
+                      onClick={() => setActiveView('messages')}
+                      className="text-sm text-primary hover:text-primary-dark font-medium"
+                    >
+                      View all messages →
+                    </button>
                     <button
                       onClick={() => handleReply(msg)}
-                      className="inline-flex items-center px-6 py-3 border border-transparent rounded-lg text-sm font-semibold text-white bg-gradient-to-r from-primary to-blue-600 hover:from-primary-dark hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all shadow-md hover:shadow-lg transform hover:scale-105"
+                      className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-semibold text-white bg-gradient-to-r from-primary to-blue-600 hover:from-primary-dark hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all shadow-md hover:shadow-lg"
                     >
-                      <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="-ml-1 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
                       </svg>
-                      {msg.reply_count > 0 ? 'Reply Again' : 'Reply to Message'}
+                      Reply
                     </button>
                   </div>
                 </div>
@@ -585,6 +883,132 @@ export default function Admin() {
             ))}
           </div>
         )}
+            </>
+          )}
+
+          {/* Messages View */}
+          {activeView === 'messages' && (
+            <>
+              {loading ? (
+                <div className="text-center py-16 bg-gray-800/30 rounded-xl shadow">
+                  <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-4 border-primary"></div>
+                  <p className="mt-4 text-gray-100 font-medium">Loading messages...</p>
+                </div>
+              ) : messages.length === 0 ? (
+                <div className="text-center py-16 bg-gray-800/30 rounded-xl shadow">
+                  <div className="bg-gray-700/50 rounded-full p-4 w-20 h-20 mx-auto flex items-center justify-center">
+                    <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                    </svg>
+                  </div>
+                  <h3 className="mt-4 text-lg font-semibold text-gray-100">No messages yet</h3>
+                  <p className="mt-2 text-sm text-gray-400">Contact form submissions will appear here.</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {messages.map((msg) => (
+                    <div key={msg.id} className={`bg-gray-800/50 backdrop-blur-xl shadow-lg rounded-xl overflow-hidden border-l-4 hover:shadow-2xl transition-all ${
+                      !msg.is_read ? 'border-l-orange-500' : msg.reply_count > 0 ? 'border-l-green-500' : 'border-l-gray-600'
+                    }`}>
+                      <div className="px-6 py-4 bg-gradient-to-r from-gray-800/80 to-gray-700/80 border-b border-gray-600/50">
+                        <div className="flex justify-between items-start">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-2">
+                              <div className="bg-primary bg-opacity-20 rounded-full p-2">
+                                <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                              </div>
+                              <div>
+                                <h3 className="text-lg font-bold text-white">{msg.name}</h3>
+                                <a href={`mailto:${msg.email}`} className="text-sm text-primary hover:underline font-medium">
+                                  {msg.email}
+                                </a>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2 flex-wrap">
+                              {!msg.is_read && (
+                                <span className="px-3 py-1 text-xs font-bold rounded-full bg-orange-500 text-white shadow-sm">
+                                  🔔 NEW
+                                </span>
+                              )}
+                              {msg.reply_count > 0 && (
+                                <span className="px-3 py-1 text-xs font-bold rounded-full bg-green-500 text-white shadow-sm">
+                                  ✓ {msg.reply_count} {msg.reply_count === 1 ? 'Reply' : 'Replies'}
+                                </span>
+                              )}
+                              <span className="px-3 py-1 text-xs font-medium rounded-full bg-gray-700 text-gray-300">
+                                ID: {msg.id}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="flex items-center text-sm text-gray-400 mb-1">
+                              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                              </svg>
+                              {new Date(msg.timestamp).toLocaleDateString()}
+                            </div>
+                            <div className="flex items-center text-sm text-gray-400">
+                              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              {new Date(msg.timestamp).toLocaleTimeString()}
+                            </div>
+                            {msg.is_read && msg.read_at && (
+                              <span className="text-xs text-gray-500 block mt-1">
+                                ✓ Read: {new Date(msg.read_at).toLocaleString()}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="px-6 py-5">
+                        <div className="mb-4">
+                          <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Subject</span>
+                          <h4 className="text-lg font-semibold text-white mt-1">
+                            {msg.subject || 'No subject'}
+                          </h4>
+                        </div>
+                        <div className="bg-gray-900/50 rounded-lg p-4 border border-gray-700/50">
+                          <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Message</span>
+                          <p className="text-gray-300 whitespace-pre-wrap leading-relaxed mt-2">{msg.message}</p>
+                        </div>
+                        
+                        {/* Reply Button */}
+                        <div className="flex justify-end mt-5">
+                          <button
+                            onClick={() => handleReply(msg)}
+                            className="inline-flex items-center px-6 py-3 border border-transparent rounded-lg text-sm font-semibold text-white bg-gradient-to-r from-primary to-blue-600 hover:from-primary-dark hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all shadow-md hover:shadow-lg transform hover:scale-105"
+                          >
+                            <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                            </svg>
+                            {msg.reply_count > 0 ? 'Reply Again' : 'Reply to Message'}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+
+          {/* Demo Requests View */}
+          {activeView === 'demo-requests' && (
+            <div className="text-gray-100">
+              <p className="text-center py-8">Demo Requests view - Coming soon with full demo management</p>
+            </div>
+          )}
+
+          {/* Users View */}
+          {activeView === 'users' && (
+            <div className="text-gray-100">
+              <p className="text-center py-8">User Management view - Coming soon with full user management</p>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Reply Modal */}
