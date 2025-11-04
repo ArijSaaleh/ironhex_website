@@ -152,6 +152,20 @@ Or with Railway CLI:
 railway up
 ```
 
+## 🔧 Important: Monorepo Configuration
+
+Since your backend is in a subdirectory (`server/`), Railway needs special configuration:
+
+**Files created in root:**
+- `Procfile` - Start command with `cd server`
+- `nixpacks.toml` - Build config with `cd server`
+- `railway.json` - Railway-specific settings
+
+These files ensure Railway:
+1. Changes to server directory before installing
+2. Changes to server directory before starting
+3. Only watches server files for changes
+
 ## 🎉 That's It!
 
 Your API is now live on Railway with:
@@ -160,6 +174,7 @@ Your API is now live on Railway with:
 - ✅ SendGrid email integration
 - ✅ Automatic HTTPS
 - ✅ Zero-downtime deployments
+- ✅ Monorepo support (server/ subdirectory)
 
 ## 📞 Support
 
