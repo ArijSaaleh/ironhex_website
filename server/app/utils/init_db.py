@@ -10,16 +10,17 @@ def create_super_admins(db: Session) -> None:
     This runs automatically on application startup.
     """
     # Default super admin credentials
+    # Note: bcrypt has a 72-byte limit, keep passwords simple
     super_admins = [
         {
             "username": "arij",
-            "email": "arij@ironhex-tech.com",
-            "password": "IronHex2025!",  # Change this in production!
+            "email": "arij.saleh@ironhex-tech.com",
+            "password": "Admin2025!",  # Change this after first login!
         },
         {
             "username": "imen",
-            "email": "imen@ironhex-tech.com",
-            "password": "IronHex2025!",  # Change this in production!
+            "email": "imen.chihi@ironhex-tech.com",
+            "password": "Admin2025!",  # Change this after first login!
         }
     ]
     

@@ -74,8 +74,8 @@ Railway will use **SQLite** (file-based database):
 **Automatically created on first deployment!**
 
 Default credentials:
-- **Username:** `arij` | **Password:** `IronHex2025!`
-- **Username:** `imen` | **Password:** `IronHex2025!`
+- **Username:** `arij` | **Password:** `Admin2025!`
+- **Username:** `imen` | **Password:** `Admin2025!`
 
 ⚠️ **IMPORTANT:** Change these passwords immediately after first login!
 
