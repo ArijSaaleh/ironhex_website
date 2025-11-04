@@ -56,7 +56,7 @@ export const CSP_DIRECTIVES = {
   'style-src': ["'self'", "'unsafe-inline'", 'https://cdnjs.cloudflare.com'],
   'font-src': ["'self'", 'https://cdnjs.cloudflare.com'],
   'img-src': ["'self'", 'data:', 'https:', 'http:'],
-  'connect-src': ["'self'", 'http://localhost:8000', 'https://api.ironhex.com'],
+  'connect-src': ["'self'", 'http://localhost:8000', 'https://api.ironhex-tech.com'],
   'frame-src': ["'self'"],
   'object-src': ["'none'"],
   'base-uri': ["'self'"],
@@ -80,8 +80,8 @@ export const SECURITY_HEADERS = {
 export const ALLOWED_ORIGINS = [
   'http://localhost:5173',
   'http://localhost:3000',
-  'https://ironhex.com',
-  'https://www.ironhex.com',
+  'https://ironhex-tech.com',
+  'https://www.ironhex-tech.com',
 ] as const;
 
 /**
