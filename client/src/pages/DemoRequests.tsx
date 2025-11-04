@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { apiUrl } from '../config/api'
+import { api } from '../config/api';
 
 interface DemoRequest {
   id: number;
@@ -41,7 +41,7 @@ export default function DemoRequests() {
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await fetch(apiUrl('/api/auth/me', {
+  const response = await fetch(api('/api/auth/me'), {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -59,7 +59,7 @@ export default function DemoRequests() {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch(apiUrl('/api/demo-requests', {
+  const response = await fetch(api('/api/demo-requests'), {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -80,7 +80,7 @@ export default function DemoRequests() {
 
   const handleMarkRead = async (requestId: number) => {
     try {
-      const response = await fetch(`/api/demo-requests/${requestId}/mark-read`, {
+  const response = await fetch(api(`/api/demo-requests/${requestId}/mark-read`), {
         method: 'PATCH',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -106,7 +106,7 @@ export default function DemoRequests() {
 
   const handleSaveEdit = async (requestId: number) => {
     try {
-      const response = await fetch(`/api/demo-requests/${requestId}`, {
+  const response = await fetch(api(`/api/demo-requests/${requestId}`), {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -508,4 +508,3 @@ export default function DemoRequests() {
     </div>
   );
 }
-

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { apiUrl } from '../config/api'
+import { api } from '../config/api'
 
 export default function PrivacyMessages(){
   const [messages, setMessages] = useState([])
@@ -9,7 +9,7 @@ export default function PrivacyMessages(){
   async function fetchMessages(tok){
     setStatus('loading')
     try{
-      const res = await fetch(apiUrl('/api/messages', {
+      const res = await fetch(api('/api/messages'), {
         headers: { 'Authorization': `Bearer ${tok}` }
       })
       if(res.ok){

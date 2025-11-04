@@ -1,11 +1,11 @@
 import { useState, FormEvent, ChangeEvent } from 'react'
+import { api } from '../config/api'
 import { useLanguage } from '../contexts/LanguageContext'
 import { useToast } from '../contexts/ToastContext'
 import { sanitizeFormData, validateLength } from '../utils/sanitize'
 import { useRateLimit, formatTimeRemaining } from '../hooks/useRateLimit'
 import { RATE_LIMITS, VALIDATION_LIMITS, VALIDATION_PATTERNS } from '../config/security'
 import { RippleButton } from './RippleButton'
-import { apiUrl } from '../config/api'
 
 interface FormData {
   name: string;
@@ -127,7 +127,7 @@ export default function ContactForm() {
       // Sanitize form data before sending
       const sanitizedData = sanitizeFormData(form)
       
-      const res = await fetch(apiUrl('/api/messages', {
+  const res = await fetch(api('/api/messages'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(sanitizedData)
@@ -280,5 +280,4 @@ export default function ContactForm() {
     </form>
   )
 }
-
 

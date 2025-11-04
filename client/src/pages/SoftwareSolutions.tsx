@@ -4,11 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { api } from '../config/api';
 import { useToast } from '@/components/ui/use-toast';
 import { GraduationCap, ShoppingBag, Briefcase, Heart, Calendar, Monitor } from 'lucide-react';
 import Typewriter from '../components/Typewriter';
 import CustomCursor from '../components/CustomCursor';
-import { apiUrl } from '../config/api'
 
 interface WebsitePlatform {
   id: string;
@@ -168,7 +168,7 @@ export default function SoftwareSolutions() {
     e.preventDefault();
     
     try {
-      const response = await fetch(apiUrl('/api/demo-requests', {
+      const response = await fetch(api('/api/demo-requests'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -518,4 +518,3 @@ export default function SoftwareSolutions() {
     </>
   );
 }
-

@@ -1,35 +1,13 @@
-/**
- * API Configuration
- * Uses Railway backend in production, Vite proxy in development
- */
-
-// Get the API base URL based on environment
-export const API_BASE_URL = import.meta.env.PROD 
-  ? 'https://ironhexwebsite-production.up.railway.app'  // Production: Railway
-  : '';  // Development: Use Vite proxy (relative URLs)
+// Central API helper - uses VITE_API_URL in production, empty for dev (proxy)
+// NOTE: cast import.meta to any to avoid missing TS types for `env` in this repo
+export const API_BASE = (import.meta as any).env?.VITE_API_URL ?? ''
 
 /**
- * Helper function to make API calls with the correct base URL
+ * Build absolute API URL. In development the Vite dev server proxy can handle
+ * requests to `/api/*`, so leaving API_BASE empty keeps relative paths.
  */
-export const apiUrl = (path: string): string => {
-  // Ensure path starts with /
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  return `${API_BASE_URL}${normalizedPath}`;
-};
-
-/**
- * Helper function to make authenticated API calls
- */
-export const apiFetch = async (path: string, options: RequestInit = {}) => {
-  const token = localStorage.getItem('access_token');
-  
-  const headers = {
-    ...options.headers,
-    ...(token && { 'Authorization': `Bearer ${token}` }),
-  };
-
-  return fetch(apiUrl(path), {
-    ...options,
-    headers,
-  });
-};
+export function api(path: string) {
+  // ensure path starts with '/'
+  if (!path.startsWith('/')) path = '/' + path
+  return `${API_BASE}${path}`
+}

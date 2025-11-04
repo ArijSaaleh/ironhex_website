@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { api } from '../config/api'
 import { Link } from "react-router-dom";
-import { apiUrl } from '../config/api'
 
 export default function UserManagement() {
   const [users, setUsers] = useState([])
@@ -27,7 +27,7 @@ export default function UserManagement() {
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await fetch(apiUrl('/api/auth/me', {
+    const response = await fetch(api('/api/auth/me'), {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -45,7 +45,7 @@ export default function UserManagement() {
     setLoading(true)
     setError('')
     try {
-      const response = await fetch(apiUrl('/api/auth/users', {
+  const response = await fetch(api('/api/auth/users'), {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -94,7 +94,7 @@ export default function UserManagement() {
 
     setLoading(true)
     try {
-      const response = await fetch(apiUrl('/api/auth/register', {
+  const response = await fetch(api('/api/auth/register'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ export default function UserManagement() {
   const handleToggleActive = async (userId, currentStatus) => {
     setError('')
     try {
-      const response = await fetch(`/api/auth/users/${userId}/toggle-active`, {
+  const response = await fetch(api(`/api/auth/users/${userId}/toggle-active`), {
         method: 'PATCH',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -443,4 +443,3 @@ export default function UserManagement() {
     </div>
   )
 }
-

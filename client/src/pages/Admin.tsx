@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import { api } from '../config/api'
 import { Link } from 'react-router-dom'
 import ChangePasswordModal from '../components/ChangePasswordModal'
 import MessageReplyModal from '../components/MessageReplyModal'
-import { apiUrl } from '../config/api'
 
 export default function Admin() {
   const [username, setUsername] = useState('')
@@ -33,7 +33,7 @@ export default function Admin() {
 
   const verifyToken = async () => {
     try {
-      const response = await fetch(apiUrl('/api/auth/me'), {
+  const response = await fetch(api('/api/auth/me'), {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -72,7 +72,7 @@ export default function Admin() {
       formData.append('username', username)
       formData.append('password', password)
 
-      const response = await fetch(apiUrl('/api/auth/login'), {
+  const response = await fetch(api('/api/auth/login'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -88,7 +88,7 @@ export default function Admin() {
         localStorage.setItem('access_token', accessToken)
         
         // Get user info
-        const userResponse = await fetch(apiUrl('/api/auth/me'), {
+  const userResponse = await fetch(api('/api/auth/me'), {
           headers: {
             'Authorization': `Bearer ${accessToken}`
           }
@@ -118,7 +118,7 @@ export default function Admin() {
   const fetchMessages = async (authToken = token) => {
     setLoading(true)
     try {
-      const response = await fetch(apiUrl('/api/messages', {
+  const response = await fetch(api('/api/messages'), {
         headers: {
           'Authorization': `Bearer ${authToken}`
         }
@@ -160,7 +160,7 @@ export default function Admin() {
 
   const handleLogout = async () => {
     try {
-      await fetch(apiUrl('/api/auth/logout', {
+  await fetch(api('/api/auth/logout'), {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -189,7 +189,7 @@ export default function Admin() {
     
     // Refresh user info to verify password was changed
     try {
-      const response = await fetch(apiUrl('/api/auth/me', {
+  const response = await fetch(api('/api/auth/me'), {
         headers: {
           'Authorization': `Bearer ${token}`
         }
