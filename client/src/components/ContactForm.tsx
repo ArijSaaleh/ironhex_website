@@ -126,7 +126,7 @@ export default function ContactForm() {
       // Sanitize form data before sending
       const sanitizedData = sanitizeFormData(form)
       
-      const res = await fetch('/messages', {
+      const res = await fetch('/api/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(sanitizedData)
