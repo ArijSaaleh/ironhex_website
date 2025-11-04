@@ -1,4 +1,5 @@
 import { useState, FormEvent, ChangeEvent } from 'react'
+import { apiUrl } from '../config/api'
 
 interface ChangePasswordModalProps {
   onClose: () => void;
@@ -58,7 +59,7 @@ export default function ChangePasswordModal({ onClose, onSuccess, isRequired = f
 
     try {
       const token = localStorage.getItem('access_token')
-      const response = await fetch('/api/auth/change-password', {
+      const response = await fetch(apiUrl('/api/auth/change-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -74,7 +75,7 @@ export default function ChangePasswordModal({ onClose, onSuccess, isRequired = f
       if (response.ok) {
         // Refresh the token to get updated user info
         const token = localStorage.getItem('access_token')
-        const userResponse = await fetch('/api/auth/me', {
+        const userResponse = await fetch(apiUrl('/api/auth/me', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -211,3 +212,4 @@ export default function ChangePasswordModal({ onClose, onSuccess, isRequired = f
     </div>
   )
 }
+

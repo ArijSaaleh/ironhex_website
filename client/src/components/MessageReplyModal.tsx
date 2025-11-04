@@ -1,5 +1,6 @@
 import { useState, useEffect, FormEvent } from 'react'
 import RichTextEditor from './RichTextEditor'
+import { apiUrl } from '../config/api'
 
 interface Message {
   id: number;
@@ -63,7 +64,7 @@ export default function MessageReplyModal({ message, currentUser, onClose, onSuc
   const fetchReplies = async () => {
     try {
       const token = localStorage.getItem('access_token')
-      const response = await fetch(`/api/messages/${message.id}/replies`, {
+      const response = await fetch(apiUrl(`/api/messages/${message.id}/replies`), {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -85,7 +86,7 @@ export default function MessageReplyModal({ message, currentUser, onClose, onSuc
 
     try {
       const token = localStorage.getItem('access_token')
-      const response = await fetch(`/api/messages/${message.id}/reply`, {
+      const response = await fetch(apiUrl(`/api/messages/${message.id}/reply`), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

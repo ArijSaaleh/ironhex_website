@@ -1,5 +1,6 @@
 import { useEffect, useState, ReactNode } from 'react'
 import { Navigate } from 'react-router-dom'
+import { apiUrl } from '../config/api'
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -20,7 +21,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
       }
 
       try {
-        const response = await fetch('/api/auth/me', {
+        const response = await fetch(apiUrl('/api/auth/me', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -57,3 +58,4 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   return children
 }
+

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
+import { apiUrl } from '../config/api'
 
 export default function UserManagement() {
   const [users, setUsers] = useState([])
@@ -26,7 +27,7 @@ export default function UserManagement() {
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await fetch('/api/auth/me', {
+      const response = await fetch(apiUrl('/api/auth/me', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -44,7 +45,7 @@ export default function UserManagement() {
     setLoading(true)
     setError('')
     try {
-      const response = await fetch('/api/auth/users', {
+      const response = await fetch(apiUrl('/api/auth/users', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -93,7 +94,7 @@ export default function UserManagement() {
 
     setLoading(true)
     try {
-      const response = await fetch('/api/auth/register', {
+      const response = await fetch(apiUrl('/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -442,3 +443,4 @@ export default function UserManagement() {
     </div>
   )
 }
+

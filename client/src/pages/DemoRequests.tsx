@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { apiUrl } from '../config/api'
 
 interface DemoRequest {
   id: number;
@@ -40,7 +41,7 @@ export default function DemoRequests() {
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await fetch('/api/auth/me', {
+      const response = await fetch(apiUrl('/api/auth/me', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -58,7 +59,7 @@ export default function DemoRequests() {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch('/api/demo-requests', {
+      const response = await fetch(apiUrl('/api/demo-requests', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -507,3 +508,4 @@ export default function DemoRequests() {
     </div>
   );
 }
+
