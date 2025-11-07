@@ -38,7 +38,7 @@ function AppContent() {
   const location = useLocation();
   
   // Hide Navbar and Footer on admin pages
-  const isAdminPage = location.pathname.startsWith('/admin') || 
+  const isAdminPage = location.pathname.startsWith('/PizzaMayou') || 
                       location.pathname === '/privatemessages';
   
   return (
@@ -54,18 +54,18 @@ function AppContent() {
             <Route path="/services/cybersecurity" element={<Cybersecurity />} />
             <Route path="/services/iot" element={<IoT />} />
             <Route path="/privatemessages" element={<PrivacyMessages />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/PizzaMayou" element={<Admin />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
 
-            <Route path="/admin/messages" element={<Admin />} />
+            <Route path="/PizzaMayou/messages" element={<Admin />} />
             <Route path="/services/software" element={<SoftwareSolutions />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/regulations" element={<TunisianRegulations />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route
-              path="/admin/users"
+              path="/PizzaMayou/users"
               element={
                 <ProtectedRoute>
                   <UserManagement />
@@ -73,7 +73,7 @@ function AppContent() {
               }
             />
             <Route
-              path="/admin/demo-requests"
+              path="/PizzaMayou/demo-requests"
               element={
                 <ProtectedRoute>
                   <DemoRequests />

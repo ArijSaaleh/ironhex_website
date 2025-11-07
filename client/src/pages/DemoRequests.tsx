@@ -132,7 +132,7 @@ export default function DemoRequests() {
 
   const handleLogout = () => {
     localStorage.removeItem('access_token');
-    window.location.href = '/admin';
+    window.location.href = '/PizzaMayou';
   };
 
   const getStatusColor = (status: string) => {
