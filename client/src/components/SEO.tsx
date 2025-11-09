@@ -10,6 +10,7 @@ interface SEOProps {
   url?: string;
   type?: 'website' | 'article';
   noindex?: boolean;
+  schema?: Record<string, any>;
 }
 
 export default function SEO({
@@ -20,6 +21,7 @@ export default function SEO({
   url,
   type = 'website',
   noindex = false,
+  schema,
 }: SEOProps) {
   const { language } = useLanguage();
   
@@ -31,6 +33,33 @@ export default function SEO({
   const fullDescription = description || defaultDescription;
   const fullUrl = url ? `${baseUrl}${url}` : baseUrl;
   const fullImage = image.startsWith('http') ? image : `${baseUrl}${image}`;
+
+  // Default Organization Schema
+  const defaultSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "IRONHEX",
+    "alternateName": "IRONHEX Tech",
+    "url": baseUrl,
+    "logo": `${baseUrl}/logo.png`,
+    "description": defaultDescription,
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "TN",
+      "addressLocality": "Tunisia"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/ironhex",
+      "https://twitter.com/ironhex"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "Customer Service",
+      "email": "contact@ironhex.com"
+    }
+  };
+
+  const schemaData = schema || defaultSchema;
 
   return (
     <Helmet>
@@ -73,6 +102,11 @@ export default function SEO({
       <link rel="alternate" hrefLang="fr" href={`${baseUrl}${url || '/'}`} />
       <link rel="alternate" hrefLang="ar" href={`${baseUrl}${url || '/'}`} />
       <link rel="alternate" hrefLang="x-default" href={`${baseUrl}${url || '/'}`} />
+      
+      {/* Structured Data (JSON-LD) */}
+      <script type="application/ld+json">
+        {JSON.stringify(schemaData)}
+      </script>
     </Helmet>
   );
 }

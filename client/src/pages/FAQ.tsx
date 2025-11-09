@@ -7,6 +7,7 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLanguage } from '../contexts/LanguageContext';
 import CustomCursor from '../components/CustomCursor';
+import SEO from '../components/SEO';
 
 interface FAQItem {
   questionKey: string;
@@ -33,8 +34,28 @@ export default function FAQ() {
   const { t } = useLanguage();
   const categories = ['general', 'services', 'technical', 'billing'] as const;
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqKeys.map(faq => ({
+      "@type": "Question",
+      "name": t(faq.questionKey),
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": t(faq.answerKey)
+      }
+    }))
+  };
+
   return (
     <>
+      <SEO 
+        title="Frequently Asked Questions"
+        description="Find answers to common questions about IRONHEX cybersecurity and IoT services, pricing, support, and technical details."
+        keywords="FAQ, questions, cybersecurity FAQ, IoT questions, support, IRONHEX help"
+        url="/faq"
+        schema={faqSchema}
+      />
       <CustomCursor />
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-24 pb-12 transition-colors cursor-none">
       <div className="max-w-4xl mx-auto px-6">

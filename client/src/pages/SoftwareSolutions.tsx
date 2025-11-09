@@ -9,6 +9,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { GraduationCap, ShoppingBag, Briefcase, Heart, Calendar, Monitor } from 'lucide-react';
 import Typewriter from '../components/Typewriter';
 import CustomCursor from '../components/CustomCursor';
+import SEO from '../components/SEO';
 
 interface WebsitePlatform {
   id: string;
@@ -210,6 +211,12 @@ export default function SoftwareSolutions() {
 
   return (
     <>
+      <SEO 
+        title="Software Solutions & Web Development"
+        description="Custom software development and web platforms for education, e-commerce, healthcare, and business. Modern, scalable solutions tailored to your needs."
+        keywords="software development, web development, e-learning platforms, e-commerce, custom software, Tunisia software"
+        url="/services/software"
+      />
       <CustomCursor />
       <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors cursor-none">
         {/* Hero Section - Modern Light Design */}

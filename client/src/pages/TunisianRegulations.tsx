@@ -1,11 +1,19 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { FileText, Shield, AlertCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import SEO from '../components/SEO';
 
 export default function TunisianRegulations() {
   const { t } = useLanguage();
   
   return (
+    <>
+      <SEO 
+        title="Tunisian Cybersecurity Regulations & Compliance"
+        description="Comprehensive guide to Tunisian cybersecurity laws, data protection regulations, and compliance requirements. Stay informed about legal obligations."
+        keywords="Tunisia cybersecurity laws, data protection Tunisia, ANSI Tunisia, Tunisian regulations, compliance, GDPR Tunisia"
+        url="/regulations"
+      />
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-24 pb-12 transition-colors">
       <div className="max-w-4xl mx-auto px-6">
         {/* Header */}
@@ -187,5 +195,6 @@ export default function TunisianRegulations() {
         </div>
       </div>
     </div>
+    </>
   );
 }

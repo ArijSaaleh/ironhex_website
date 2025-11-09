@@ -1,0 +1,13 @@
+# Allow all search engines to crawl
+User-agent: *
+Allow: /
+
+# Block admin and private pages
+Disallow: /PizzaMayou
+Disallow: /PizzaMayou/
+Disallow: /privatemessages
+Disallow: /forgot-password
+Disallow: /reset-password
+
+# Sitemap location
+Sitemap: https://www.ironhex.com/sitemap.xml
