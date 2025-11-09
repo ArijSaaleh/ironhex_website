@@ -1,7 +1,7 @@
 """Authentication API Router"""
 import secrets
 from datetime import datetime, timedelta
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
@@ -17,6 +17,8 @@ from app.services.auth import (
     get_user_by_username, get_user_by_email, verify_password, get_password_hash
 )
 from app.config.settings import settings
+from app.middleware import check_rate_limit
+from app.utils.validation import validate_password_strength, validate_username
 
 router = APIRouter(prefix="/api/auth", tags=["authentication"])
 
@@ -28,6 +30,11 @@ async def register(
     current_user: User = Depends(get_current_admin_user)
 ):
     """Register a new user (admin only)"""
+    # Validate username
+    is_valid, error = validate_username(user.username)
+    if not is_valid:
+        raise HTTPException(status_code=400, detail=error)
+    
     # Check if username already exists
     if get_user_by_username(db, user.username):
         raise HTTPException(status_code=400, detail="Username already registered")
@@ -36,12 +43,10 @@ async def register(
     if get_user_by_email(db, user.email):
         raise HTTPException(status_code=400, detail="Email already registered")
     
-    # Validate password length
-    if len(user.password) < 8:
-        raise HTTPException(status_code=400, detail="Password must be at least 8 characters")
-    
-    if len(user.password) > 72:
-        raise HTTPException(status_code=400, detail="Password cannot be longer than 72 characters")
+    # Validate password strength
+    is_valid, error = validate_password_strength(user.password)
+    if not is_valid:
+        raise HTTPException(status_code=400, detail=error)
     
     # New users are admins by default and don't need to change password
     db_user = create_user(db, user, is_admin=True, must_change_password=False)
@@ -50,10 +55,14 @@ async def register(
 
 @router.post("/login", response_model=Token)
 async def login(
+    request: Request,
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db)
 ):
     """Login with username and password to get JWT token"""
+    # Rate limiting: 5 login attempts per 15 minutes per IP
+    await check_rate_limit(request, max_requests=5, window_seconds=900)
+    
     user = authenticate_user(db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
@@ -106,12 +115,10 @@ async def change_password(
     if password_data.new_password != password_data.confirm_password:
         raise HTTPException(status_code=400, detail="New passwords do not match")
     
-    # Validate new password length
-    if len(password_data.new_password) < 8:
-        raise HTTPException(status_code=400, detail="Password must be at least 8 characters")
-    
-    if len(password_data.new_password) > 72:
-        raise HTTPException(status_code=400, detail="Password cannot be longer than 72 characters")
+    # Validate password strength
+    is_valid, error = validate_password_strength(password_data.new_password)
+    if not is_valid:
+        raise HTTPException(status_code=400, detail=error)
     
     # Get the user from the current database session
     db_user = db.query(User).filter(User.id == current_user.id).first()
@@ -167,11 +174,15 @@ async def toggle_user_active(
 
 @router.post("/forgot-password")
 async def forgot_password(
-    request: ForgotPasswordRequest,
+    request: Request,
+    req: ForgotPasswordRequest,
     db: Session = Depends(get_db)
 ):
     """Request password reset token"""
-    user = get_user_by_email(db, request.email)
+    # Rate limiting: 3 reset attempts per hour per IP
+    await check_rate_limit(request, max_requests=3, window_seconds=3600)
+    
+    user = get_user_by_email(db, req.email)
     if not user:
         # Don't reveal if email exists or not for security
         return {"message": "If the email exists, a reset link will be sent"}
@@ -208,12 +219,10 @@ async def reset_password(
     if request.new_password != request.confirm_password:
         raise HTTPException(status_code=400, detail="Passwords do not match")
     
-    # Validate password length
-    if len(request.new_password) < 8:
-        raise HTTPException(status_code=400, detail="Password must be at least 8 characters")
-    
-    if len(request.new_password) > 72:
-        raise HTTPException(status_code=400, detail="Password cannot be longer than 72 characters")
+    # Validate password strength
+    is_valid, error = validate_password_strength(request.new_password)
+    if not is_valid:
+        raise HTTPException(status_code=400, detail=error)
     
     # Update password and clear reset token
     user.hashed_password = get_password_hash(request.new_password)

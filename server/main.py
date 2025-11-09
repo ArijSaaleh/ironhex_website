@@ -12,6 +12,7 @@ from app.config.database import init_db, SessionLocal
 from app.config.settings import settings
 from app.routers import messages, auth, demo
 from app.utils import initialize_database
+from app.middleware import SecurityHeadersMiddleware
 
 # Create FastAPI application
 app = FastAPI(
@@ -19,6 +20,9 @@ app = FastAPI(
     version=settings.APP_VERSION,
     description="Secure API for IRONHEX website contact management"
 )
+
+# Add security headers middleware
+app.add_middleware(SecurityHeadersMiddleware)
 
 @app.on_event("startup")
 async def startup_event():
@@ -47,15 +51,36 @@ origins = [
     "http://localhost:5174",
     "https://ironhex-tech.com",
     "https://www.ironhex-tech.com",
+    "https://ironhex.com",
+    "https://www.ironhex.com",
 ]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with specific origins
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# In production, use strict origin checking
+if not settings.DEBUG:
+    # Production mode - only allow specific origins
+    production_origins = [
+        "https://ironhex-tech.com",
+        "https://www.ironhex-tech.com",
+        "https://ironhex.com",
+        "https://www.ironhex.com",
+    ]
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=production_origins,
+        allow_credentials=True,
+        allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+        allow_headers=["Content-Type", "Authorization"],
+        max_age=600,  # Cache preflight requests for 10 minutes
+    )
+else:
+    # Development mode - allow localhost
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
 # Include routers
 app.include_router(messages.router)
