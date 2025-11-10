@@ -1,7 +1,7 @@
 {
-  "name": "IRONHEX - Cybersecurity & IoT Solutions",
+  "name": "IRONHEX - Cybersecurity & IoT Services",
   "short_name": "IRONHEX",
-  "description": "Leading provider of cybersecurity and IoT solutions in Tunisia",
+  "description": "Leading provider of cybersecurity and IoT services in Tunisia",
   "icons": [
     {
       "src": "/logo_icon.png",
@@ -10,7 +10,7 @@
       "purpose": "any maskable"
     },
     {
-      "src": "/logo_icon.png",
+      "src": "logo_icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
