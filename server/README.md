@@ -2,7 +2,7 @@
 
 
 
-Modern, organized FastAPI backend for the IRONHEX website with clean architecture and SendGrid integration.FastAPI backend with JWT authentication, user management, and contact form API.
+Modern, organized FastAPI backend for the IRONHEX website with clean architecture and SendGrid integration.FastAPI backend with JWT authentication, user management, and contact form API..
 
 
 
