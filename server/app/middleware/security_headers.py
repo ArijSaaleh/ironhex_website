@@ -28,8 +28,8 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         # Prevent MIME type sniffing
         response.headers["X-Content-Type-Options"] = "nosniff"
         
-        # Prevent clickjacking
-        response.headers["X-Frame-Options"] = "DENY"
+        # Prevent clickjacking - SAMEORIGIN allows framing by same origin
+        response.headers["X-Frame-Options"] = "SAMEORIGIN"
         
         # XSS Protection (legacy, but still useful for older browsers)
         response.headers["X-XSS-Protection"] = "1; mode=block"
