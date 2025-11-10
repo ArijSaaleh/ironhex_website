@@ -4,95 +4,95 @@
   
   <!-- Homepage -->
   <url>
-    <loc>https://www.ironhex.com/</loc>
+    <loc>https://www.ironhex-tech.com/</loc>
     <lastmod>2025-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ironhex.com/"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.ironhex.com/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ironhex.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ironhex-tech.com/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.ironhex-tech.com/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ironhex-tech.com/"/>
   </url>
 
   <!-- About -->
   <url>
-    <loc>https://www.ironhex.com/about</loc>
+    <loc>https://www.ironhex-tech.com/about</loc>
     <lastmod>2025-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ironhex.com/about"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.ironhex.com/about"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ironhex.com/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ironhex-tech.com/about"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.ironhex-tech.com/about"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ironhex-tech.com/about"/>
   </url>
 
   <!-- Services -->
   <url>
-    <loc>https://www.ironhex.com/services</loc>
+    <loc>https://www.ironhex-tech.com/services</loc>
     <lastmod>2025-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ironhex.com/services"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.ironhex.com/services"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ironhex.com/services"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ironhex-tech.com/services"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.ironhex-tech.com/services"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ironhex-tech.com/services"/>
   </url>
 
   <!-- Cybersecurity -->
   <url>
-    <loc>https://www.ironhex.com/services/cybersecurity</loc>
+    <loc>https://www.ironhex-tech.com/services/cybersecurity</loc>
     <lastmod>2025-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ironhex.com/services/cybersecurity"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.ironhex.com/services/cybersecurity"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ironhex.com/services/cybersecurity"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ironhex-tech.com/services/cybersecurity"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.ironhex-tech.com/services/cybersecurity"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ironhex-tech.com/services/cybersecurity"/>
   </url>
 
   <!-- IoT -->
   <url>
-    <loc>https://www.ironhex.com/services/iot</loc>
+    <loc>https://www.ironhex-tech.com/services/iot</loc>
     <lastmod>2025-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ironhex.com/services/iot"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.ironhex.com/services/iot"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ironhex.com/services/iot"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ironhex-tech.com/services/iot"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.ironhex-tech.com/services/iot"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ironhex-tech.com/services/iot"/>
   </url>
 
   <!-- Software Solutions -->
   <url>
-    <loc>https://www.ironhex.com/services/software</loc>
+    <loc>https://www.ironhex-tech.com/services/software</loc>
     <lastmod>2025-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ironhex.com/services/software"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.ironhex.com/services/software"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ironhex.com/services/software"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ironhex-tech.com/services/software"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.ironhex-tech.com/services/software"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ironhex-tech.com/services/software"/>
   </url>
 
   <!-- FAQ -->
   <url>
-    <loc>https://www.ironhex.com/faq</loc>
+    <loc>https://www.ironhex-tech.com/faq</loc>
     <lastmod>2025-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ironhex.com/faq"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.ironhex.com/faq"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ironhex.com/faq"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ironhex-tech.com/faq"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.ironhex-tech.com/faq"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ironhex-tech.com/faq"/>
   </url>
 
   <!-- Tunisian Regulations -->
   <url>
-    <loc>https://www.ironhex.com/regulations</loc>
+    <loc>https://www.ironhex-tech.com/regulations</loc>
     <lastmod>2025-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ironhex.com/regulations"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.ironhex.com/regulations"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ironhex.com/regulations"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ironhex-tech.com/regulations"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.ironhex-tech.com/regulations"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ironhex-tech.com/regulations"/>
   </url>
 
   <!-- Terms of Service -->
   <url>
-    <loc>https://www.ironhex.com/terms</loc>
+    <loc>https://www.ironhex-tech.com/terms</loc>
     <lastmod>2025-11-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
@@ -100,7 +100,7 @@
 
   <!-- Privacy Policy -->
   <url>
-    <loc>https://www.ironhex.com/privacy</loc>
+    <loc>https://www.ironhex-tech.com/privacy</loc>
     <lastmod>2025-11-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>

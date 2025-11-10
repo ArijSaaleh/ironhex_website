@@ -10,4 +10,4 @@ Disallow: /forgot-password
 Disallow: /reset-password
 
 # Sitemap location
-Sitemap: https://www.ironhex.com/sitemap.xml
+Sitemap: https://www.ironhex-tech.com/sitemap.xml
