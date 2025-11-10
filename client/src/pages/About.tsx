@@ -213,7 +213,7 @@ export default function About(){
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <div className="relative z-10 p-10">
                 <div className="w-48 h-48 rounded-full overflow-hidden mx-auto mb-6 border-4 border-blue-500/20 group-hover:border-blue-500/50 transition-all shadow-lg group-hover:shadow-xl group-hover:scale-105 transform duration-300">
-                  <img src="https://media.licdn.com/dms/image/v2/D4D03AQG3KVSzLBXgdw/profile-displayphoto-scale_400_400/B4DZl8u2zFIgAg-/0/1758734284869?e=1762387200&v=beta&t=dHRhQETEkh8iOO77LWGY8VvG9q8lmseYQl6qQrAMeMk" alt="CTO Image" className="w-full h-full object-cover" />
+                  <img src="arij.png" alt="CTO Image" className="w-full h-full object-cover" />
                 </div>
                 <div className="text-center mb-6">
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('about.founder2.name')}</h3>
