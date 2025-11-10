@@ -2,6 +2,7 @@
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import Response
+from app.config.settings import settings
 
 
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
@@ -15,6 +16,7 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
     - X-XSS-Protection
     - Referrer-Policy
     - Permissions-Policy
+    - Content-Security-Policy (strict)
     """
     
     async def dispatch(self, request: Request, call_next):
@@ -47,18 +49,39 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
             "accelerometer=()"
         )
         
-        # Content Security Policy
-        response.headers["Content-Security-Policy"] = (
-            "default-src 'self'; "
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval'; "
-            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
-            "font-src 'self' https://fonts.gstatic.com; "
-            "img-src 'self' data: https:; "
-            "connect-src 'self'; "
-            "frame-ancestors 'none'; "
-            "base-uri 'self'; "
-            "form-action 'self'"
-        )
+        # Content Security Policy - Strict and secure
+        # Note: This is for the API. Frontend should have its own CSP via meta tag or CDN
+        if settings.DEBUG:
+            # Development mode - more relaxed for debugging
+            csp = (
+                "default-src 'self'; "
+                "script-src 'self'; "
+                "style-src 'self'; "
+                "font-src 'self'; "
+                "img-src 'self' data:; "
+                "connect-src 'self' http://localhost:* https://api.ironhex-tech.com; "
+                "frame-ancestors 'none'; "
+                "base-uri 'self'; "
+                "form-action 'self'; "
+                "object-src 'none'"
+            )
+        else:
+            # Production mode - strict policy
+            csp = (
+                "default-src 'self'; "
+                "script-src 'self'; "
+                "style-src 'self'; "
+                "font-src 'self'; "
+                "img-src 'self'; "
+                "connect-src 'self' https://api.ironhex-tech.com https://ironhexwebsite-production.up.railway.app; "
+                "frame-ancestors 'none'; "
+                "base-uri 'self'; "
+                "form-action 'self'; "
+                "object-src 'none'; "
+                "upgrade-insecure-requests"
+            )
+        
+        response.headers["Content-Security-Policy"] = csp
         
         return response
 
