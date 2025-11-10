@@ -34,7 +34,7 @@ export default function Footer(){
               <a href="https://www.linkedin.com/company/ironhex-tn" className="w-10 h-10 bg-white/10 hover:bg-primary rounded-lg flex items-center justify-center transition-all hover:scale-110 hover:shadow-lg hover:shadow-primary/50">
                 <i className="fab fa-linkedin-in"></i>
               </a>
-              <a href="#" className="w-10 h-10 bg-white/10 hover:bg-primary rounded-lg flex items-center justify-center transition-all hover:scale-110 hover:shadow-lg hover:shadow-primary/50">
+              <a href="https://x.com/ironhex_tech" className="w-10 h-10 bg-white/10 hover:bg-primary rounded-lg flex items-center justify-center transition-all hover:scale-110 hover:shadow-lg hover:shadow-primary/50">
                 <i className="fab fa-twitter"></i>
               </a>
              {/** <a href="#" className="w-10 h-10 bg-white/10 hover:bg-primary rounded-lg flex items-center justify-center transition-all hover:scale-110 hover:shadow-lg hover:shadow-primary/50">
