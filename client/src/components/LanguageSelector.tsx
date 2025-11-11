@@ -1,4 +1,3 @@
-import { Globe } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useState, useRef, useEffect } from 'react';
 
@@ -8,7 +7,7 @@ export function LanguageSelector() {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const languages = [
-    { code: 'en' as const, name: 'English', flag: 'US' },
+    { code: 'en' as const, name: 'English', flag: '🇺🇸' },
     { code: 'fr' as const, name: 'Français', flag: '🇫🇷' },
     { code: 'ar' as const, name: 'العربية', flag: '🇹🇳' },
   ];
@@ -33,8 +32,7 @@ export function LanguageSelector() {
         className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
         aria-label="Select language"
       >
-        <Globe className="w-5 h-5 text-gray-700 dark:text-gray-300" />
-        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+        <span className="text-2xl">
           {currentLanguage?.flag}
         </span>
       </button>
