@@ -160,7 +160,7 @@ export default function IoT(){
                 title: t('iot.service3.title'),
                 desc: t('iot.service3.desc'),
                 icon: 'fa-cloud',
-                color: 'cyan-500'
+                color: 'primary'
               },
               {
                 title: t('iot.service4.title'),
