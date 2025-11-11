@@ -19,7 +19,7 @@ export default function Navbar(){
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-lg border-b border-gray-200/50 dark:border-gray-700/50 transition-colors">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 group">
-          <img src="/logo.png" alt="IRONHEX Logo" className="h-14 object-contain group-hover:scale-105 transition-transform" />
+          <img src="/logo.png" alt="IRONHEX Logo" className="h-10 object-contain group-hover:scale-105 transition-transform" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">

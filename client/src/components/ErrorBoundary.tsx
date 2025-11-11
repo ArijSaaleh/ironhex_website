@@ -36,9 +36,6 @@ class ErrorBoundary extends Component<Props, State> {
       error,
       errorInfo,
     });
-
-    // TODO: Send error to logging service (Sentry, LogRocket, etc.)
-    // logErrorToService(error, errorInfo);
   }
 
   handleReset = () => {
