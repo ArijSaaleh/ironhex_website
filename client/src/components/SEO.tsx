@@ -25,9 +25,9 @@ export default function SEO({
 }: SEOProps) {
   const { language } = useLanguage();
   
-  const siteName = 'IRONHEX - Cybersecurity & IoT Solutions';
-  const defaultDescription = 'IRONHEX provides comprehensive cybersecurity and IoT solutions to secure your digital future. Expert services in Tunisia and beyond.';
-  const baseUrl = 'https://www.ironhex.com';
+  const siteName = 'IRONHEX - Cybersecurity & IoT Services';
+  const defaultDescription = 'IRONHEX provides comprehensive cybersecurity and IoT services to secure your digital future. Expert services in Tunisia and beyond.';
+  const baseUrl = 'https://www.ironhex-tech.com';
   
   const fullTitle = title ? `${title} | ${siteName}` : siteName;
   const fullDescription = description || defaultDescription;
@@ -49,8 +49,8 @@ export default function SEO({
       "addressLocality": "Tunisia"
     },
     "sameAs": [
-      "https://www.linkedin.com/company/ironhex",
-      "https://twitter.com/ironhex"
+      "https://www.linkedin.com/company/ironhex-tech",
+      "https://x.com/ironhex_tech"
     ],
     "contactPoint": {
       "@type": "ContactPoint",
