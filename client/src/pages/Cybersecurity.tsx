@@ -175,7 +175,7 @@ export default function Cybersecurity() {
                 title: t('cyber.service5.title'),
                 desc: t('cyber.service5.desc'),
                 icon: 'fa-user-shield',
-                color: 'cyan-500'
+                color: 'primary'
               },
               {
                 title: t('cyber.service6.title'),

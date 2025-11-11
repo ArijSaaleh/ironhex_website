@@ -8,7 +8,7 @@ export function LanguageSelector() {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const languages = [
-    { code: 'en' as const, name: 'English', flag: '🇬🇧' },
+    { code: 'en' as const, name: 'English', flag: 'US' },
     { code: 'fr' as const, name: 'Français', flag: '🇫🇷' },
     { code: 'ar' as const, name: 'العربية', flag: '🇹🇳' },
   ];
