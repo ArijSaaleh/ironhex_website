@@ -41,7 +41,18 @@ export default function SEO({
     "name": "IRONHEX",
     "alternateName": "IRONHEX Tech",
     "url": baseUrl,
-    "logo": `${baseUrl}/logo.png`,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${baseUrl}/logo.png`,
+      "width": 512,
+      "height": 512
+    },
+    "image": {
+      "@type": "ImageObject",
+      "url": `${baseUrl}/logo.png`,
+      "width": 512,
+      "height": 512
+    },
     "description": defaultDescription,
     "address": {
       "@type": "PostalAddress",
@@ -55,7 +66,7 @@ export default function SEO({
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "Customer Service",
-      "email": "contact@ironhex.com"
+      "email": "contact@ironhex-tech.com"
     }
   };
 
