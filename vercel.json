@@ -19,6 +19,13 @@
       "dest": "/client/dist/index.html"
     }
   ],
+  "redirects": [
+    {
+      "source": "https://ironhex-tech.com/:path*",
+      "destination": "https://www.ironhex-tech.com/:path*",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

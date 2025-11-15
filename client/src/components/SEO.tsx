@@ -49,9 +49,9 @@ export default function SEO({
     },
     "image": {
       "@type": "ImageObject",
-      "url": `${baseUrl}/logo.png`,
-      "width": 512,
-      "height": 512
+      "url": `${baseUrl}/og_image.png`,
+      "width": 1200,
+      "height": 630
     },
     "description": defaultDescription,
     "address": {
