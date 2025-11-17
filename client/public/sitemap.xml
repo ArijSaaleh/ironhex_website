@@ -69,15 +69,7 @@
   </url>
 
   <!-- FAQ -->
-  <url>
-    <loc>https://www.ironhex-tech.com/faq</loc>
-    <lastmod>2025-11-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.ironhex-tech.com/faq"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.ironhex-tech.com/faq"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ironhex-tech.com/faq"/>
-  </url>
+  <!-- FAQ removed from sitemap to prevent indexing -->
 
   <!-- Tunisian Regulations -->
   <url>

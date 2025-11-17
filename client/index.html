@@ -57,6 +57,26 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Inject noindex for /faq to prevent indexing (client-side fallback) -->
+    <script>
+      (function(){
+        try {
+          if (typeof window !== 'undefined' && window.location && window.location.pathname === '/faq') {
+            var meta = document.createElement('meta');
+            meta.name = 'robots';
+            meta.content = 'noindex, follow';
+            document.getElementsByTagName('head')[0].appendChild(meta);
+
+            var link = document.createElement('link');
+            link.rel = 'canonical';
+            link.href = 'https://www.ironhex-tech.com/';
+            document.getElementsByTagName('head')[0].appendChild(link);
+          }
+        } catch (e) {
+          // fail silently
+        }
+      })();
+    </script>
   </head>
   <body>
     <!-- Static Organization JSON-LD (fallback for non-JS crawlers) -->
