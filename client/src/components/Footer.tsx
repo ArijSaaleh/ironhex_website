@@ -73,8 +73,8 @@ export default function Footer(){
               </div>
               <div>
                 <p className="text-white font-semibold mb-1">{t('footer.phone')}</p>
-                <a href="tel:+21670123456" className="text-gray-300 hover:text-primary transition-colors">
-                  +216 26 290 351
+                <a href="tel:+21651525304" className="text-gray-300 hover:text-primary transition-colors">
+                  +216 51 52 53 04
                 </a>
               </div>
             </div>
