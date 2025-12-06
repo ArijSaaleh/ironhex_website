@@ -60,8 +60,11 @@ origins = [
 
 # In production, use strict origin checking
 if not settings.DEBUG:
-    # Production mode - only allow specific origins
+    # Production mode - allow specific origins including VPS IP
     production_origins = [
+        "http://51.91.8.230",
+        "http://51.91.8.230:80",
+        "http://51.91.8.230:8000",
         "https://ironhex-tech.com",
         "https://www.ironhex-tech.com",
         "https://ironhex.com",
@@ -72,7 +75,7 @@ if not settings.DEBUG:
         allow_origins=production_origins,
         allow_credentials=True,
         allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-        allow_headers=["Content-Type", "Authorization"],
+        allow_headers=["Content-Type", "Authorization", "X-Requested-With"],
         max_age=600,  # Cache preflight requests for 10 minutes
     )
 else:

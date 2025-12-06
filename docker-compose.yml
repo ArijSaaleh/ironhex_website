@@ -14,10 +14,16 @@ services:
       - DATABASE_URL=sqlite:///./data/ironhex.db
       - SECRET_KEY=${SECRET_KEY}
       - ALGORITHM=HS256
-      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+      - ACCESS_TOKEN_EXPIRE_MINUTES=60
+      - DEBUG=${DEBUG:-False}
       - SENDGRID_API_KEY=${SENDGRID_API_KEY}
       - SENDGRID_FROM_EMAIL=${SENDGRID_FROM_EMAIL}
+      - SENDGRID_FROM_NAME=${SENDGRID_FROM_NAME:-IRONHEX_SUPPORT}
+      - EMAIL_TO=${EMAIL_TO:-contact@ironhex-tech.com}
+      - SUPPORT_EMAIL=${SUPPORT_EMAIL:-support@ironhex-tech.com}
       - CORS_ORIGINS=${CORS_ORIGINS}
+      - VITE_DEV_ORIGIN=${VITE_DEV_ORIGIN:-http://51.91.8.230}
+      - FRONTEND_ORIGIN=${FRONTEND_ORIGIN:-http://51.91.8.230}
     volumes:
       - ./server/data:/app/data
       - ./server/logs:/app/logs
