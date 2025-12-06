@@ -84,7 +84,7 @@ fi
 
 # Create data directories
 echo "📁 Creating data directories..."
-mkdir -p server/data server/logs nginx/ssl
+mkdir -p server/data server/logs
 
 # Setup firewall
 echo "🔥 Configuring firewall..."
