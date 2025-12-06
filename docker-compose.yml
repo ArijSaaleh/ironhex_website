@@ -36,12 +36,11 @@ services:
       context: ./client
       dockerfile: Dockerfile
       args:
-        - VITE_API_URL=${VITE_API_URL:-http://localhost:8000}
+        - VITE_API_URL=${VITE_API_URL:-http://51.91.8.230:8000}
     container_name: ironhex-frontend
     restart: unless-stopped
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - nginx-cache:/var/cache/nginx
     depends_on:
