@@ -47,19 +47,17 @@ services:
     restart: always
     ports:
       - "80:80"
-    volumes:
-      - nginx-cache:/var/cache/nginx
     depends_on:
       backend:
         condition: service_healthy
     networks:
       - ironhex-network
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80"]
+      test: ["CMD-SHELL", "nc -z localhost 80 || exit 1"]
       interval: 30s
       timeout: 5s
-      retries: 3
-      start_period: 15s
+      retries: 5
+      start_period: 30s
     logging:
       driver: "json-file"
       options:
