@@ -44,7 +44,7 @@ services:
       args:
         - VITE_API_URL=${VITE_API_URL:-http://51.91.8.230:8000}
     container_name: ironhex-frontend
-    restart: unless-stopped
+    restart: always
     ports:
       - "80:80"
     volumes:
@@ -54,6 +54,17 @@ services:
         condition: service_healthy
     networks:
       - ironhex-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 networks:
   ironhex-network:
