@@ -325,23 +325,23 @@ export default function Home(){
               </div>
             </Link>
 
-            {/* Service Card 3 - Managed Services */}
-            <a href="#contact-us-footer" className="group">
+            {/* Service Card 3 - Web Development & SaaS Solutions */}
+            <Link to="/services/software" className="group">
               <div className="relative h-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-800/50 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-gray-200 dark:border-gray-700 overflow-hidden">
                 {/* Hover Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 
                 <div className="relative z-10">
                   <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
-                    <i className="fas fa-headset text-white text-3xl"></i>
+                    <i className="fas fa-code text-white text-3xl"></i>
                   </div>
                   
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                    {t('home.services.managed.title')}
+                    Web Development & SaaS
                   </h3>
                   
                   <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                    {t('home.services.managed.desc')}
+                    Custom web applications and SaaS solutions built with modern technologies for scalability and performance.
                   </p>
                   
                   <div className="flex items-center text-primary font-semibold group-hover:gap-3 gap-2 transition-all">
@@ -352,7 +352,7 @@ export default function Home(){
                   </div>
                 </div>
               </div>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
