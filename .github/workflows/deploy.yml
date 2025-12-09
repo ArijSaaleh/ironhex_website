@@ -6,19 +6,12 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  DEPLOY_METHOD: docker  # Change to 'systemd' for traditional deployment
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Deploy with Docker to VPS
-        if: env.DEPLOY_METHOD == 'docker'
+      - name: 🚀 Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -27,32 +20,18 @@ jobs:
           port: ${{ secrets.VPS_PORT }}
           script: |
             cd /var/www/ironhex
+            chmod +x deployment/docker-deploy.sh
             ./deployment/docker-deploy.sh
-
-      - name: Deploy with Systemd to VPS
-        if: env.DEPLOY_METHOD == 'systemd'
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USERNAME }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          port: ${{ secrets.VPS_PORT }}
-          script: |
-            cd /var/www/ironhex
-            
-            # Pull latest changes
-            git pull origin main
-            
-            # Deploy backend
-            cd server
-            source venv/bin/activate
-            pip install -r requirements.txt
-            sudo systemctl restart ironhex-api
-            
-            # Deploy frontend
-            cd ../client
-            npm install
-            npm run build
-            sudo systemctl restart nginx
-            
-            echo "Deployment completed successfully!"
+      
+      - name: ✅ Deployment Complete
+        if: success()
+        run: |
+          echo "🎉 Deployment successful!"
+          echo "🌐 Frontend: http://51.91.8.230"
+          echo "🔧 Backend: http://51.91.8.230:8000"
+      
+      - name: ❌ Deployment Failed
+        if: failure()
+        run: |
+          echo "💥 Deployment failed! Check the logs above."
+          exit 1

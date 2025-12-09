@@ -5,7 +5,7 @@
 
 set -e
 
-echo "🐳 Deploying IronHex with Docker..."
+echo "🚀 Deploying IronHex with Docker..."
 
 # Navigate to project directory
 cd /var/www/ironhex
@@ -14,17 +14,21 @@ cd /var/www/ironhex
 echo "📥 Pulling latest changes..."
 git pull origin main
 
-# Pull latest images (if using registry)
-echo "📦 Pulling latest images..."
-docker-compose pull 2>/dev/null || true
+# Stop containers
+echo "🛑 Stopping containers..."
+docker-compose down
 
-# Rebuild and restart containers
-echo "🔨 Building and restarting containers..."
-docker-compose up -d --build --remove-orphans
+# Rebuild containers
+echo "🔨 Building containers..."
+docker-compose build --no-cache
+
+# Start containers
+echo "🚀 Starting containers..."
+docker-compose up -d
 
 # Wait for services to be healthy
-echo "⏳ Waiting for services to be healthy..."
-sleep 10
+echo "⏳ Waiting for services to start..."
+sleep 15
 
 # Check if services are running
 if docker-compose ps | grep -q "Up"; then
@@ -46,4 +50,6 @@ echo ""
 echo "📊 Service Status:"
 docker-compose ps
 echo ""
-echo "🔍 View logs with: docker-compose logs -f"
+echo "🌐 Your website is live at:"
+echo "   Frontend: http://51.91.8.230"
+echo "   Backend:  http://51.91.8.230:8000/docs"
