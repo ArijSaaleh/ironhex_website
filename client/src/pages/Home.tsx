@@ -451,9 +451,9 @@ export default function Home(){
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="group relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-800/50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-primary/30 hover:-translate-y-2 flex items-center justify-center">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <img src="EagleDefenders.png" 
+              <img src="EagleDefenderss.png" 
                    alt="Eagle Defenders Partner" 
-                   className="relative z-10 h-12 w-auto transition-all duration-300" />
+                   className="relative z-10 h-24 w-auto transition-all duration-300" />
             </div>
             
             <div className="group relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-800/50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-primary/30 hover:-translate-y-2 flex items-center justify-center">
