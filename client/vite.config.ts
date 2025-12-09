@@ -32,7 +32,7 @@ export default defineConfig({
     headers: {
       'Content-Security-Policy': [
         "default-src 'self'",
-        "script-src 'self' 'unsafe-eval'", // Vite HMR requires unsafe-eval in dev
+        "script-src 'self' 'unsafe-eval' 'unsafe-inline'", // unsafe-inline needed for dev, Vite HMR requires unsafe-eval
         "style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com",
         "font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com",
         "img-src 'self' data: https:",
