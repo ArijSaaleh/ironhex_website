@@ -113,9 +113,9 @@ Create `.env` files:
 ```env
 DEBUG=False
 SECRET_KEY=your-secret-key-here
-CORS_ORIGINS=http://51.91.8.230,http://ironhex-tech.com,https://ironhex-tech.com
+CORS_ORIGINS=http://ironhex-tech.com,https://ironhex-tech.com
 SENDGRID_API_KEY=your-sendgrid-key
-VITE_API_URL=http://51.91.8.230:8000
+VITE_API_URL=http://www.ironhex-tech.com:8000
 ```
 
 **Server `.env`:**
@@ -207,5 +207,5 @@ Proprietary - © 2025 IRONHEX
 ## 👨‍💻 Author
 
 **IRONHEX Team**  
-Email: arij.saleh@ironhex-tech.com  
+Email: contact@ironhex-tech.com  
 Website: http://ironhex-tech.com
