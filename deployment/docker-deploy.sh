@@ -51,5 +51,5 @@ echo "📊 Service Status:"
 docker-compose ps
 echo ""
 echo "🌐 Your website is live at:"
-echo "   Frontend: http://51.91.8.230"
-echo "   Backend:  http://51.91.8.230:8000/docs"
+echo "   Frontend: http://jjj"
+echo "   Backend:  http://jjj:8000/docs"
