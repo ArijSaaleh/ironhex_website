@@ -5,8 +5,8 @@
 
 set -e
 
-DOMAIN="ironhex-tech.com"
-EMAIL="arij.saleh@ironhex-tech.com"
+DOMAIN="jjj"
+EMAIL="jjj"
 
 echo "🔒 Setting up SSL for $DOMAIN..."
 
@@ -180,5 +180,5 @@ echo ""
 echo "📋 Certificate will auto-renew every 60 days"
 echo ""
 echo "⚠️  Make sure your domain DNS is properly configured:"
-echo "   A    @      $DOMAIN      51.91.8.230"
-echo "   A    www    $DOMAIN      51.91.8.230"
+echo "   A    @      $DOMAIN      jjj"
+echo "   A    www    $DOMAIN      jjj"

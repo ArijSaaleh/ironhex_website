@@ -121,8 +121,8 @@ VITE_API_URL=http://www.ironhex-tech.com:8000
 **Server `.env`:**
 ```env
 DATABASE_URL=sqlite:///./messages.db
-ADMIN_EMAIL=admin@ironhex-tech.com
-ADMIN_PASSWORD=secure-password
+ADMIN_EMAIL=admin
+ADMIN_PASSWORD=**********
 ```
 
 ---
